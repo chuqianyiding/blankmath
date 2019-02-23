@@ -8,7 +8,10 @@ import FormGroup from "@material-ui/core/FormGroup";
 import Checkbox from "@material-ui/core/Checkbox";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { updateProblemNumber, updateMinuend } from "../../actions/substractionAction";
+import {
+  updateProblemNumber,
+  updateMinuend
+} from "../../actions/substractionAction";
 
 import "./SubstractionUpto20.scss";
 
@@ -30,7 +33,8 @@ class SubstractionUpto20Page extends React.Component {
   };
 
   handleCheckboxChange = name => event => {
-    this.setState({ [name]: event.target.checked });
+    //this.setState({ [name]: event.target.checked });
+    this.props.updateMinuend(name, event.target.checked);
   };
 
   render() {
@@ -68,8 +72,8 @@ class SubstractionUpto20Page extends React.Component {
             <FormControlLabel
               control={
                 <Checkbox
-                  checked={this.state.checked0}
-                  onChange={this.handleCheckboxChange("checked0")}
+                  checked={this.state.minuendChecked_0}
+                  onChange={this.handleCheckboxChange("minuendChecked_0")}
                   value="checked0"
                   color="primary"
                 />
@@ -86,7 +90,7 @@ class SubstractionUpto20Page extends React.Component {
 SubstractionUpto20Page.propTypes = {
   problemValue: PropTypes.string,
   updateProblemNumber: PropTypes.func,
-  updateMinuend:PropTypes.func
+  updateMinuend: PropTypes.func
 };
 
 const mapStateToProps = state => ({
