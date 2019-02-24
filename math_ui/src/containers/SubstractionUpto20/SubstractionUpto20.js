@@ -16,11 +16,6 @@ import {
 import "./SubstractionUpto20.scss";
 
 class SubstractionUpto20Page extends React.Component {
-  state = {
-    problemValue: "10",
-    checked0: true
-  };
-
   problems = [
     { value: "10", label: "10 problems", key: "problem_10" },
     { value: "20", label: "20 problems", key: "problem_20" },
@@ -28,12 +23,13 @@ class SubstractionUpto20Page extends React.Component {
     { value: "50", label: "50 problems", key: "problem_50" }
   ];
 
+  arr20 = Array.from(new Array(21), (val, index) => index);
+
   handleRadioGroupChange = event => {
     this.props.updateProblemNumber(event.target.value);
   };
 
   handleCheckboxChange = name => event => {
-    //this.setState({ [name]: event.target.checked });
     this.props.updateMinuend(name, event.target.checked);
   };
 
@@ -69,17 +65,22 @@ class SubstractionUpto20Page extends React.Component {
         <div className="mt-4">
           <FormLabel component="legend">Minuend</FormLabel>
           <FormGroup row>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={this.state.minuendChecked_0}
-                  onChange={this.handleCheckboxChange("minuendChecked_0")}
-                  value="checked0"
-                  color="primary"
-                />
-              }
-              label="0"
-            />
+            {this.arr20.map(item => (
+              <FormControlLabel
+                key={`minuend_${item}`}
+                control={
+                  <Checkbox
+                    checked={this.props[`minuendChecked_${item}`]}
+                    onChange={this.handleCheckboxChange(
+                      `minuendChecked_${item}`
+                    )}
+                    value="checked0"
+                    color="primary"
+                  />
+                }
+                label={item}
+              />
+            ))}
           </FormGroup>
         </div>
       </React.Fragment>
