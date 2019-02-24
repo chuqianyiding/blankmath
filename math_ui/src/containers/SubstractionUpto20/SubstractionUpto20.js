@@ -10,8 +10,12 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import {
   updateProblemNumber,
-  updateMinuend
+  updateMinuend,
+  handleMinuendSelectAll,
+  handleMinuend0_9,
+  handleMinuendClear
 } from "../../actions/substractionAction";
+import Button from "@material-ui/core/Button";
 
 import "./SubstractionUpto20.scss";
 
@@ -70,7 +74,7 @@ class SubstractionUpto20Page extends React.Component {
                 key={`minuend_${item}`}
                 control={
                   <Checkbox
-                    checked={this.props[`minuendChecked_${item}`]}
+                    checked={this.props.data[`minuendChecked_${item}`]}
                     onChange={this.handleCheckboxChange(
                       `minuendChecked_${item}`
                     )}
@@ -83,6 +87,31 @@ class SubstractionUpto20Page extends React.Component {
             ))}
           </FormGroup>
         </div>
+        <div className="mt-2">
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={this.props.handleMinuendSelectAll}
+          >
+            Select All
+          </Button>
+          <Button
+            variant="outlined"
+            color="primary"
+            className="ml-4"
+            onClick={this.props.handleMinuend0_9}
+          >
+            0 - 9
+          </Button>
+          <Button
+            variant="outlined"
+            color="primary"
+            className="ml-4"
+            onClick={this.props.handleMinuendClear}
+          >
+            Clear
+          </Button>
+        </div>
       </React.Fragment>
     );
   }
@@ -90,17 +119,25 @@ class SubstractionUpto20Page extends React.Component {
 
 SubstractionUpto20Page.propTypes = {
   problemValue: PropTypes.string,
+  data: PropTypes.object,
   updateProblemNumber: PropTypes.func,
-  updateMinuend: PropTypes.func
+  updateMinuend: PropTypes.func,
+  handleMinuendSelectAll: PropTypes.func,
+  handleMinuend0_9: PropTypes.func,
+  handleMinuendClear: PropTypes.func
 };
 
 const mapStateToProps = state => ({
-  problemValue: state.substractionData.problemNumber
+  problemValue: state.substractionData.problemNumber,
+  data: state.substractionData
 });
 
 const mapDispatchToProps = {
   updateProblemNumber,
-  updateMinuend
+  updateMinuend,
+  handleMinuendSelectAll,
+  handleMinuend0_9,
+  handleMinuendClear
 };
 export default connect(
   mapStateToProps,
