@@ -16,6 +16,7 @@ import {
   handleMinuendClear
 } from "../../actions/substractionAction";
 import Button from "@material-ui/core/Button";
+import Checkbox20 from "../../components/Checkbox20";
 
 import "./SubstractionUpto20.scss";
 
@@ -39,6 +40,7 @@ class SubstractionUpto20Page extends React.Component {
 
   render() {
     const { problemValue } = this.props;
+
     return (
       <React.Fragment>
         <div className="mt-4">
@@ -66,52 +68,15 @@ class SubstractionUpto20Page extends React.Component {
             </RadioGroup>
           </FormControl>
         </div>
-        <div className="mt-4">
-          <FormLabel component="legend">Minuend</FormLabel>
-          <FormGroup row>
-            {this.arr20.map(item => (
-              <FormControlLabel
-                key={`minuend_${item}`}
-                control={
-                  <Checkbox
-                    checked={this.props.data[`minuendChecked_${item}`]}
-                    onChange={this.handleCheckboxChange(
-                      `minuendChecked_${item}`
-                    )}
-                    value="checked0"
-                    color="primary"
-                  />
-                }
-                label={item}
-              />
-            ))}
-          </FormGroup>
-        </div>
-        <div className="mt-2">
-          <Button
-            variant="outlined"
-            color="primary"
-            onClick={this.props.handleMinuendSelectAll}
-          >
-            Select All
-          </Button>
-          <Button
-            variant="outlined"
-            color="primary"
-            className="ml-4"
-            onClick={this.props.handleMinuend0_9}
-          >
-            0 - 9
-          </Button>
-          <Button
-            variant="outlined"
-            color="primary"
-            className="ml-4"
-            onClick={this.props.handleMinuendClear}
-          >
-            Clear
-          </Button>
-        </div>
+        <Checkbox20
+          title="Minuend"
+          prefix="minuendChecked_"
+          data={this.props.data}
+          onCheckboxChange={this.handleCheckboxChange}
+          onSelectAll={this.props.handleMinuendSelectAll}
+          onSelect0_9={this.props.handleMinuend0_9}
+          onClear={this.props.handleMinuendClear}
+        />
       </React.Fragment>
     );
   }
