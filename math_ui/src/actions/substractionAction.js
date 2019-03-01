@@ -21,3 +21,20 @@ export const handleMinuend0_9 = () => ({
 export const handleMinuendClear = () => ({
   type: types.UPDATE_MINUEND_CLEAR
 });
+
+export const updateSubtrahend = (checkboxName, value) => ({
+  type: types.UPDATE_SUBTRAHEND,
+  payload: { checkboxName, value }
+});
+
+export const handleSubtrahendSelectAll = () => ({
+  type: types.UPDATE_SUBTRAHEND_SELECT_ALL
+});
+
+export const handleSubtrahend0_9 = () => ({
+  type: types.UPDATE_SUBTRAHEND_0_9
+});
+
+export const handleSubtrahendClear = () => ({
+  type: types.UPDATE_SUBTRAHEND_CLEAR
+});

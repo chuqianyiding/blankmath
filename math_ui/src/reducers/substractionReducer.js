@@ -6,6 +6,7 @@ const initialState = {
 
 for (let i = 0; i <= 20; i++) {
   initialState[`minuendChecked_${i}`] = false;
+  initialState[`subtrahendChecked_${i}`] = false;
 }
 
 function updateMinuend(state, checkboxName, value) {
@@ -42,6 +43,40 @@ function updateMinuendClear(state) {
   return stateCopy;
 }
 
+function updateSubtrahend(state, checkboxName, value) {
+  const stateCopy = { ...state };
+  stateCopy[checkboxName] = value;
+  return stateCopy;
+}
+
+function updateSubtrahendSelectAll(state) {
+  const stateCopy = { ...state };
+  for (let i = 0; i <= 20; i++) {
+    stateCopy[`subtrahendChecked_${i}`] = true;
+  }
+  return stateCopy;
+}
+
+function updateSubtrahend0_9(state) {
+  const stateCopy = { ...state };
+  for (let i = 0; i <= 9; i++) {
+    stateCopy[`subtrahendChecked_${i}`] = true;
+  }
+
+  for (let i = 10; i <= 20; i++) {
+    stateCopy[`subtrahendChecked_${i}`] = false;
+  }
+  return stateCopy;
+}
+
+function updateSubtrahendClear(state) {
+  const stateCopy = { ...state };
+  for (let i = 0; i <= 20; i++) {
+    stateCopy[`subtrahendChecked_${i}`] = false;
+  }
+  return stateCopy;
+}
+
 const substractionData = (state = initialState, action) => {
   switch (action.type) {
     case types.UPDATE_PROBLEM_NUMBER:
@@ -61,6 +96,18 @@ const substractionData = (state = initialState, action) => {
       return updateMinuend0_9(state);
     case types.UPDATE_MINUEND_CLEAR:
       return updateMinuendClear(state);
+    case types.UPDATE_SUBTRAHEND:
+      return updateSubtrahend(
+        state,
+        action.payload.checkboxName,
+        action.payload.value
+      );
+    case types.UPDATE_SUBTRAHEND_SELECT_ALL:
+      return updateSubtrahendSelectAll(state);
+    case types.UPDATE_SUBTRAHEND_0_9:
+      return updateSubtrahend0_9(state);
+    case types.UPDATE_SUBTRAHEND_CLEAR:
+      return updateSubtrahendClear(state);
     default:
       return state;
   }

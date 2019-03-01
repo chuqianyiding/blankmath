@@ -13,7 +13,11 @@ import {
   updateMinuend,
   handleMinuendSelectAll,
   handleMinuend0_9,
-  handleMinuendClear
+  handleMinuendClear,
+  updateSubtrahend,
+  handleSubtrahendSelectAll,
+  handleSubtrahend0_9,
+  handleSubtrahendClear
 } from "../../actions/substractionAction";
 import Button from "@material-ui/core/Button";
 import Checkbox20 from "../../components/Checkbox20";
@@ -34,8 +38,12 @@ class SubstractionUpto20Page extends React.Component {
     this.props.updateProblemNumber(event.target.value);
   };
 
-  handleCheckboxChange = name => event => {
+  handleMinuendCheckboxChange = name => event => {
     this.props.updateMinuend(name, event.target.checked);
+  };
+
+  handleSubtrahendCheckboxChange = name => event => {
+    this.props.updateSubtrahend(name, event.target.checked);
   };
 
   render() {
@@ -72,10 +80,19 @@ class SubstractionUpto20Page extends React.Component {
           title="Minuend"
           prefix="minuendChecked_"
           data={this.props.data}
-          onCheckboxChange={this.handleCheckboxChange}
+          onCheckboxChange={this.handleMinuendCheckboxChange}
           onSelectAll={this.props.handleMinuendSelectAll}
           onSelect0_9={this.props.handleMinuend0_9}
           onClear={this.props.handleMinuendClear}
+        />
+        <Checkbox20
+          title="Subtrahend"
+          prefix="subtrahendChecked_"
+          data={this.props.data}
+          onCheckboxChange={this.handleSubtrahendCheckboxChange}
+          onSelectAll={this.props.handleSubtrahendSelectAll}
+          onSelect0_9={this.props.handleSubtrahend0_9}
+          onClear={this.props.handleSubtrahendClear}
         />
       </React.Fragment>
     );
@@ -89,7 +106,11 @@ SubstractionUpto20Page.propTypes = {
   updateMinuend: PropTypes.func,
   handleMinuendSelectAll: PropTypes.func,
   handleMinuend0_9: PropTypes.func,
-  handleMinuendClear: PropTypes.func
+  handleMinuendClear: PropTypes.func,
+  updateSubtrahend: PropTypes.func,
+  handleSubtrahendSelectAll: PropTypes.func,
+  handleSubtrahend0_9: PropTypes.func,
+  handleSubtrahendClear: PropTypes.func
 };
 
 const mapStateToProps = state => ({
@@ -102,7 +123,11 @@ const mapDispatchToProps = {
   updateMinuend,
   handleMinuendSelectAll,
   handleMinuend0_9,
-  handleMinuendClear
+  handleMinuendClear,
+  updateSubtrahend,
+  handleSubtrahendSelectAll,
+  handleSubtrahend0_9,
+  handleSubtrahendClear
 };
 export default connect(
   mapStateToProps,
