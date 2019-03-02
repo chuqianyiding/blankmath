@@ -4,8 +4,6 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
-import FormGroup from "@material-ui/core/FormGroup";
-import Checkbox from "@material-ui/core/Checkbox";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import {
@@ -21,6 +19,8 @@ import {
 } from "../../actions/substractionAction";
 import Button from "@material-ui/core/Button";
 import Checkbox20 from "../../components/Checkbox20";
+import config from "../../config.json";
+import { isCreatBtnActive } from "../../selectors/SubstractionSelector";
 
 import "./SubstractionUpto20.scss";
 
@@ -44,6 +44,10 @@ class SubstractionUpto20Page extends React.Component {
 
   handleSubtrahendCheckboxChange = name => event => {
     this.props.updateSubtrahend(name, event.target.checked);
+  };
+
+  handleClickCreate = () => {
+    console.log(config.PDFGeneratorEndpoint);
   };
 
   render() {
@@ -94,6 +98,17 @@ class SubstractionUpto20Page extends React.Component {
           onSelect0_9={this.props.handleSubtrahend0_9}
           onClear={this.props.handleSubtrahendClear}
         />
+        <div className="mt-4">
+          {" "}
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={this.handleClickCreate}
+            disabled={this.props.disableCreateBtn}
+          >
+            Create
+          </Button>
+        </div>
       </React.Fragment>
     );
   }
@@ -111,13 +126,18 @@ SubstractionUpto20Page.propTypes = {
   updateSubtrahend: PropTypes.func,
   handleSubtrahendSelectAll: PropTypes.func,
   handleSubtrahend0_9: PropTypes.func,
-  handleSubtrahendClear: PropTypes.func
+  handleSubtrahendClear: PropTypes.func,
+  disableCreateBtn: PropTypes.bool
 };
 
 const mapStateToProps = state => ({
   problemValue: state.substractionData.problemNumber,
   minuendCheckedArr: state.substractionData.minuendChecked,
-  subtrahendCheckedArr: state.substractionData.subtrahendChecked
+  subtrahendCheckedArr: state.substractionData.subtrahendChecked,
+  disableCreateBtn: !isCreatBtnActive(
+    state.substractionData.minuendChecked,
+    state.substractionData.subtrahendChecked
+  )
 });
 
 const mapDispatchToProps = {

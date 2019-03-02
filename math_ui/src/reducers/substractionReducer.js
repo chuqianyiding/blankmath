@@ -2,8 +2,8 @@ import * as types from "../constants/actionTypes";
 
 const initialState = {
   problemNumber: "10",
-  minuendChecked: [],
-  subtrahendChecked: []
+  minuendChecked: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+  subtrahendChecked: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 };
 
 function updateMinuend(state, checkboxName, value) {
