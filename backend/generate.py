@@ -5,10 +5,32 @@ from reportlab.lib.units import inch, cm
 from reportlab.lib.pagesizes import letter
 
 class ExamGenerator:
+
+    LAYOUTS={
+        "horizontal":{
+            "block_width":(8.5*inch/2),
+            "block_height":0.5*inch
+            }
+    }
+
     def __init__(self):
         pass
+
     def generate(self, data):
-        equations = json.loads(data)['equations']
+
+        """
+        Args:
+            data: string in JSON format
+        """
+
+        jsondata = json.loads(data)
+        equations = jsondata['equations']
+        if not "template" in jsondata:
+            template_name = "horizontal"
+        else:
+            templage_name = jsondata['template']
+
+        template = self.LAYOUTS[templage_name]
 
         print(type(equations))
         print(len(equations))
@@ -18,11 +40,9 @@ class ExamGenerator:
         c.setTitle("BlankMath.com");
         c.setFont("Helvetica-Bold", 25)
 
-        height_each = 0.5*inch;
-
         for index, value in enumerate(equations):
-            x = 0.6*inch + (index%2)*(8.5/2)*inch
-            y = 9.5*inch - floor(index/2)*height_each
+            x = 0.6*inch + (index%2)*template['block_width']
+            y = 9.5*inch - floor(index/2)*template['block_height']
             self.drawEquation(c, self.expandEquation(value), x, y)
             pass
 
@@ -72,5 +92,5 @@ def lambda_handler(event, context):
 
 if __name__ == "__main__":
     gen = ExamGenerator()
-    gen.generate('{"equations":["7+x=12", "20-x=5", "10+x=99", "55+x=100"]}')
+    gen.generate('{"equations":["7+x=12", "20-x=5", "10+x=99", "55+x=99"], "template":"horizontal"}')
 
