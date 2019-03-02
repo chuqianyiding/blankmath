@@ -27,8 +27,8 @@ const Checkbox20Component = ({
               key={`${prefix}${item}`}
               control={
                 <Checkbox
-                  checked={data[`${prefix}${item}`]}
-                  onChange={onCheckboxChange(`${prefix}${item}`)}
+                  checked={data.includes(item)}
+                  onChange={onCheckboxChange(item)}
                   color="primary"
                 />
               }
@@ -65,7 +65,7 @@ const Checkbox20Component = ({
 Checkbox20Component.propTypes = {
   title: PropTypes.string,
   prefix: PropTypes.string,
-  data: PropTypes.object,
+  data: PropTypes.array,
   onCheckboxChange: PropTypes.func,
   onSelectAll: PropTypes.func,
   onSelect0_9: PropTypes.func,

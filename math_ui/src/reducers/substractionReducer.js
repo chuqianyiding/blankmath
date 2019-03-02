@@ -1,79 +1,84 @@
 import * as types from "../constants/actionTypes";
 
 const initialState = {
-  problemNumber: "10"
+  problemNumber: "10",
+  minuendChecked: [],
+  subtrahendChecked: []
 };
-
-for (let i = 0; i <= 20; i++) {
-  initialState[`minuendChecked_${i}`] = false;
-  initialState[`subtrahendChecked_${i}`] = false;
-}
 
 function updateMinuend(state, checkboxName, value) {
   const stateCopy = { ...state };
-  stateCopy[checkboxName] = value;
+  if (value) {
+    stateCopy.minuendChecked = stateCopy.minuendChecked.slice();
+    stateCopy.minuendChecked.push(checkboxName);
+  } else {
+    stateCopy.minuendChecked = stateCopy.minuendChecked.filter(item => {
+      if (checkboxName === item) {
+        return false;
+      }
+
+      return true;
+    });
+  }
   return stateCopy;
 }
 
 function updateMinuendSelectAll(state) {
   const stateCopy = { ...state };
-  for (let i = 0; i <= 20; i++) {
-    stateCopy[`minuendChecked_${i}`] = true;
-  }
+  const arr = Array.from(new Array(21), (val, index) => index);
+  stateCopy.minuendChecked = arr;
   return stateCopy;
 }
 
 function updateMinuend0_9(state) {
   const stateCopy = { ...state };
-  for (let i = 0; i <= 9; i++) {
-    stateCopy[`minuendChecked_${i}`] = true;
-  }
+  const arr = Array.from(new Array(10), (val, index) => index);
 
-  for (let i = 10; i <= 20; i++) {
-    stateCopy[`minuendChecked_${i}`] = false;
-  }
+  stateCopy.minuendChecked = arr;
   return stateCopy;
 }
 
 function updateMinuendClear(state) {
   const stateCopy = { ...state };
-  for (let i = 0; i <= 20; i++) {
-    stateCopy[`minuendChecked_${i}`] = false;
-  }
+  stateCopy.minuendChecked = [];
   return stateCopy;
 }
 
 function updateSubtrahend(state, checkboxName, value) {
   const stateCopy = { ...state };
-  stateCopy[checkboxName] = value;
+  if (value) {
+    stateCopy.subtrahendChecked = stateCopy.subtrahendChecked.slice();
+    stateCopy.subtrahendChecked.push(checkboxName);
+  } else {
+    stateCopy.subtrahendChecked = stateCopy.subtrahendChecked.filter(item => {
+      if (checkboxName === item) {
+        return false;
+      }
+
+      return true;
+    });
+  }
+
   return stateCopy;
 }
 
 function updateSubtrahendSelectAll(state) {
   const stateCopy = { ...state };
-  for (let i = 0; i <= 20; i++) {
-    stateCopy[`subtrahendChecked_${i}`] = true;
-  }
+  const arr = Array.from(new Array(21), (val, index) => index);
+  stateCopy.subtrahendChecked = arr;
   return stateCopy;
 }
 
 function updateSubtrahend0_9(state) {
   const stateCopy = { ...state };
-  for (let i = 0; i <= 9; i++) {
-    stateCopy[`subtrahendChecked_${i}`] = true;
-  }
-
-  for (let i = 10; i <= 20; i++) {
-    stateCopy[`subtrahendChecked_${i}`] = false;
-  }
+  const arr = Array.from(new Array(10), (val, index) => index);
+  stateCopy.subtrahendChecked = arr;
   return stateCopy;
 }
 
 function updateSubtrahendClear(state) {
   const stateCopy = { ...state };
-  for (let i = 0; i <= 20; i++) {
-    stateCopy[`subtrahendChecked_${i}`] = false;
-  }
+  stateCopy.subtrahendChecked = [];
   return stateCopy;
 }
 

@@ -79,7 +79,7 @@ class SubstractionUpto20Page extends React.Component {
         <Checkbox20
           title="Minuend"
           prefix="minuendChecked_"
-          data={this.props.data}
+          data={this.props.minuendCheckedArr}
           onCheckboxChange={this.handleMinuendCheckboxChange}
           onSelectAll={this.props.handleMinuendSelectAll}
           onSelect0_9={this.props.handleMinuend0_9}
@@ -88,7 +88,7 @@ class SubstractionUpto20Page extends React.Component {
         <Checkbox20
           title="Subtrahend"
           prefix="subtrahendChecked_"
-          data={this.props.data}
+          data={this.props.subtrahendCheckedArr}
           onCheckboxChange={this.handleSubtrahendCheckboxChange}
           onSelectAll={this.props.handleSubtrahendSelectAll}
           onSelect0_9={this.props.handleSubtrahend0_9}
@@ -101,7 +101,8 @@ class SubstractionUpto20Page extends React.Component {
 
 SubstractionUpto20Page.propTypes = {
   problemValue: PropTypes.string,
-  data: PropTypes.object,
+  minuendCheckedArr: PropTypes.array,
+  subtrahendCheckedArr: PropTypes.array,
   updateProblemNumber: PropTypes.func,
   updateMinuend: PropTypes.func,
   handleMinuendSelectAll: PropTypes.func,
@@ -115,7 +116,8 @@ SubstractionUpto20Page.propTypes = {
 
 const mapStateToProps = state => ({
   problemValue: state.substractionData.problemNumber,
-  data: state.substractionData
+  minuendCheckedArr: state.substractionData.minuendChecked,
+  subtrahendCheckedArr: state.substractionData.subtrahendChecked
 });
 
 const mapDispatchToProps = {
