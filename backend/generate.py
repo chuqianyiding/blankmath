@@ -1,36 +1,51 @@
 import json
+import re
 from math import floor
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import inch, cm
 from reportlab.lib.pagesizes import letter
+from reportlab.pdfbase.pdfmetrics import stringWidth
 
 class ExamGenerator:
 
     LAYOUTS={
         "horizontal":{
-            "block_width":(8.5*inch/2),
-            "block_height":0.5*inch
+            "block_width":(3.0*inch),
+            "block_height":1.0*inch,
+            "margin":0.6*inch,
+            "y_top":9.5*inch
+            },
+        "vertical":{
+            "block_width":(1.5*inch),
+            "block_height":1.8*inch,
+            "margin":0.6*inch,
+            "y_top":9.5*inch
             }
     }
+
+    FONT="Helvetica-Bold"
+    FONT_SIZE=25
 
     def __init__(self):
         pass
 
     def generate(self, data):
-
         """
         Args:
             data: string in JSON format
         """
-
         jsondata = json.loads(data)
         equations = jsondata['equations']
         if not "template" in jsondata:
             template_name = "horizontal"
         else:
-            templage_name = jsondata['template']
+            template_name = jsondata['template']
 
-        template = self.LAYOUTS[templage_name]
+        template = self.LAYOUTS[template_name]
+
+        blocks_per_row = (8.5*inch-2*template['margin'])/(template['block_width'])
+        blocks_per_row = floor(blocks_per_row)
+        print('blocks per row', blocks_per_row)
 
         print(type(equations))
         print(len(equations))
@@ -38,18 +53,17 @@ class ExamGenerator:
         c = canvas.Canvas('/tmp/result.pdf', pagesize=letter)
         c.drawImage('template/logo.jpg', 0, 10*inch, 8.5*inch, 1*inch)
         c.setTitle("BlankMath.com");
-        c.setFont("Helvetica-Bold", 25)
+        c.setFont(self.FONT, self.FONT_SIZE)
 
         for index, value in enumerate(equations):
-            x = 0.6*inch + (index%2)*template['block_width']
-            y = 9.5*inch - floor(index/2)*template['block_height']
-            self.drawEquation(c, self.expandEquation(value), x, y)
-            pass
+            x = template['margin'] + (index%blocks_per_row)*template['block_width']
+            y = template['y_top'] - floor(index/blocks_per_row)*template['block_height']
+            self.drawEquation(template_name, c, value, x, y, template)
 
         c.showPage()
         c.save()
 
-    def expandEquation(self, text):
+    def horizontalExpand(self, text):
         result=""
         # Remove all spaces, I will add them back
         text = text.replace(" ", "")
@@ -62,9 +76,56 @@ class ExamGenerator:
                 result = result + char
         return result
 
-    def drawEquation(self, my_canvas, text, x, y):
-        print("Will draw text@", x, y)
-        my_canvas.drawString(x, y, text)
+    def verticalExpand(self, text):
+        print("Expand ", text)
+        result=str("")
+        # Remove all spaces, I will add them back
+        text = text.replace(" ", "")
+        for index, char in enumerate(text):
+            if char in ['+','-', '*', '/']:
+                result = result + ' ' + char + ' '
+            elif char == '=':
+                result = result + ' ___ '
+            elif char == 'x':
+                result = result + '#'
+            else:
+                result = result + char
+
+        return result
+
+    def drawEquation(self, template_name, my_canvas, text, x, y, template):
+        if template_name == 'horizontal':
+            print("Will draw text horizontally @", x, y)
+            text = self.horizontalExpand(text)
+            my_canvas.drawString(x, y, text)
+        elif template_name == 'vertical':
+            text = self.verticalExpand(text)
+            print("Will draw text vertically @", x, y, " as ", text)
+            tokens = re.split(" |=", text)
+            print(tokens)
+            reverse_tokens = [x[::-1] for x in tokens]
+            print(reverse_tokens)
+            pass_eq = 0
+            for index, value in enumerate(tokens):
+                value_to_draw = value
+                width = stringWidth(value, self.FONT, self.FONT_SIZE) 
+                #height = stringHeight(value, self.FONT, self.FONT_SIZE) 
+                start_y = y - 0.35*inch*(index - pass_eq)
+                if value in ['+', '-', '*', '/']:
+                    pass_eq=1
+                    start_x = x + 0.65*inch
+                elif value == '#':
+                    value_to_draw = '    '
+                    start_x = x + 0.4*inch
+                else:
+                    start_x = x + template['block_width'] - width
+                if value_to_draw == '___':
+                    start_y = start_y + 0.15*inch
+                    my_canvas.line(start_x, start_y, start_x + width, start_y)
+                else:
+                    my_canvas.drawString(start_x, start_y, value_to_draw)
+        else:
+            print("I do not know how to draw this", template_name)
 
 def lambda_handler(event, context):
 
@@ -92,5 +153,5 @@ def lambda_handler(event, context):
 
 if __name__ == "__main__":
     gen = ExamGenerator()
-    gen.generate('{"equations":["7+x=12", "20-x=5", "10+x=99", "55+x=99"], "template":"horizontal"}')
+    gen.generate('{"equations":["7+12=x", "20-1=x", "10+x=99", "55+x=99", "x+9=23", "19+22=x"], "template":"horizontal"}')
 
