@@ -21,7 +21,8 @@ import Button from "@material-ui/core/Button";
 import Checkbox20 from "../../components/Checkbox20";
 import config from "../../config.json";
 import { isCreatBtnActive } from "../../selectors/SubstractionSelector";
-
+import { generateSubstraction } from "../../utils/substractionProblemGenerator";
+import axios from "axios";
 import "./SubstractionUpto20.scss";
 
 class SubstractionUpto20Page extends React.Component {
@@ -47,7 +48,20 @@ class SubstractionUpto20Page extends React.Component {
   };
 
   handleClickCreate = () => {
-    console.log(config.PDFGeneratorEndpoint);
+    const problems = generateSubstraction(
+      this.props.minuendCheckedArr,
+      this.props.subtrahendCheckedArr,
+      parseInt(this.props.problemValue, 10)
+    );
+
+    axios
+      .post(config.PDFGeneratorEndpoint, {
+        equations: problems,
+        template: "vertical"
+      })
+      .then(resp => {
+        window.location.href = resp.data;
+      });
   };
 
   render() {
