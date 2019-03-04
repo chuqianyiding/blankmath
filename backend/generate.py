@@ -17,7 +17,7 @@ class ExamGenerator:
             },
         "vertical":{
             "block_width":(1.5*inch),
-            "block_height":1.8*inch,
+            "block_height":2.2*inch,
             "margin":0.6*inch,
             "y_top":9.5*inch
             }
@@ -25,12 +25,21 @@ class ExamGenerator:
 
     FONT="Helvetica-Bold"
     FONT_SIZE=25
+    PAGE_HEIGHT=11*inch
+    PAGE_WIDTH=8.5*inch
 
     def __init__(self):
         pass
 
     def stringWidth(self, text):
         return stringWidth(text, self.FONT, self.FONT_SIZE) 
+
+    def printHeader(self, c):
+        """
+        Args:
+            c: The canvas to draw on
+        """
+        c.drawImage('template/logo.jpg', 0, 10*inch, 8.5*inch, 1*inch)
 
     def generate(self, data):
         """
@@ -54,14 +63,28 @@ class ExamGenerator:
         print(len(equations))
 
         c = canvas.Canvas('/tmp/result.pdf', pagesize=letter)
-        c.drawImage('template/logo.jpg', 0, 10*inch, 8.5*inch, 1*inch)
         c.setTitle("BlankMath.com");
-        c.setFont(self.FONT, self.FONT_SIZE)
 
-        for index, value in enumerate(equations):
-            x = template['margin'] + (index%blocks_per_row)*template['block_width']
-            y = template['y_top'] - floor(index/blocks_per_row)*template['block_height']
-            self.drawEquation(template_name, c, value, x, y, template)
+        start_index = 0
+        finished = False
+        while start_index < len(equations) and not finished:
+            c.setFont(self.FONT, self.FONT_SIZE)
+            self.printHeader(c)
+            finished = True
+            for index, value in enumerate(equations):
+                i = index - start_index
+                if i < 0:
+                    continue
+                x = template['margin'] + (i%blocks_per_row)*template['block_width']
+                y = template['y_top'] - floor(i/blocks_per_row)*template['block_height']
+                if y<template['block_height']:
+                    # New page
+                    c.showPage()
+                    start_index = index
+                    finished = False
+                    break
+                else:
+                    self.drawEquation(template_name, c, value, x, y, template)
 
         c.showPage()
         c.save()
@@ -170,5 +193,14 @@ def lambda_handler(event, context):
 
 if __name__ == "__main__":
     gen = ExamGenerator()
-    gen.generate('{"equations":["7+12=x", "20-1=x", "10+x=99", "55+x=99", "x+9=23", "19+22=x"], "template":"horizontal"}')
+    test_case = ('{"equations":['
+        '"1+12=x", "2-1=x", "3+x=99", "4+x=99", "x+5=23", "6+22=x",'
+        '"7+12=x", "8-1=x", "9+x=99", "10+x=99", "x+11=23", "12+22=x",'
+        '"13+12=x", "14-1=x", "15+x=99", "16+x=99", "x+17=23", "18+22=x",'
+        '"19+12=x", "20-1=x", "21+x=99", "22+x=99", "x+23=23", "24+22=x",'
+        '"25+12=x", "26-1=x", "27+x=99", "28+x=99", "x+29=23", "30+22=x"'
+        '], "template":"vertical"}'
+        )
+    print(test_case)
+    gen.generate(test_case)
 
