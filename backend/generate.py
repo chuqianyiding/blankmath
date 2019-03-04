@@ -10,7 +10,7 @@ class ExamGenerator:
 
     LAYOUTS={
         "horizontal":{
-            "block_width":(3.0*inch),
+            "block_width":(3.6*inch),
             "block_height":1.0*inch,
             "margin":0.6*inch,
             "y_top":9.5*inch
@@ -28,6 +28,9 @@ class ExamGenerator:
 
     def __init__(self):
         pass
+
+    def stringWidth(self, text):
+        return stringWidth(text, self.FONT, self.FONT_SIZE) 
 
     def generate(self, data):
         """
@@ -69,7 +72,9 @@ class ExamGenerator:
         text = text.replace(" ", "")
         for index, char in enumerate(text):
             if char in ['+','-', '*', '/']:
-                result = result + ' ' + char + ' '
+                result = result + '  ' + char + '  '
+            elif char == '=':
+                result = result + '  =  '
             elif char == 'x':
                 result = result + '___'
             else:
@@ -97,7 +102,19 @@ class ExamGenerator:
         if template_name == 'horizontal':
             print("Will draw text horizontally @", x, y)
             text = self.horizontalExpand(text)
-            my_canvas.drawString(x, y, text)
+            width = self.stringWidth(text)
+            parts = text.split('___')
+            print('Spliting horizontal: ', parts)
+            my_canvas.drawString(x, y, parts[0])
+            start_x = x + self.stringWidth(parts[0])
+            margin=-0.1*inch
+            rect_width = 0.6*inch
+            rect_height = 0.6*inch
+            my_canvas.roundRect(start_x+margin, y - 0.2*inch, rect_width, rect_height, 0.1*inch)
+            start_x = start_x + rect_width + 2*margin
+            my_canvas.drawString(start_x, y, parts[1])
+
+
         elif template_name == 'vertical':
             text = self.verticalExpand(text)
             print("Will draw text vertically @", x, y, " as ", text)
@@ -108,7 +125,7 @@ class ExamGenerator:
             pass_eq = 0
             for index, value in enumerate(tokens):
                 value_to_draw = value
-                width = stringWidth(value, self.FONT, self.FONT_SIZE) 
+                width = self.stringWidth(value) 
                 #height = stringHeight(value, self.FONT, self.FONT_SIZE) 
                 start_y = y - 0.35*inch*(index - pass_eq)
                 if value in ['+', '-', '*', '/']:
