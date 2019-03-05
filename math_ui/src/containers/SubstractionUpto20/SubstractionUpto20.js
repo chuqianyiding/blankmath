@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import {
   updateProblemNumber,
+  updateProblemDirection,
   updateMinuend,
   handleMinuendSelectAll,
   handleMinuend0_9,
@@ -35,8 +36,12 @@ class SubstractionUpto20Page extends React.Component {
 
   arr20 = Array.from(new Array(21), (val, index) => index);
 
-  handleRadioGroupChange = event => {
+  handleProblemNumberChange = event => {
     this.props.updateProblemNumber(event.target.value);
+  };
+
+  handleProblemDirectionChange = event => {
+    this.props.updateProblemDirection(event.target.value);
   };
 
   handleMinuendCheckboxChange = name => event => {
@@ -57,7 +62,7 @@ class SubstractionUpto20Page extends React.Component {
     axios
       .post(config.PDFGeneratorEndpoint, {
         equations: problems,
-        template: "vertical"
+        template: this.props.problemDirection
       })
       .then(resp => {
         window.location.href = resp.data;
@@ -65,7 +70,7 @@ class SubstractionUpto20Page extends React.Component {
   };
 
   render() {
-    const { problemValue } = this.props;
+    const { problemValue, problemDirection } = this.props;
 
     return (
       <React.Fragment>
@@ -77,9 +82,9 @@ class SubstractionUpto20Page extends React.Component {
             <FormLabel component="legend">Number of Problems</FormLabel>
             <RadioGroup
               aria-label="number of problems"
-              name="gender2"
+              name="number of problems"
               value={problemValue}
-              onChange={this.handleRadioGroupChange}
+              onChange={this.handleProblemNumberChange}
             >
               {this.problems.map(item => (
                 <FormControlLabel
@@ -91,6 +96,34 @@ class SubstractionUpto20Page extends React.Component {
                   className="sub-form-control-label"
                 />
               ))}
+            </RadioGroup>
+          </FormControl>
+        </div>
+        <div className="mt-4">
+          <FormControl component="fieldset" className="sub-form-control">
+            <FormLabel component="legend">Write the problems</FormLabel>
+            <RadioGroup
+              aria-label="direction of problems"
+              name="direction of problems"
+              value={problemDirection}
+              onChange={this.handleProblemDirectionChange}
+            >
+              <FormControlLabel
+                key="horizontal"
+                value="horizontal"
+                control={<Radio color="primary" />}
+                label="horizontal"
+                labelPlacement="start"
+                className="sub-form-control-label"
+              />
+              <FormControlLabel
+                key="vertical"
+                value="vertical"
+                control={<Radio color="primary" />}
+                label="vertical"
+                labelPlacement="start"
+                className="sub-form-control-label"
+              />
             </RadioGroup>
           </FormControl>
         </div>
@@ -130,9 +163,11 @@ class SubstractionUpto20Page extends React.Component {
 
 SubstractionUpto20Page.propTypes = {
   problemValue: PropTypes.string,
+  problemDirection: PropTypes.string,
   minuendCheckedArr: PropTypes.array,
   subtrahendCheckedArr: PropTypes.array,
   updateProblemNumber: PropTypes.func,
+  updateProblemDirection: PropTypes.func,
   updateMinuend: PropTypes.func,
   handleMinuendSelectAll: PropTypes.func,
   handleMinuend0_9: PropTypes.func,
@@ -146,6 +181,7 @@ SubstractionUpto20Page.propTypes = {
 
 const mapStateToProps = state => ({
   problemValue: state.substractionData.problemNumber,
+  problemDirection: state.substractionData.problemDirection,
   minuendCheckedArr: state.substractionData.minuendChecked,
   subtrahendCheckedArr: state.substractionData.subtrahendChecked,
   disableCreateBtn: !isCreatBtnActive(
@@ -156,6 +192,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   updateProblemNumber,
+  updateProblemDirection,
   updateMinuend,
   handleMinuendSelectAll,
   handleMinuend0_9,

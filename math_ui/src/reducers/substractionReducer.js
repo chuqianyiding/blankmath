@@ -2,6 +2,7 @@ import * as types from "../constants/actionTypes";
 
 const initialState = {
   problemNumber: "10",
+  problemDirection: "vertical",
   minuendChecked: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
   subtrahendChecked: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 };
@@ -88,6 +89,11 @@ const substractionData = (state = initialState, action) => {
       return {
         ...state,
         problemNumber: action.payload
+      };
+    case types.UPDATE_PROBLEM_DIRECTION:
+      return {
+        ...state,
+        problemDirection: action.payload
       };
     case types.UPDATE_MINUEND:
       return updateMinuend(

@@ -5,6 +5,11 @@ export const updateProblemNumber = value => ({
   payload: value
 });
 
+export const updateProblemDirection = value => ({
+  type: types.UPDATE_PROBLEM_DIRECTION,
+  payload: value
+});
+
 export const updateMinuend = (checkboxName, value) => ({
   type: types.UPDATE_MINUEND,
   payload: { checkboxName, value }
