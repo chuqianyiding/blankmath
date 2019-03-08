@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-import substractionData from "./substractionReducer";
+import subtractionUpto20Data from "./subtractionUpto20Reducer";
 
 const reducers = combineReducers({
-  substractionData
+  subtractionUpto20Data
 });
 
 export default reducers;

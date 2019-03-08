@@ -83,7 +83,7 @@ function updateSubtrahendClear(state) {
   return stateCopy;
 }
 
-const substractionData = (state = initialState, action) => {
+const subtractionUpto20Data = (state = initialState, action) => {
   switch (action.type) {
     case types.UPDATE_PROBLEM_NUMBER:
       return {
@@ -124,4 +124,4 @@ const substractionData = (state = initialState, action) => {
   }
 };
 
-export default substractionData;
+export default subtractionUpto20Data;

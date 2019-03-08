@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Switch, Route } from "react-router-dom";
 import { Container } from "reactstrap";
-import SubstractionUpto20Page from "../../containers/SubstractionUpto20";
+import SubtractionUpto20Page from "../../containers/SubtractionUpto20";
+import SubtractionMNUpto20 from "../../containers/SubtractionMissingNumberUpto20";
 import "./App.scss";
 
 class App extends Component {
@@ -13,7 +14,12 @@ class App extends Component {
           <Route
             exact
             path="/subtract_upto20"
-            component={SubstractionUpto20Page}
+            component={SubtractionUpto20Page}
+          />
+          <Route
+            exact
+            path="/subtract_mn_upto20"
+            component={SubtractionMNUpto20}
           />
         </Switch>
       </Container>

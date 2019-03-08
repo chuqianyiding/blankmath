@@ -17,16 +17,16 @@ import {
   handleSubtrahendSelectAll,
   handleSubtrahend0_9,
   handleSubtrahendClear
-} from "../../actions/substractionAction";
+} from "../../actions/subtractionUpto20Action";
 import Button from "@material-ui/core/Button";
 import Checkbox20 from "../../components/Checkbox20";
 import config from "../../config.json";
 import { isCreatBtnActive } from "../../selectors/SubstractionSelector";
 import { generateSubstraction } from "../../utils/substractionProblemGenerator";
 import axios from "axios";
-import "./SubstractionUpto20.scss";
+import "./SubtractionUpto20.scss";
 
-class SubstractionUpto20Page extends React.Component {
+class SubtractionUpto20Page extends React.Component {
   problems = [
     { value: "10", label: "10 problems", key: "problem_10" },
     { value: "20", label: "20 problems", key: "problem_20" },
@@ -75,7 +75,7 @@ class SubstractionUpto20Page extends React.Component {
     return (
       <React.Fragment>
         <div className="mt-4">
-          <h3> Substraction -- Numbers up to 20</h3>
+          <h3> Subtraction -- Numbers up to 20</h3>
         </div>
         <div className="mt-4">
           <FormControl component="fieldset" className="sub-form-control">
@@ -161,7 +161,7 @@ class SubstractionUpto20Page extends React.Component {
   }
 }
 
-SubstractionUpto20Page.propTypes = {
+SubtractionUpto20Page.propTypes = {
   problemValue: PropTypes.string,
   problemDirection: PropTypes.string,
   minuendCheckedArr: PropTypes.array,
@@ -180,13 +180,13 @@ SubstractionUpto20Page.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  problemValue: state.substractionData.problemNumber,
-  problemDirection: state.substractionData.problemDirection,
-  minuendCheckedArr: state.substractionData.minuendChecked,
-  subtrahendCheckedArr: state.substractionData.subtrahendChecked,
+  problemValue: state.subtractionUpto20Data.problemNumber,
+  problemDirection: state.subtractionUpto20Data.problemDirection,
+  minuendCheckedArr: state.subtractionUpto20Data.minuendChecked,
+  subtrahendCheckedArr: state.subtractionUpto20Data.subtrahendChecked,
   disableCreateBtn: !isCreatBtnActive(
-    state.substractionData.minuendChecked,
-    state.substractionData.subtrahendChecked
+    state.subtractionUpto20Data.minuendChecked,
+    state.subtractionUpto20Data.subtrahendChecked
   )
 });
 
@@ -205,4 +205,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SubstractionUpto20Page);
+)(SubtractionUpto20Page);
