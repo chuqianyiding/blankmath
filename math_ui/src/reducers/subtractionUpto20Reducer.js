@@ -85,39 +85,39 @@ function updateSubtrahendClear(state) {
 
 const subtractionUpto20Data = (state = initialState, action) => {
   switch (action.type) {
-    case types.UPDATE_PROBLEM_NUMBER:
+    case types.UPDATE_PROBLEM_NUMBER_S20:
       return {
         ...state,
         problemNumber: action.payload
       };
-    case types.UPDATE_PROBLEM_DIRECTION:
+    case types.UPDATE_PROBLEM_DIRECTION_S20:
       return {
         ...state,
         problemDirection: action.payload
       };
-    case types.UPDATE_MINUEND:
+    case types.UPDATE_MINUEND_S20:
       return updateMinuend(
         state,
         action.payload.checkboxName,
         action.payload.value
       );
-    case types.UPDATE_MINUEND_SELECT_ALL:
+    case types.UPDATE_MINUEND_SELECT_ALL_S20:
       return updateMinuendSelectAll(state);
-    case types.UPDATE_MINUEND_0_9:
+    case types.UPDATE_MINUEND_0_9_S20:
       return updateMinuend0_9(state);
-    case types.UPDATE_MINUEND_CLEAR:
+    case types.UPDATE_MINUEND_CLEAR_S20:
       return updateMinuendClear(state);
-    case types.UPDATE_SUBTRAHEND:
+    case types.UPDATE_SUBTRAHEND_S20:
       return updateSubtrahend(
         state,
         action.payload.checkboxName,
         action.payload.value
       );
-    case types.UPDATE_SUBTRAHEND_SELECT_ALL:
+    case types.UPDATE_SUBTRAHEND_SELECT_ALL_S20:
       return updateSubtrahendSelectAll(state);
-    case types.UPDATE_SUBTRAHEND_0_9:
+    case types.UPDATE_SUBTRAHEND_0_9_S20:
       return updateSubtrahend0_9(state);
-    case types.UPDATE_SUBTRAHEND_CLEAR:
+    case types.UPDATE_SUBTRAHEND_CLEAR_S20:
       return updateSubtrahendClear(state);
     default:
       return state;
