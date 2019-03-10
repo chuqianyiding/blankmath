@@ -1,10 +1,6 @@
 #!/bin/bash
 set -e # Exit with nonzero exit code if anything fails
 
-ls
-
-exit
-
 SOURCE_BRANCH="dev"
 TARGET_BRANCH="dev"
 
@@ -13,19 +9,13 @@ REPO=`git config remote.origin.url`
 SSH_REPO=${REPO/https:\/\/github.com\//git@github.com:}
 SHA=`git rev-parse --verify HEAD`
 
-# Clone the existing gh-pages for this repo into out/
-# Create a new empty branch if gh-pages doesn't exist yet (should only happen on first deply)
-git clone $REPO out
-cd out
 git checkout $SOURCE_BRANCH 
-
-
-
-# Clean out existing contents
-rm -rf out/**/* || exit 0
+cd math_ui
 
 # Run our compile script
 npm run-script build
+cd ..
+cp -rf math_ui/build/* docs
 
 # Now let's go have some fun with the cloned repo
 cd docs
