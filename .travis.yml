@@ -1,5 +1,4 @@
 script: bash ./deploy.sh
-warnings_are_errors: false
 env:
   global:
     - ENCRYPTION_LABEL: cf52f6cf0af6
