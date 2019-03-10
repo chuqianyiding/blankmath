@@ -29,7 +29,14 @@ if git diff --quiet; then
     exit 0
 fi
 
+echo "##########"
 ls
+echo "##########"
+
+echo "$$$$$$$$$$$$"
+cd ..
+ls
+echo "$$$$$$$$$$$$"
 
 # Commit the "changes", i.e. the new version.
 # The delta will show diffs between new and old versions.
