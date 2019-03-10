@@ -13,6 +13,7 @@ git checkout $SOURCE_BRANCH
 cd math_ui
 
 # Run our compile script
+npm install
 npm run-script build
 cd ..
 cp -rf math_ui/build/* docs
