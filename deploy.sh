@@ -1,8 +1,8 @@
 #!/bin/bash
 set -e # Exit with nonzero exit code if anything fails
 
-SOURCE_BRANCH="dev"
-TARGET_BRANCH="dev"
+SOURCE_BRANCH="master"
+TARGET_BRANCH="master"
 
 # Save some useful information
 REPO=`git config remote.origin.url`
