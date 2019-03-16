@@ -6,7 +6,12 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
-import { updateProblemNumber } from "../../actions/substractionMNUpto20Action";
+import FormGroup from "@material-ui/core/FormGroup";
+import {
+  updateProblemNumber,
+  updateRestrictions
+} from "../../actions/substractionMNUpto20Action";
+import Checkbox from "@material-ui/core/Checkbox";
 
 class SubstractionMNUpto20 extends React.Component {
   problems = [
@@ -16,12 +21,18 @@ class SubstractionMNUpto20 extends React.Component {
     { value: "50", label: "50 problems", key: "problem_50" }
   ];
 
+  restrictions = [{ key: "subtrahend_10", label: "Subtrahend less than 10" }];
+
   handleProblemNumberChange = event => {
     this.props.updateProblemNumber(event.target.value);
   };
 
+  handleRestrictionsCheckboxChange = name => event => {
+    this.props.updateRestrictions(name, event.target.checked);
+  };
+
   render() {
-    const { problemValue } = this.props;
+    const { problemValue, restrictionsCheckedArr } = this.props;
     return (
       <React.Fragment>
         <div className="mt-4">
@@ -49,6 +60,24 @@ class SubstractionMNUpto20 extends React.Component {
             </RadioGroup>
           </FormControl>
         </div>
+        <div className="mt-4">
+          <FormLabel component="legend">Restrictions</FormLabel>
+          <FormGroup>
+            {this.restrictions.map(item => (
+              <FormControlLabel
+                key={item.key}
+                control={
+                  <Checkbox
+                    checked={restrictionsCheckedArr.includes(item.key)}
+                    onChange={this.handleRestrictionsCheckboxChange(item.key)}
+                    color="primary"
+                  />
+                }
+                label={item.label}
+              />
+            ))}
+          </FormGroup>
+        </div>
       </React.Fragment>
     );
   }
@@ -56,15 +85,19 @@ class SubstractionMNUpto20 extends React.Component {
 
 SubstractionMNUpto20.propTypes = {
   problemValue: PropTypes.string,
-  updateProblemNumber: PropTypes.func
+  updateProblemNumber: PropTypes.func,
+  restrictionsCheckedArr: PropTypes.array,
+  updateRestrictions: PropTypes.func
 };
 
 const mapStateToProps = state => ({
-  problemValue: state.subtractionMNUpto20Data.problemNumber
+  problemValue: state.subtractionMNUpto20Data.problemNumber,
+  restrictionsCheckedArr: state.subtractionMNUpto20Data.restrictionsChecked
 });
 
 const mapDispatchToProps = {
-  updateProblemNumber
+  updateProblemNumber,
+  updateRestrictions
 };
 
 export default connect(
