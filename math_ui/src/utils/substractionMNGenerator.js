@@ -12,7 +12,9 @@ const generateFullArr = () => {
         result.push([i, "x", j]);
       }
 
-      result.push(["x", i, j]);
+      if (i + j <= 20) {
+        result.push(["x", i, j]);
+      }
     }
   return result;
 };
