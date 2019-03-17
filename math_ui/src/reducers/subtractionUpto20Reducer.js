@@ -1,8 +1,9 @@
 import * as types from "../constants/actionTypes";
+import * as directions from "../constants/directions";
 
 const initialState = {
   problemNumber: "10",
-  problemDirection: "vertical",
+  problemDirection: directions.VERTICAL,
   minuendChecked: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
   subtrahendChecked: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 };

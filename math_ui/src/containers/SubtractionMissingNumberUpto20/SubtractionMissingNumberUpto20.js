@@ -12,6 +12,12 @@ import {
   updateRestrictions
 } from "../../actions/substractionMNUpto20Action";
 import Checkbox from "@material-ui/core/Checkbox";
+import Button from "@material-ui/core/Button";
+import * as filters from "../../constants/filters";
+import { generateSubstractionMN } from "../../utils/substractionMNGenerator";
+import axios from "axios";
+import config from "../../config.json";
+import * as directions from "../../constants/directions";
 
 class SubstractionMNUpto20 extends React.Component {
   problems = [
@@ -21,7 +27,9 @@ class SubstractionMNUpto20 extends React.Component {
     { value: "50", label: "50 problems", key: "problem_50" }
   ];
 
-  restrictions = [{ key: "subtrahend_10", label: "Subtrahend less than 10" }];
+  restrictions = [
+    { key: filters.SUBTRAHEND_LESSTHAN_10, label: "Subtrahend less than 10" }
+  ];
 
   handleProblemNumberChange = event => {
     this.props.updateProblemNumber(event.target.value);
@@ -29,6 +37,22 @@ class SubstractionMNUpto20 extends React.Component {
 
   handleRestrictionsCheckboxChange = name => event => {
     this.props.updateRestrictions(name, event.target.checked);
+  };
+
+  handleClickCreate = () => {
+    const problems = generateSubstractionMN(
+      parseInt(this.props.problemValue, 10),
+      this.props.restrictionsCheckedArr
+    );
+
+    axios
+      .post(config.PDFGeneratorEndpoint, {
+        equations: problems,
+        template: directions.HORIZONTAL
+      })
+      .then(resp => {
+        window.location.href = resp.data;
+      });
   };
 
   render() {
@@ -77,6 +101,16 @@ class SubstractionMNUpto20 extends React.Component {
               />
             ))}
           </FormGroup>
+        </div>
+        <div className="mt-4">
+          {" "}
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={this.handleClickCreate}
+          >
+            Create
+          </Button>
         </div>
       </React.Fragment>
     );
