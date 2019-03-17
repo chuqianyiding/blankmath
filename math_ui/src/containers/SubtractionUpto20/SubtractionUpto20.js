@@ -24,6 +24,7 @@ import config from "../../config.json";
 import { isCreatBtnActive } from "../../selectors/SubstractionSelector";
 import { generateSubstraction } from "../../utils/substractionProblemGenerator";
 import axios from "axios";
+import * as directions from "../../constants/directions";
 import "./SubtractionUpto20.scss";
 
 class SubtractionUpto20Page extends React.Component {
@@ -109,18 +110,18 @@ class SubtractionUpto20Page extends React.Component {
               onChange={this.handleProblemDirectionChange}
             >
               <FormControlLabel
-                key="horizontal"
-                value="horizontal"
+                key={directions.HORIZONTAL}
+                value={directions.HORIZONTAL}
                 control={<Radio color="primary" />}
-                label="horizontal"
+                label={directions.HORIZONTAL}
                 labelPlacement="start"
                 className="sub-form-control-label"
               />
               <FormControlLabel
-                key="vertical"
-                value="vertical"
+                key={directions.VERTICAL}
+                value={directions.VERTICAL}
                 control={<Radio color="primary" />}
-                label="vertical"
+                label={directions.VERTICAL}
                 labelPlacement="start"
                 className="sub-form-control-label"
               />
