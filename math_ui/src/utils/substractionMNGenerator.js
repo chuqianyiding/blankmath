@@ -20,9 +20,9 @@ const generateFullArr = () => {
 const filterRestrictions = (arr, restrictions) => {
   if (restrictions.includes(filters.SUBTRAHEND_LESSTHAN_10)) {
     arr = arr.filter(item => {
-      if (item[0][0] == "x") {
+      if (item[0][0] === "x") {
         return true;
-      } else if (item[0][1] == "x") {
+      } else if (item[0][1] === "x") {
         return item[0][2] < 10;
       } else {
         return item[0][1] < 10;
