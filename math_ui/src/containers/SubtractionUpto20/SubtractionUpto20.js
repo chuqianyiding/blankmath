@@ -25,16 +25,10 @@ import { isCreatBtnActive } from "../../selectors/SubstractionSelector";
 import { generateSubstraction } from "../../utils/substractionProblemGenerator";
 import axios from "axios";
 import * as directions from "../../constants/directions";
+import ProblemNumber from "../../components/ProblemNumber";
 import "./SubtractionUpto20.scss";
 
 class SubtractionUpto20Page extends React.Component {
-  problems = [
-    { value: "10", label: "10 problems", key: "problem_10" },
-    { value: "20", label: "20 problems", key: "problem_20" },
-    { value: "30", label: "30 problems", key: "problem_30" },
-    { value: "50", label: "50 problems", key: "problem_50" }
-  ];
-
   arr20 = Array.from(new Array(21), (val, index) => index);
 
   handleProblemNumberChange = event => {
@@ -78,28 +72,11 @@ class SubtractionUpto20Page extends React.Component {
         <div className="mt-4">
           <h3> Subtraction -- Numbers up to 20</h3>
         </div>
-        <div className="mt-4">
-          <FormControl component="fieldset" className="sub-form-control">
-            <FormLabel component="legend">Number of Problems</FormLabel>
-            <RadioGroup
-              aria-label="number of problems"
-              name="number of problems"
-              value={problemValue}
-              onChange={this.handleProblemNumberChange}
-            >
-              {this.problems.map(item => (
-                <FormControlLabel
-                  key={item.key}
-                  value={item.value}
-                  control={<Radio color="primary" />}
-                  label={item.label}
-                  labelPlacement="start"
-                  className="sub-form-control-label"
-                />
-              ))}
-            </RadioGroup>
-          </FormControl>
-        </div>
+
+        <ProblemNumber
+          problemValue={problemValue}
+          onProblemNumberChange={this.handleProblemNumberChange}
+        />
         <div className="mt-4">
           <FormControl component="fieldset" className="sub-form-control">
             <FormLabel component="legend">Write the problems</FormLabel>
