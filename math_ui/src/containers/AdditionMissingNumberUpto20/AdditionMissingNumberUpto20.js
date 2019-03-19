@@ -1,0 +1,96 @@
+import React from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormLabel from "@material-ui/core/FormLabel";
+import FormGroup from "@material-ui/core/FormGroup";
+import {
+  updateProblemNumber,
+  updateRestrictions
+} from "../../actions/addtionMNUpto20Action";
+import Checkbox from "@material-ui/core/Checkbox";
+import Button from "@material-ui/core/Button";
+import * as filters from "../../constants/filters";
+import ProblemNumber from "../../components/ProblemNumber";
+
+class AdditionMNUpto20 extends React.Component {
+  restrictions = [
+    { key: filters.SUBTRAHEND_LESSTHAN_10, label: "Subtrahend less than 10" }
+  ];
+
+  handleProblemNumberChange = event => {
+    this.props.updateProblemNumber(event.target.value);
+  };
+
+  handleRestrictionsCheckboxChange = name => event => {
+    this.props.updateRestrictions(name, event.target.checked);
+  };
+
+  handleClickCreate = () => {};
+
+  render() {
+    const { problemValue, restrictionsCheckedArr } = this.props;
+    return (
+      <React.Fragment>
+        <div className="mt-4">
+          <h3> Addition -- Missing Number -- Numbers up to 20</h3>
+        </div>
+
+        <ProblemNumber
+          problemValue={problemValue}
+          onProblemNumberChange={this.handleProblemNumberChange}
+        />
+        <div className="mt-4">
+          <FormLabel component="legend">Restrictions</FormLabel>
+          <FormGroup>
+            {this.restrictions.map(item => (
+              <FormControlLabel
+                key={item.key}
+                control={
+                  <Checkbox
+                    checked={restrictionsCheckedArr.includes(item.key)}
+                    onChange={this.handleRestrictionsCheckboxChange(item.key)}
+                    color="primary"
+                  />
+                }
+                label={item.label}
+              />
+            ))}
+          </FormGroup>
+        </div>
+        <div className="mt-4">
+          {" "}
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={this.handleClickCreate}
+          >
+            Create
+          </Button>
+        </div>
+      </React.Fragment>
+    );
+  }
+}
+
+AdditionMNUpto20.propTypes = {
+  problemValue: PropTypes.string,
+  updateProblemNumber: PropTypes.func,
+  restrictionsCheckedArr: PropTypes.array,
+  updateRestrictions: PropTypes.func
+};
+
+const mapStateToProps = state => ({
+  problemValue: state.additionMNUpto20Data.problemNumber,
+  restrictionsCheckedArr: state.additionMNUpto20Data.restrictionsChecked
+});
+
+const mapDispatchToProps = {
+  updateProblemNumber,
+  updateRestrictions
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AdditionMNUpto20);
