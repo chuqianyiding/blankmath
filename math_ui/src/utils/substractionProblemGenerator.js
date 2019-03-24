@@ -20,5 +20,5 @@ export const generateSubstraction = (minuendArr, subtrahendArr, count) => {
 
   const randomArr = pickRandomArr(fullArr, count);
 
-  return generateWithTemplate(randomArr);
+  return generateWithTemplate(randomArr, "-");
 };

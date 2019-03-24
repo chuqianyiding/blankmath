@@ -12,6 +12,10 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 import * as filters from "../../constants/filters";
 import ProblemNumber from "../../components/ProblemNumber";
+import { generateAdditionMN } from "../../utils/additionMNGenerator";
+import axios from "axios";
+import config from "../../config.json";
+import * as directions from "../../constants/directions";
 
 class AdditionMNUpto20 extends React.Component {
   restrictions = [
@@ -26,7 +30,21 @@ class AdditionMNUpto20 extends React.Component {
     this.props.updateRestrictions(name, event.target.checked);
   };
 
-  handleClickCreate = () => {};
+  handleClickCreate = () => {
+    const problems = generateAdditionMN(
+      parseInt(this.props.problemValue, 10),
+      this.props.restrictionsCheckedArr
+    );
+
+    axios
+      .post(config.PDFGeneratorEndpoint, {
+        equations: problems,
+        template: directions.HORIZONTAL
+      })
+      .then(resp => {
+        window.location.href = resp.data;
+      });
+  };
 
   render() {
     const { problemValue, restrictionsCheckedArr } = this.props;
