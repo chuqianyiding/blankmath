@@ -1,0 +1,11 @@
+.image-section {
+  position: relative;
+  width: 100%;
+  max-height: 400px;
+}
+
+.image-section img {
+  width: 100%;
+  max-height: 400px;
+  object-fit: fill;
+}
