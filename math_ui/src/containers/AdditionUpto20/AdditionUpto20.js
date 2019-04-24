@@ -19,6 +19,9 @@ import ProblemNumber from "../../components/ProblemNumber";
 import Checkbox20 from "../../components/Checkbox20";
 import Button from "@material-ui/core/Button";
 import { isCreatBtnActive } from "../../selectors/AdditionSelector";
+import { generateAddition } from "../../utils/additionProblemGenerator";
+import axios from "axios";
+import config from "../../config.json";
 
 class AdditionUpto20Page extends React.Component {
   handleProblemNumberChange = event => {
@@ -33,7 +36,21 @@ class AdditionUpto20Page extends React.Component {
     this.props.updateAddend(name, event.target.checked);
   };
 
-  handleClickCreate = () => {};
+  handleClickCreate = () => {
+    const problems = generateAddition(
+      this.props.addendCheckedArr,
+      parseInt(this.props.problemValue, 10)
+    );
+
+    axios
+      .post(config.PDFGeneratorEndpoint, {
+        equations: problems,
+        template: this.props.problemDirection
+      })
+      .then(resp => {
+        window.location.href = resp.data;
+      });
+  };
 
   render() {
     const { problemValue, problemDirection } = this.props;
