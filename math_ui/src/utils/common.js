@@ -7,9 +7,9 @@ export const pickRandomArr = (arr, count) => {
   return result;
 };
 
-export const generateWithTemplate = arr => {
+export const generateWithTemplate = (arr, sign) => {
   const result = arr.map(item => {
-    return `${item[0][0]}-${item[0][1]}=${item[0][2]}`;
+    return `${item[0][0]}${sign}${item[0][1]}=${item[0][2]}`;
   });
 
   return result;

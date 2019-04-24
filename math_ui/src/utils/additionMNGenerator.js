@@ -1,5 +1,3 @@
-//return an array ["1+x=2","5-7=x","9+x=100","1+x=2"]
-
 import { pickRandomArr, generateWithTemplate } from "./common";
 import * as filters from "../constants/filters";
 
@@ -7,13 +5,13 @@ const generateFullArr = () => {
   const result = [];
   for (let i = 0; i <= 20; i++)
     for (let j = 0; j <= 20; j++) {
-      if (i >= j) {
-        result.push([i, j, "x"]);
+      if (i <= j) {
         result.push([i, "x", j]);
+        result.push(["x", i, j]);
       }
 
       if (i + j <= 20) {
-        result.push(["x", i, j]);
+        result.push([i, j, "x"]);
       }
     }
   return result;
@@ -22,12 +20,12 @@ const generateFullArr = () => {
 const filterRestrictions = (arr, restrictions) => {
   if (restrictions.includes(filters.SUBTRAHEND_LESSTHAN_10)) {
     arr = arr.filter(item => {
-      if (item[0] === "x") {
+      if (item[2] === "x") {
         return true;
-      } else if (item[1] === "x") {
-        return item[2] < 10;
-      } else {
+      } else if (item[0] === "x") {
         return item[1] < 10;
+      } else {
+        return item[0] < 10;
       }
     });
   }
@@ -35,9 +33,9 @@ const filterRestrictions = (arr, restrictions) => {
   return arr;
 };
 
-export const generateSubstractionMN = (count, restrictions) => {
+export const generateAdditionMN = (count, restrictions) => {
   const fullArr = generateFullArr();
   const filteredArr = filterRestrictions(fullArr, restrictions);
   const randomArr = pickRandomArr(filteredArr, count);
-  return generateWithTemplate(randomArr, "-");
+  return generateWithTemplate(randomArr, "+");
 };

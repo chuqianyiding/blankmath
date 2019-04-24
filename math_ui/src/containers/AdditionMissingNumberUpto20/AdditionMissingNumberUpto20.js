@@ -7,17 +7,17 @@ import FormGroup from "@material-ui/core/FormGroup";
 import {
   updateProblemNumber,
   updateRestrictions
-} from "../../actions/substractionMNUpto20Action";
+} from "../../actions/addtionMNUpto20Action";
 import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 import * as filters from "../../constants/filters";
-import { generateSubstractionMN } from "../../utils/substractionMNGenerator";
+import ProblemNumber from "../../components/ProblemNumber";
+import { generateAdditionMN } from "../../utils/additionMNGenerator";
 import axios from "axios";
 import config from "../../config.json";
 import * as directions from "../../constants/directions";
-import ProblemNumber from "../../components/ProblemNumber";
 
-class SubstractionMNUpto20 extends React.Component {
+class AdditionMNUpto20 extends React.Component {
   restrictions = [
     { key: filters.SUBTRAHEND_LESSTHAN_10, label: "Subtrahend less than 10" }
   ];
@@ -31,7 +31,7 @@ class SubstractionMNUpto20 extends React.Component {
   };
 
   handleClickCreate = () => {
-    const problems = generateSubstractionMN(
+    const problems = generateAdditionMN(
       parseInt(this.props.problemValue, 10),
       this.props.restrictionsCheckedArr
     );
@@ -51,7 +51,7 @@ class SubstractionMNUpto20 extends React.Component {
     return (
       <React.Fragment>
         <div className="mt-4">
-          <h3> Substraction -- Missing Number -- Numbers up to 20</h3>
+          <h3> Addition -- Missing Number -- Numbers up to 20</h3>
         </div>
 
         <ProblemNumber
@@ -91,7 +91,7 @@ class SubstractionMNUpto20 extends React.Component {
   }
 }
 
-SubstractionMNUpto20.propTypes = {
+AdditionMNUpto20.propTypes = {
   problemValue: PropTypes.string,
   updateProblemNumber: PropTypes.func,
   restrictionsCheckedArr: PropTypes.array,
@@ -99,8 +99,8 @@ SubstractionMNUpto20.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  problemValue: state.subtractionMNUpto20Data.problemNumber,
-  restrictionsCheckedArr: state.subtractionMNUpto20Data.restrictionsChecked
+  problemValue: state.additionMNUpto20Data.problemNumber,
+  restrictionsCheckedArr: state.additionMNUpto20Data.restrictionsChecked
 });
 
 const mapDispatchToProps = {
@@ -111,4 +111,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SubstractionMNUpto20);
+)(AdditionMNUpto20);
