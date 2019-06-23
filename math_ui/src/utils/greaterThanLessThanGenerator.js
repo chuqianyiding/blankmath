@@ -1,6 +1,6 @@
 // return an array ["5o10", ""]
 
-import { pickRandomArr } from "./common";
+import { pickRandomString } from "./common";
 
 const generateFullArr = digitValue => {
   const result = [];
@@ -39,6 +39,6 @@ const generateFullArr = digitValue => {
 
 export const generateData = (digitValue, count) => {
   const fullArr = generateFullArr(digitValue);
-  const randomArr = pickRandomArr(fullArr, count);
+  const randomArr = pickRandomString(fullArr, count);
   return randomArr;
 };
