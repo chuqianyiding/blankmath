@@ -24,7 +24,7 @@ class ExamGenerator:
             "font_size":18
             },
         "horizontal52":{
-            "block_width":(1.9*inch),
+            "block_width":(1.925*inch),
             "block_height":0.7*inch,
             "margin":0.4*inch,
             "y_top":9.5*inch,
@@ -35,6 +35,7 @@ class ExamGenerator:
             "block_height":2.2*inch,
             "margin":0.25*inch,
             "y_top":9.5*inch,
+            "line_width":0.35*inch,
             "font_size":25
             },
         "vertical30":{
@@ -42,6 +43,7 @@ class ExamGenerator:
             "block_height":1.8*inch,
             "margin":0.5*inch,
             "y_top":9.5*inch,
+            "line_width":0.35*inch,
             "font_size":20
             },
         "vertical49":{
@@ -49,7 +51,16 @@ class ExamGenerator:
             "block_height":1.3*inch,
             "margin":0.5*inch,
             "y_top":9.5*inch,
+            "line_width":0.3*inch,
             "font_size":15
+            },
+        "vertical56":{
+            "block_width":(1.0*inch),
+            "block_height":1.1*inch,
+            "margin":0.5*inch,
+            "y_top":9.5*inch,
+            "line_width":0.22*inch,
+            "font_size":12
             }
     }
 
@@ -79,10 +90,19 @@ class ExamGenerator:
         if "problems_per_page" in jsondata:
             template_name += str(jsondata["problems_per_page"])
         else:
+            numEquations = len(jsondata["equations"])
             if template_name=="vertical":
-                template_name += "20"
+                if numEquations > 49:
+                    template_name += "56"
+                elif numEquations >= 30:
+                    template_name += "49"
+                else:
+                    template_name += "30"
             elif template_name=="horizontal":
-                template_name += "20"
+                if numEquations > 30:
+                    template_name += "52"
+                else:
+                    template_name += "30"
 
         return (template_name, self.LAYOUTS[template_name])
 
@@ -137,7 +157,7 @@ class ExamGenerator:
             if char in ['+','-', '*', '/']:
                 result = result + '  ' + char + '  '
             elif char == '=':
-                result = result + '  =  '
+                result = result + '   =   '
             elif char == 'x':
                 result = result + '___'
             else:
@@ -173,7 +193,7 @@ class ExamGenerator:
             margin=-0.1*inch
             rect_width = 0.55*inch
             rect_height = 0.55*inch
-            my_canvas.roundRect(start_x+margin, y - 0.2*inch, rect_width, rect_height, 0.1*inch)
+            my_canvas.roundRect(start_x+margin, y - 0.2*inch, rect_width, rect_height, 0.09*inch)
             start_x = start_x + rect_width + 2*margin
             my_canvas.drawString(start_x, y, parts[1])
 
@@ -189,7 +209,7 @@ class ExamGenerator:
             for index, value in enumerate(tokens):
                 value_to_draw = value
                 width = self.stringWidth(value, template['font_size']) 
-                start_y = y - 0.35*inch*(index - pass_eq)
+                start_y = y - template["line_width"]*(index - pass_eq)
                 if value in ['+', '-', '*', '/']:
                     pass_eq=1
                     start_x = x + 0.4*template['block_width']
@@ -241,8 +261,9 @@ if __name__ == "__main__":
         '"31+12=x", "32-1=x", "33+x=99", "34x=99", "x+35=23", "36+22=x",'
         '"37+12=x", "38-1=x", "39+x=99", "40+x=99", "x+41=23", "42+22=x",'
         '"43+12=x", "44-1=x", "45+x=99", "46+x=99", "x+47=23", "48+22=x",'
-        '"49+12=x", "50-1=x", "51+x=99", "52+x=99", "x+53=23", "54+22=x"'
-        '], "template":"horizontal", "problems_per_page":20}'
+        '"49+12=x", "50-1=x", "51+x=99", "52+x=99", "x+53=23", "54+22=x",'
+        '"55+12=x", "56-1=x", "57+x=99", "58+x=99", "x+59=23", "60+22=x"'
+        '], "template":"horizontal"}'
         )
     test_case2 = ('{"equations":['
         '"1+12=x", "2-1=x", "3+x=99", "4+x=99", "x+5=23", "6+22=x",'
