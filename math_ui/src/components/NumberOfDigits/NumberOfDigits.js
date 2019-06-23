@@ -6,25 +6,25 @@ import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import PropTypes from "prop-types";
 
-const problems = [
-  { value: "10", label: "10 problems", key: "problem_10" },
-  { value: "20", label: "20 problems", key: "problem_20" },
-  { value: "30", label: "30 problems", key: "problem_30" },
-  { value: "50", label: "50 problems", key: "problem_50" }
+const options = [
+  { value: "1d", label: "1 digit", key: "digit_1" },
+  { value: "2d", label: "2 digit", key: "digit_2" },
+  { value: "3d", label: "3 digit", key: "digit_3" },
+  { value: "l20", label: "numbers less than 20", key: "digit_l20" }
 ];
 
-const ProblemNumberComponent = ({ problemValue, onProblemNumberChange }) => {
+const NumberOfDigits = ({ digitValue, onDigitChange }) => {
   return (
     <div className="mt-4">
       <FormControl component="fieldset" className="sub-form-control">
-        <FormLabel component="legend">Number of Problems</FormLabel>
+        <FormLabel component="legend">Number of Digits</FormLabel>
         <RadioGroup
-          aria-label="number of problems"
-          name="number of problems"
-          value={problemValue}
-          onChange={onProblemNumberChange}
+          aria-label="number of digits"
+          name="number of digits"
+          value={digitValue}
+          onChange={onDigitChange}
         >
-          {problems.map(item => (
+          {options.map(item => (
             <FormControlLabel
               key={item.key}
               value={item.value}
@@ -39,9 +39,9 @@ const ProblemNumberComponent = ({ problemValue, onProblemNumberChange }) => {
   );
 };
 
-ProblemNumberComponent.propTypes = {
-  problemValue: PropTypes.string,
-  onProblemNumberChange: PropTypes.func
+NumberOfDigits.propTypes = {
+  digitValue: PropTypes.string,
+  onDigitChange: PropTypes.func
 };
 
-export default ProblemNumberComponent;
+export default NumberOfDigits;

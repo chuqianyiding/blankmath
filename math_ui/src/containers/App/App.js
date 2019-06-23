@@ -6,6 +6,7 @@ import SubtractionMNUpto20 from "../../containers/SubtractionMissingNumberUpto20
 import AdditionMNUpto20 from "../../containers/AdditionMissingNumberUpto20";
 import HomePage from "../HomePage";
 import AdditionUpto20Page from "../../containers/AdditionUpto20";
+import GreatThanLessThanPage from "../../containers/GreaterThanLessThan";
 import "./App.scss";
 
 class App extends Component {
@@ -26,6 +27,11 @@ class App extends Component {
             component={SubtractionMNUpto20}
           />
           <Route exact path="/add_mn_upto20" component={AdditionMNUpto20} />
+          <Route
+            exact
+            path="/greater_than_less_than"
+            component={GreatThanLessThanPage}
+          />
         </Switch>
       </Container>
     );
