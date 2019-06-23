@@ -8,6 +8,9 @@ import {
 } from "../../actions/greaterThanLessThanAction";
 import NumberOfDigits from "../../components/NumberOfDigits";
 import Button from "@material-ui/core/Button";
+import { generateData } from "../../utils/greaterThanLessThanGenerator";
+import axios from "axios";
+import config from "../../config.json";
 
 class GreatThanLessThanPage extends React.Component {
   handleProblemNumberChange = event => {
@@ -18,7 +21,20 @@ class GreatThanLessThanPage extends React.Component {
     this.props.updateNumberOfDigits(event.target.value);
   };
 
-  handleClickCreate = event => {};
+  handleClickCreate = event => {
+    const problems = generateData(
+      this.props.digitValue,
+      parseInt(this.props.problemValue, 10)
+    );
+
+    axios
+      .post(config.PDFGeneratorEndpoint, {
+        equations: problems
+      })
+      .then(resp => {
+        window.location.href = resp.data;
+      });
+  };
 
   render() {
     const { problemValue, digitValue } = this.props;
@@ -62,7 +78,7 @@ GreatThanLessThanPage.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  problemValue: state.subtractionMNUpto20Data.problemNumber,
+  problemValue: state.greaterThanLessThanData.problemNumber,
   digitValue: state.greaterThanLessThanData.digitNumber
 });
 
