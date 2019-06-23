@@ -1,17 +1,77 @@
 import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import ProblemNumber from "../../components/ProblemNumber";
+import {
+  updateProblemNumber,
+  updateNumberOfDigits
+} from "../../actions/greaterThanLessThanAction";
+import NumberOfDigits from "../../components/NumberOfDigits";
+import Button from "@material-ui/core/Button";
 
 class GreatThanLessThanPage extends React.Component {
+  handleProblemNumberChange = event => {
+    this.props.updateProblemNumber(event.target.value);
+  };
+
+  handleDigitValueChange = event => {
+    this.props.updateNumberOfDigits(event.target.value);
+  };
+
+  handleClickCreate = event => {};
+
   render() {
+    const { problemValue, digitValue } = this.props;
     return (
-      <React.Fragment>
+      <>
         <div className="mt-4">
           <h3> Greater Than Less Than Worksheets</h3>
         </div>
-      </React.Fragment>
+
+        <ProblemNumber
+          problemValue={problemValue}
+          onProblemNumberChange={this.handleProblemNumberChange}
+        />
+        <div className="mt-4">
+          <NumberOfDigits
+            digitValue={digitValue}
+            onDigitChange={this.handleDigitValueChange}
+          />
+        </div>
+
+        <div className="mt-4">
+          {" "}
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={this.handleClickCreate}
+          >
+            Create
+          </Button>
+        </div>
+      </>
     );
   }
 }
 
-export default GreatThanLessThanPage;
+GreatThanLessThanPage.propTypes = {
+  problemValue: PropTypes.string,
+  digitValue: PropTypes.string,
+  updateProblemNumber: PropTypes.func,
+  updateNumberOfDigits: PropTypes.func
+};
+
+const mapStateToProps = state => ({
+  problemValue: state.subtractionMNUpto20Data.problemNumber,
+  digitValue: state.greaterThanLessThanData.digitNumber
+});
+
+const mapDispatchToProps = {
+  updateProblemNumber,
+  updateNumberOfDigits
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(GreatThanLessThanPage);
