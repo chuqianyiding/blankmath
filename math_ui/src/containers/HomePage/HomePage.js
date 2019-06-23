@@ -27,6 +27,8 @@ class HomePage extends React.Component {
                     <Link component={RouterLink} to="/add_upto20">
                       Numbers up to 20
                     </Link>
+                  </Grid>
+                  <Grid item xs>
                     <Link component={RouterLink} to="/add_mn_upto20">
                       Missing numbers up to 20
                     </Link>
@@ -46,6 +48,8 @@ class HomePage extends React.Component {
                     <Link component={RouterLink} to="/subtract_upto20">
                       Numbers up to 20
                     </Link>
+                  </Grid>
+                  <Grid item xs>
                     <Link component={RouterLink} to="/subtract_mn_upto20">
                       Missing numbers up to 20
                     </Link>
