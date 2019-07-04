@@ -186,14 +186,37 @@ class ExamGenerator:
             print("Will draw text horizontally @", x, y)
             text = self.horizontalExpand(text)
             width = self.stringWidth(text, template['font_size'])
-            parts = text.split('___')
+            if 'x' in text:
+                sign = '___'
+            elif 'o' in text:
+                sign = 'o'
+            else:
+                sign = '___'
+            parts = text.split(sign)
             print('Spliting horizontal: ', parts)
             my_canvas.drawString(x, y, parts[0])
             start_x = x + self.stringWidth(parts[0], template['font_size'])
             margin=-0.1*inch
             rect_width = 0.55*inch
             rect_height = 0.55*inch
-            my_canvas.roundRect(start_x+margin, y - 0.2*inch, rect_width, rect_height, 0.09*inch)
+            
+            rect_y = y - 0.2*inch
+            stroke = 0.09*inch
+            if 'o' in text:
+                margin = 0.2*inch
+                rect_width = 0.35*inch
+                rect_height = 0.35*inch
+                rect_y = y - 0.1*inch
+            rect_x = start_x+margin
+            
+            print("Rect dimension: %d %d %d %d "%(rect_width,rect_height,rect_x,rect_y))
+
+            if 'o' in text:
+                # Reuse the dimention of the rect.
+                my_canvas.roundRect(rect_x, rect_y, rect_width, rect_height, stroke)
+                #my_canvas.circle(rect_x + rect_width / 2, rect_y+rect_height/2, rect_width/4)
+            else:
+                my_canvas.roundRect(rect_x, rect_y, rect_width, rect_height, stroke)
             start_x = start_x + rect_width + 2*margin
             my_canvas.drawString(start_x, y, parts[1])
 
@@ -273,6 +296,11 @@ if __name__ == "__main__":
         '"25+12=x", "26-1=x", "27+x=99", "28+x=99", "x+29=23", "30+22=x"'
         '], "template":"horizontal"}'
         )
-    print(test_case2)
-    gen.generate(test_case)
+    test_case3 = ('{"equations":['
+        '"1o12", "2o1", "3o99", "4o99", "5o23", "6o6",'
+        '"7o12", "8o2", "9o99", "10o99", "11o23", "12o22"'
+        '], "template":"horizontal"}'
+        )
+    print(test_case3)
+    gen.generate(test_case3)
 
