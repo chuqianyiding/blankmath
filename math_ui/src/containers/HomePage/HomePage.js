@@ -33,6 +33,11 @@ class HomePage extends React.Component {
                       Missing numbers up to 20
                     </Link>
                   </Grid>
+                  <Grid item xs>
+                    <Link component={RouterLink} to="/add_upto40">
+                      Numbers up to 40
+                    </Link>
+                  </Grid>
                 </Grid>
               </Grid>
             </Paper>
