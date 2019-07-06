@@ -8,6 +8,7 @@ import HomePage from "../HomePage";
 import AdditionUpto20Page from "../../containers/AdditionUpto20";
 import GreatThanLessThanPage from "../../containers/GreaterThanLessThan";
 import AdditionUpto40Page from "../../containers/AdditionUpto40";
+import SubtractionUpto40Page from "../../containers/SubtractionUpto40";
 import "./App.scss";
 
 class App extends Component {
@@ -34,6 +35,7 @@ class App extends Component {
             component={GreatThanLessThanPage}
           />
           <Route path="/add_upto40" component={AdditionUpto40Page} />
+          <Route path="/subtract_upto40" component={SubtractionUpto40Page} />
         </Switch>
       </Container>
     );
