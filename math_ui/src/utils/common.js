@@ -23,3 +23,13 @@ export const pickRandomString = (arr, count) => {
   }
   return result;
 };
+
+export const generateThreeNumberTemplate = (arr, sign) => {
+  const result = arr.map(item => {
+    return `${item[0][0]}${sign}${item[0][1]}${sign}${item[0][2]}=${
+      item[0][3]
+    }`;
+  });
+
+  return result;
+};
