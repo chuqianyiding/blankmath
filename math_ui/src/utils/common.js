@@ -26,9 +26,7 @@ export const pickRandomString = (arr, count) => {
 
 export const generateThreeNumberTemplate = (arr, sign) => {
   const result = arr.map(item => {
-    return `${item[0][0]}${sign}${item[0][1]}${sign}${item[0][2]}=${
-      item[0][3]
-    }`;
+    return `${item[0]}${sign}${item[1]}${sign}${item[2]}=${item[3]}`;
   });
 
   return result;
