@@ -1,44 +1,42 @@
 // return an array ["5o10", ""]
 
-import { pickRandomString } from "./common";
-
-const generateFullArr = digitValue => {
+export const generateData = (digitValue, count) => {
   const result = [];
+  let range = 10;
 
   switch (digitValue) {
     case "1d":
-      for (let i = 0; i <= 9; i++)
-        for (let j = 0; j <= 9; j++) {
-          result.push(`${i}o${j}`);
-        }
+      range = 10;
       break;
     case "2d":
-      for (let i = 0; i <= 99; i++)
-        for (let j = 0; j <= 99; j++) {
-          result.push(`${i}o${j}`);
-        }
+      range = 100;
       break;
     case "3d":
-      for (let i = 0; i <= 999; i++)
-        for (let j = 0; j <= 999; j++) {
-          result.push(`${i}o${j}`);
-        }
+      range = 1000;
       break;
     case "l20":
-      for (let i = 0; i <= 20; i++)
-        for (let j = 0; j <= 20; j++) {
-          result.push(`${i}o${j}`);
-        }
+      range = 20;
       break;
     default:
       break;
   }
 
-  return result;
-};
+  const set = new Set();
 
-export const generateData = (digitValue, count) => {
-  const fullArr = generateFullArr(digitValue);
-  const randomArr = pickRandomString(fullArr, count);
-  return randomArr;
+  let c = 0;
+
+  while (c < count) {
+    const a1 = Math.floor(Math.random() * range);
+    const a2 = Math.floor(Math.random() * range);
+
+    const hash = `${a1},${a2}`;
+
+    if (!set.has(hash)) {
+      set.add(hash);
+      result.push(`${a1}o${a2}`);
+      c++;
+    }
+  }
+
+  return result;
 };

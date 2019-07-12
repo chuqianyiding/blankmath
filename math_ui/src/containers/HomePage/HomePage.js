@@ -38,6 +38,11 @@ class HomePage extends React.Component {
                       Numbers up to 40
                     </Link>
                   </Grid>
+                  <Grid item xs>
+                    <Link component={RouterLink} to="/add_three_numbers">
+                      Add three numbers
+                    </Link>
+                  </Grid>
                 </Grid>
               </Grid>
             </Paper>

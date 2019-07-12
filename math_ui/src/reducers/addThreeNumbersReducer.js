@@ -2,17 +2,17 @@ import * as types from "../constants/actionTypes";
 
 const initialState = {
   problemNumber: "10",
-  digitNumber: "l20"
+  digitNumber: "1d"
 };
 
-const greaterThanLessThanData = (state = initialState, action) => {
+const addThreeNumbersData = (state = initialState, action) => {
   switch (action.type) {
-    case types.UPDATE_PROBLEM_NUMBER_GL:
+    case types.UPDATE_PROBLEM_NUMBER_ADDTHREE:
       return {
         ...state,
         problemNumber: action.payload
       };
-    case types.UPDATE_NUMBER_OF_DIGITS_GL:
+    case types.UPDATE_NUMBER_OF_DIGITS_ADDTHREE:
       return {
         ...state,
         digitNumber: action.payload
@@ -22,4 +22,4 @@ const greaterThanLessThanData = (state = initialState, action) => {
   }
 };
 
-export default greaterThanLessThanData;
+export default addThreeNumbersData;
