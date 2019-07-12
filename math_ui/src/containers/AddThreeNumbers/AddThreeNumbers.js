@@ -29,7 +29,8 @@ class AddThreeNumbersPage extends React.Component {
 
     axios
       .post(config.PDFGeneratorEndpoint, {
-        equations: problems
+        equations: problems,
+        template:"3num"
       })
       .then(resp => {
         window.location.href = resp.data;
