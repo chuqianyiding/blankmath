@@ -4,7 +4,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlus,
   faMinus,
-  faGreaterThanEqual
+  faGreaterThanEqual,
+  faTimes,
+  faDivide
 } from "@fortawesome/free-solid-svg-icons";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
@@ -85,6 +87,29 @@ class HomePage extends React.Component {
                       Greater, equal or less
                     </Link>
                   </Grid>
+                </Grid>
+              </Grid>
+            </Paper>
+          </Grid>
+          <Grid item xs={4}>
+            <Paper className="paper-container">
+              <Grid container spacing={24}>
+                <Grid item>
+                  <FontAwesomeIcon icon={faTimes} size="3x" />
+                </Grid>
+                <Grid item xs>
+                  <Link component={RouterLink} to="/multiply_mn_upto10">
+                    Missing numbers up to 10
+                  </Link>
+                </Grid>
+              </Grid>
+            </Paper>
+          </Grid>
+          <Grid item xs={4}>
+            <Paper className="paper-container">
+              <Grid container spacing={24}>
+                <Grid item>
+                  <FontAwesomeIcon icon={faDivide} size="3x" />
                 </Grid>
               </Grid>
             </Paper>
