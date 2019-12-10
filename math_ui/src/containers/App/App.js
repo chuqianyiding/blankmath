@@ -38,7 +38,7 @@ class App extends Component {
           />
           <Route path="/add_upto40" component={AdditionUpto40Page} />
           <Route path="/subtract_upto40" component={SubtractionUpto40Page} />
-          <Route path="/add_three_numbers" component={MultiplicationMNUpto10} />
+          <Route path="/add_three_numbers" component={AddThreeNumbersPage} />
           <Route
             exact
             path="/multiply_mn_upto10"
