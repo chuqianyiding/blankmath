@@ -4,13 +4,28 @@ import PropTypes from "prop-types";
 import ProblemNumber from "../../components/ProblemNumber";
 import { updateProblemNumber } from "../../actions/multiplicationMNUpto10Action";
 import Button from "@material-ui/core/Button";
+import { generateMultiplicationMN } from "../../utils/multiplicationMNGenerator";
+import axios from "axios";
+import config from "../../config.json";
+import * as directions from "../../constants/directions";
 
 function MultiplicationMNUpto10({ problemValue, updateProblemNumber }) {
   const handleProblemNumberChange = event => {
     updateProblemNumber(event.target.value);
   };
 
-  const handleClickCreate = () => {};
+  const handleClickCreate = () => {
+    const problems = generateMultiplicationMN(parseInt(problemValue, 10));
+
+    axios
+      .post(config.PDFGeneratorEndpoint, {
+        equations: problems,
+        template: directions.HORIZONTAL
+      })
+      .then(resp => {
+        window.location.href = resp.data;
+      });
+  };
   return (
     <>
       <div className="mt-4">
