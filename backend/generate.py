@@ -9,6 +9,27 @@ from reportlab.pdfbase.pdfmetrics import stringWidth
 class ExamGenerator:
 
     LAYOUTS={
+        "3num20":{
+            "block_width":(3.6*inch),
+            "block_height":0.9*inch,
+            "margin":0.6*inch,
+            "y_top":9.5*inch,
+            "font_size":25
+            },
+        "3num30":{
+            "block_width":(2.5*inch),
+            "block_height":0.9*inch,
+            "margin":0.5*inch,
+            "y_top":9.5*inch,
+            "font_size":15
+            },
+        "3num50":{
+            "block_width":(2.5*inch),
+            "block_height":0.65*inch,
+            "margin":0.5*inch,
+            "y_top":9.5*inch,
+            "font_size":15
+            },
         "horizontal20":{
             "block_width":(3.6*inch),
             "block_height":0.9*inch,
@@ -103,6 +124,13 @@ class ExamGenerator:
                     template_name += "52"
                 else:
                     template_name += "30"
+            elif template_name == "3num":
+                if numEquations > 30:
+                    template_name += "50"
+                elif numEquations > 20:
+                    template_name += "30"
+                else:
+                    template_name += "20"
 
         return (template_name, self.LAYOUTS[template_name])
 
@@ -162,6 +190,8 @@ class ExamGenerator:
                 result = result + '___'
             else:
                 result = result + char
+        result = result.replace('*', '×')
+        result = result.replace('/', '÷')
         return result
 
     def verticalExpand(self, text):
@@ -179,10 +209,12 @@ class ExamGenerator:
             else:
                 result = result + char
 
+        result = result.replace('*', '×')
+        result = result.replace('/', '÷')
         return result
 
     def drawEquation(self, template_name, my_canvas, text, x, y, template):
-        if 'horizontal' in template_name:
+        if 'horizontal' in template_name or '3num' in template_name:
             print("Will draw text horizontally @", x, y)
             text = self.horizontalExpand(text)
             width = self.stringWidth(text, template['font_size'])
@@ -301,6 +333,16 @@ if __name__ == "__main__":
         '"7o12", "8o2", "9o99", "10o99", "11o23", "12o22"'
         '], "template":"horizontal"}'
         )
-    print(test_case3)
-    gen.generate(test_case3)
+    test_case4 = ('{"equations":['
+        '"1*12/55=x", "12-11-11=x", "3+x=99", "4+x=99", "x+5=23", "6+22+11=x",'
+        '"1+12+55=x", "12-11-11=x", "3+x=99", "4+x=99", "x+5=23", "6+22+11=x",'
+        '"1+12+55=x", "12-11-11=x", "3+x=99", "4+x=99", "x+5=23", "6+22+11=x",'
+        '"1+12+55=x", "12-11-11=x", "3+x=99", "4+x=99", "x+5=23", "6+22+11=x",'
+        '"1+12+55=x", "12-11-11=x", "3+x=99", "4+x=99", "x+5=23", "6+22+11=x",'
+        '"1+12+55=x", "12-11-11=x", "3+x=99", "4+x=99", "x+5=23", "6+22+11=x",'
+        '"7+12=x", "8-1=x", "9+x=99", "10+x=99", "x+11=23", "12+22=x"'
+        '], "template":"3num"}'
+        )
+    #print(test_case4)
+    gen.generate(test_case4)
 
