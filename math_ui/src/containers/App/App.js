@@ -11,12 +11,14 @@ import AdditionUpto40Page from "../AdditionUpto40";
 import SubtractionUpto40Page from "../SubtractionUpto40";
 import AddThreeNumbersPage from "../AddThreeNumbers";
 import MultiplicationMNUpto10 from "../MultiplicationMissingNumberUpto10";
+import Header from "../../components/Header";
 import "./App.scss";
 
 class App extends Component {
   render() {
     return (
       <Container>
+        <Header />
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/add_upto20" component={AdditionUpto20Page} />
