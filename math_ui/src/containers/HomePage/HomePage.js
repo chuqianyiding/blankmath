@@ -26,7 +26,7 @@ class HomePage extends React.Component {
             <div className="d-md-none d-lg-block">
               <li className="bm-text-24">Printable in PDF format</li>
             </div>
-            <div className="d-none d-md-block .d-lg-none">
+            <div className="d-none d-md-block d-lg-none">
               <li className="bm-text-24">Printable</li>
             </div>
             <li className="bm-text-24">100% free</li>
