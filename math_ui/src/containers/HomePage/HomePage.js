@@ -12,12 +12,29 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Link from "@material-ui/core/Link";
 import { Link as RouterLink } from "react-router-dom";
+import bee from "../../img/bee-705412.svg";
 
 class HomePage extends React.Component {
   render() {
     return (
-      <React.Fragment>
-        <Grid container spacing={24}>
+      <>
+        <div className="position-relative bm-bee-container">
+          <img src={bee} alt="bee" />
+        </div>
+        <div className="bm-bullet-container">
+          <ul>
+            <div className="d-md-none d-lg-block">
+              <li className="bm-text-24">Printable in PDF format</li>
+            </div>
+            <div className="d-none d-md-block .d-lg-none">
+              <li className="bm-text-24">Printable</li>
+            </div>
+            <li className="bm-text-24">100% free</li>
+            <li className="bm-text-24">Open source</li>
+          </ul>
+        </div>
+
+        {/* <Grid container spacing={24}>
           <Grid item xs={4}>
             <Paper className="paper-container">
               <Grid container spacing={24}>
@@ -114,8 +131,8 @@ class HomePage extends React.Component {
               </Grid>
             </Paper>
           </Grid>
-        </Grid>
-      </React.Fragment>
+        </Grid> */}
+      </>
     );
   }
 }
