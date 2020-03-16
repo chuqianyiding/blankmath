@@ -13,7 +13,76 @@ import Grid from "@material-ui/core/Grid";
 import Link from "@material-ui/core/Link";
 import { Link as RouterLink } from "react-router-dom";
 import bee from "../../img/bee-705412.svg";
+import Card from "../../components/Card";
 
+const cardData = [
+  {
+    cardKey: "additionCard",
+    sign: ["plus"],
+    title: "Addition",
+    subtitle: ["12 + 9 = ?", "2 + 8 = ?"]
+  },
+  {
+    cardKey: "mnAdditionCard",
+    sign: ["plus"],
+    title: "Missing Number",
+    subtitle: ["7 + ? = 15", "? + 3 = 12"]
+  },
+  {
+    cardKey: "tnpAdditionCard",
+    sign: ["plus"],
+    title: "Three Number",
+    subtitle: ["7 + 8 + 12 = ?", "2 + 3 + 4 = ?"]
+  },
+  {
+    cardKey: "minusCard",
+    sign: ["minus"],
+    title: "Minus",
+    subtitle: ["12 - 9 = ?", "8 - 2 = ?"]
+  },
+  {
+    cardKey: "mnMinusCard",
+    sign: ["minus"],
+    title: "Missing Number",
+    subtitle: ["7 - ? = 5", "? - 3 = 12"]
+  },
+  {
+    cardKey: "tnpAdditionMinusCard",
+    sign: ["plus", "minus"],
+    title: "Three Number",
+    subtitle: ["17 - 8 + 7 = ?", "8 + 3 - 4 = ?"]
+  },
+  {
+    cardKey: "timesCard",
+    sign: ["times"],
+    title: "Multiplication",
+    subtitle: ["8 * 9 = ?", "2 * 3 = ?"]
+  },
+  {
+    cardKey: "mnTimesCard",
+    sign: ["times"],
+    title: "Missing Number",
+    subtitle: ["8 * ? = 72", "2 * ? = 6"]
+  },
+  {
+    cardKey: "comparisionCard",
+    sign: ["greaterThan", "lessThan"],
+    title: "Comparision",
+    subtitle: ["7 > 8 or 7 < 8 ?", "12 > 2 or 12 < 2 ?"]
+  },
+  {
+    cardKey: "divisionCard",
+    sign: ["divide"],
+    title: "Division",
+    subtitle: ["8 / 2 = ?", "12 / 4 = ?"]
+  },
+  {
+    cardKey: "mnDivisionCard",
+    sign: ["divide"],
+    title: "Missing Number",
+    subtitle: ["8 / ? = 2", "12 / ? = 3"]
+  }
+];
 class HomePage extends React.Component {
   render() {
     return (
@@ -34,104 +103,21 @@ class HomePage extends React.Component {
           </ul>
         </div>
 
-        {/* <Grid container spacing={24}>
-          <Grid item xs={4}>
-            <Paper className="paper-container">
-              <Grid container spacing={24}>
-                <Grid item>
-                  <FontAwesomeIcon icon={faPlus} size="3x" />
-                </Grid>
-                <Grid item xs container direction="column" spacing={8}>
-                  <Grid item xs>
-                    <Link component={RouterLink} to="/add_upto20">
-                      Numbers up to 20
-                    </Link>
-                  </Grid>
-                  <Grid item xs>
-                    <Link component={RouterLink} to="/add_mn_upto20">
-                      Missing numbers up to 20
-                    </Link>
-                  </Grid>
-                  <Grid item xs>
-                    <Link component={RouterLink} to="/add_upto40">
-                      Numbers up to 40
-                    </Link>
-                  </Grid>
-                  <Grid item xs>
-                    <Link component={RouterLink} to="/add_three_numbers">
-                      Add three numbers
-                    </Link>
-                  </Grid>
-                </Grid>
-              </Grid>
-            </Paper>
-          </Grid>
-          <Grid item xs={4}>
-            <Paper className="paper-container">
-              <Grid container spacing={24}>
-                <Grid item>
-                  <FontAwesomeIcon icon={faMinus} size="3x" />
-                </Grid>
-                <Grid item xs container direction="column" spacing={8}>
-                  <Grid item xs>
-                    <Link component={RouterLink} to="/subtract_upto20">
-                      Numbers up to 20
-                    </Link>
-                  </Grid>
-                  <Grid item xs>
-                    <Link component={RouterLink} to="/subtract_mn_upto20">
-                      Missing numbers up to 20
-                    </Link>
-                  </Grid>
-                  <Grid item xs>
-                    <Link component={RouterLink} to="/subtract_upto40">
-                      Numbers up to 40
-                    </Link>
-                  </Grid>
-                </Grid>
-              </Grid>
-            </Paper>
-          </Grid>
-          <Grid item xs={4}>
-            <Paper className="paper-container">
-              <Grid container spacing={24}>
-                <Grid item>
-                  <FontAwesomeIcon icon={faGreaterThanEqual} size="3x" />
-                </Grid>
-                <Grid item xs container direction="column" spacing={8}>
-                  <Grid item xs>
-                    <Link component={RouterLink} to="/greater_than_less_than">
-                      Greater, equal or less
-                    </Link>
-                  </Grid>
-                </Grid>
-              </Grid>
-            </Paper>
-          </Grid>
-          <Grid item xs={4}>
-            <Paper className="paper-container">
-              <Grid container spacing={24}>
-                <Grid item>
-                  <FontAwesomeIcon icon={faTimes} size="3x" />
-                </Grid>
-                <Grid item xs>
-                  <Link component={RouterLink} to="/multiply_mn_upto10">
-                    Missing numbers up to 10
-                  </Link>
-                </Grid>
-              </Grid>
-            </Paper>
-          </Grid>
-          <Grid item xs={4}>
-            <Paper className="paper-container">
-              <Grid container spacing={24}>
-                <Grid item>
-                  <FontAwesomeIcon icon={faDivide} size="3x" />
-                </Grid>
-              </Grid>
-            </Paper>
-          </Grid>
-        </Grid> */}
+        <div className="mt-5 row row-cols-1 row-cols-sm-2 row-cols-md-3">
+          {cardData.map(item => (
+            <div
+              key={item.cardKey}
+              className="col d-flex justify-content-center bm-card-container"
+            >
+              <Card
+                key={item.cardKey}
+                sign={item.sign}
+                title={item.title}
+                subtitle={item.subtitle}
+              />
+            </div>
+          ))}
+        </div>
       </>
     );
   }
