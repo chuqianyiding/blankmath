@@ -3,7 +3,8 @@ export const cardData = [
     cardKey: "additionCard",
     sign: ["plus"],
     title: "Addition",
-    subtitle: ["12 + 9 = ?", "2 + 8 = ?"]
+    subtitle: ["12 + 9 = ?", "2 + 8 = ?"],
+    link: "/addition"
   },
   {
     cardKey: "mnAdditionCard",

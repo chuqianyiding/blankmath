@@ -30,27 +30,7 @@ const getSignIcon = sign => {
   }
 };
 
-const Card = ({ cardKey, sign, title, subtitle }) => {
-  //   return (
-  //     <div className="bm-card">
-  //       <div className="bm-sign-area position-absolute d-flex justify-content-center align-items-center">
-  //         <FontAwesomeIcon icon={faPlus} size="2x" />
-  //       </div>
-  //       <div className="bm-des-area position-absolute d-flex justify-content-center align-items-center">
-  //         <div className="flex-column">
-  //           <div className="bm-des-title d-flex justify-content-center">
-  //             Missing Number
-  //           </div>
-  //           <div className="d-flex justify-content-center">12 + 9 = ?</div>
-  //           <div className="d-flex justify-content-center">2 + 8 = ?</div>
-  //         </div>
-  //       </div>
-  //       <div className="bm-but-area position-absolute d-flex justify-content-center align-items-center">
-  //         <button className="bm-card-btn">Generate</button>
-  //       </div>
-  //     </div>
-  //   );
-
+const Card = ({ cardKey, sign, title, subtitle, onClick }) => {
   return (
     <div className="bm-card">
       <div className="bm-sign-area position-absolute d-flex justify-content-center align-items-center">
@@ -79,7 +59,9 @@ const Card = ({ cardKey, sign, title, subtitle }) => {
         </div>
       </div>
       <div className="bm-but-area position-absolute d-flex justify-content-center align-items-center">
-        <button className="bm-card-btn">Generate</button>
+        <button className="bm-card-btn" onClick={onClick}>
+          Generate
+        </button>
       </div>
     </div>
   );
@@ -89,7 +71,8 @@ Card.propTypes = {
   cardKey: PropTypes.string,
   sign: PropTypes.arrayOf(PropTypes.string),
   title: PropTypes.string,
-  subtitle: PropTypes.arrayOf(PropTypes.string)
+  subtitle: PropTypes.arrayOf(PropTypes.string),
+  onClick: PropTypes.func
 };
 
 export default Card;

@@ -1,8 +1,8 @@
 import React from "react";
 import "./HomePage.scss";
 import bee from "../../img/bee-705412.svg";
-import Card from "../../components/Card";
 import { cardData } from "../../constants/cardData";
+import Card from "../Card/Card";
 
 class HomePage extends React.Component {
   render() {
@@ -35,6 +35,7 @@ class HomePage extends React.Component {
                 sign={item.sign}
                 title={item.title}
                 subtitle={item.subtitle}
+                link={item.link}
               />
             </div>
           ))}

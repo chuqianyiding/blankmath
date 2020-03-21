@@ -12,6 +12,7 @@ import AdditionUpto40Page from "../AdditionUpto40";
 import SubtractionUpto40Page from "../SubtractionUpto40";
 import AddThreeNumbersPage from "../AddThreeNumbers";
 import MultiplicationMNUpto10 from "../MultiplicationMissingNumberUpto10";
+import AdditionPage from "../Addition";
 import Header from "../../components/Header";
 import "./App.scss";
 
@@ -50,6 +51,7 @@ const App = ({ history }) => {
           path="/multiply_mn_upto10"
           component={MultiplicationMNUpto10}
         />
+        <Route exact path="/addition" component={AdditionPage} />
       </Switch>
     </Container>
   );
