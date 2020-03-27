@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import TextField from "@material-ui/core/TextField";
@@ -10,47 +10,17 @@ const NumberRange = ({
   onFromChange,
   onToChange,
   fromValue,
-  toValue
+  toValue,
+  isFromValueError,
+  isToValueError
 }) => {
   const defaultHelperText = `${lower} <= number <= ${upper}`;
-  const [fromFieldError, setFromFieldError] = useState(false);
-  const [toFieldError, setToFieldError] = useState(false);
 
-  const handleFromChange = event => {
-    const value = event.target.value;
-    if (value >= lower && value <= upper && value < toValue) {
-      setFromFieldError(false);
-    } else {
-      setFromFieldError(true);
-    }
-    onFromChange(event);
-  };
+  const getFromHelperText = () =>
+    isFromValueError ? "invalid entry" : defaultHelperText;
 
-  const handleToChange = event => {
-    const value = event.target.value;
-    if (value >= lower && value <= upper && value > fromValue) {
-      setToFieldError(false);
-    } else {
-      setToFieldError(true);
-    }
-    onToChange(event);
-  };
-
-  const getFromHelperText = () => {
-    if (fromFieldError || fromValue >= toValue) {
-      return "invalid entry";
-    }
-
-    return defaultHelperText;
-  };
-
-  const getToHelperText = () => {
-    if (toFieldError || fromValue >= toValue) {
-      return "invalid entry";
-    }
-
-    return defaultHelperText;
-  };
+  const getToHelperText = () =>
+    isToValueError ? "invalid entry" : defaultHelperText;
 
   return (
     <div className="mt-5">
@@ -62,13 +32,13 @@ const NumberRange = ({
               id="outlined-number"
               label="From"
               type="number"
-              error={fromFieldError}
+              error={isFromValueError}
               InputLabelProps={{
                 shrink: true
               }}
               variant="outlined"
               helperText={getFromHelperText()}
-              onChange={handleFromChange}
+              onChange={onFromChange}
               value={fromValue}
             />
           </div>
@@ -77,13 +47,13 @@ const NumberRange = ({
               id="outlined-number"
               label="To"
               type="number"
-              error={toFieldError}
+              error={isToValueError}
               InputLabelProps={{
                 shrink: true
               }}
               variant="outlined"
               helperText={getToHelperText()}
-              onChange={handleToChange}
+              onChange={onToChange}
               value={toValue}
             />
           </div>
@@ -99,7 +69,9 @@ NumberRange.defaultProps = {
   onFromChange: () => {},
   onToChange: () => {},
   fromValue: 0,
-  toValue: 20
+  toValue: 20,
+  isFromValueError: false,
+  isToValueError: false
 };
 
 NumberRange.propTypes = {
@@ -108,7 +80,9 @@ NumberRange.propTypes = {
   fromValue: PropTypes.number,
   toValue: PropTypes.number,
   onFromChange: PropTypes.func,
-  onToChange: PropTypes.func
+  onToChange: PropTypes.func,
+  isFromValueError: PropTypes.bool,
+  isToValueError: PropTypes.bool
 };
 
 export default NumberRange;
