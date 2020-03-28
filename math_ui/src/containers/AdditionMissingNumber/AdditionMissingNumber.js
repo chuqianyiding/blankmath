@@ -16,7 +16,8 @@ import FormGroup from "@material-ui/core/FormGroup";
 import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 import * as filters from "../../constants/filters";
-import { generateAddition } from "../../utils/additionGenerator";
+import { generateAdditionMN } from "../../utils/additionMNGenerator";
+import { disableCreateBtn } from "../../selectors/AdditionMNSelector";
 import axios from "axios";
 import config from "../../config.json";
 
@@ -31,13 +32,11 @@ const AdditionMNpage = ({
   problemDirection,
   updateProblemNumber,
   updateRestrictions,
+  disableCreateBtn,
   restrictionsCheckedArr
 }) => {
   const restrictions = [
-    {
-      key: filters.SMALL_ADDEND_LESSTHAN_10,
-      label: "Smaller addend less than 10"
-    }
+    { key: filters.SUBTRAHEND_LESSTHAN_10, label: "Subtrahend less than 10" }
   ];
 
   const handleFromChange = event => {
@@ -53,9 +52,9 @@ const AdditionMNpage = ({
   };
 
   const handleClickCreate = () => {
-    const problems = generateAddition(
-      fromValue,
-      toValue,
+    const problems = generateAdditionMN(
+      parseInt(fromValue, 10),
+      parseInt(toValue, 10),
       parseInt(problemValue, 10),
       restrictionsCheckedArr
     );
@@ -114,7 +113,12 @@ const AdditionMNpage = ({
       </div>
       <div className="mt-4">
         {" "}
-        <Button variant="contained" color="primary" onClick={handleClickCreate}>
+        <Button
+          variant="contained"
+          color="primary"
+          disabled={disableCreateBtn}
+          onClick={handleClickCreate}
+        >
           Create
         </Button>
       </div>
@@ -125,8 +129,8 @@ const AdditionMNpage = ({
 AdditionMNpage.propTypes = {
   problemValue: PropTypes.string,
   problemDirection: PropTypes.string,
-  fromValue: PropTypes.number,
-  toValue: PropTypes.number,
+  fromValue: PropTypes.string,
+  toValue: PropTypes.string,
   updateFromValue: PropTypes.func,
   updateToValue: PropTypes.func,
   isFromValueError: PropTypes.bool,
@@ -134,7 +138,8 @@ AdditionMNpage.propTypes = {
   updateProblemNumber: PropTypes.func,
   updateProblemDirection: PropTypes.func,
   restrictionsCheckedArr: PropTypes.array,
-  updateRestrictions: PropTypes.func
+  updateRestrictions: PropTypes.func,
+  disableCreateBtn: PropTypes.bool
 };
 
 const mapStateToProps = state => ({
@@ -144,7 +149,8 @@ const mapStateToProps = state => ({
   toValue: state.additionMNData.toValue,
   isFromValueError: state.additionMNData.isFromValueError,
   isToValueError: state.additionMNData.isToValueError,
-  restrictionsCheckedArr: state.additionMNData.restrictionsChecked
+  restrictionsCheckedArr: state.additionMNData.restrictionsChecked,
+  disableCreateBtn: disableCreateBtn(state)
 });
 
 const mapDispatchToProps = {

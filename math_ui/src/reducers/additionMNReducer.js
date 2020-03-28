@@ -1,10 +1,12 @@
 import * as types from "../constants/actionTypes";
 import { LOWER_RANGE, UPPER_RANGE } from "../constants/ranges";
+import * as directions from "../constants/directions";
 
 const initialState = {
   problemNumber: "20",
-  fromValue: 0,
-  toValue: 20,
+  problemDirection: directions.HORIZONTAL,
+  fromValue: "0",
+  toValue: "20",
   isFromValueError: false,
   isToValueError: false,
   restrictionsChecked: []

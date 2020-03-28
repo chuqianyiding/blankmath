@@ -7,12 +7,12 @@ export const updateProblemNumber = value => ({
 
 export const updateFromValue = value => ({
   type: types.UPDATE_FROM_VALUE_ADDITION_MN,
-  payload: parseInt(value, 10)
+  payload: value
 });
 
 export const updateToValue = value => ({
   type: types.UPDATE_TO_VALUE_ADDITION_MN,
-  payload: parseInt(value, 10)
+  payload: value
 });
 
 export const updateRestrictions = (checkboxName, value) => ({

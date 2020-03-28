@@ -5,8 +5,8 @@ import { LOWER_RANGE, UPPER_RANGE } from "../constants/ranges";
 const initialState = {
   problemNumber: "20",
   problemDirection: directions.VERTICAL,
-  fromValue: 0,
-  toValue: 20,
+  fromValue: "0",
+  toValue: "20",
   isFromValueError: false,
   isToValueError: false,
   restrictionsChecked: []

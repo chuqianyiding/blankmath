@@ -22,6 +22,7 @@ import Button from "@material-ui/core/Button";
 import * as directions from "../../constants/directions";
 import * as filters from "../../constants/filters";
 import { generateAddition } from "../../utils/additionGenerator";
+import { disableCreateBtn } from "../../selectors/AdditionSelector";
 import axios from "axios";
 import config from "../../config.json";
 
@@ -37,6 +38,7 @@ const Additionpage = ({
   updateProblemNumber,
   updateProblemDirection,
   updateRestrictions,
+  disableCreateBtn,
   restrictionsCheckedArr
 }) => {
   const restrictions = [
@@ -64,8 +66,8 @@ const Additionpage = ({
 
   const handleClickCreate = () => {
     const problems = generateAddition(
-      fromValue,
-      toValue,
+      parseInt(fromValue, 10),
+      parseInt(toValue, 10),
       parseInt(problemValue, 10),
       restrictionsCheckedArr
     );
@@ -153,7 +155,12 @@ const Additionpage = ({
       </div>
       <div className="mt-4">
         {" "}
-        <Button variant="contained" color="primary" onClick={handleClickCreate}>
+        <Button
+          variant="contained"
+          color="primary"
+          disabled={disableCreateBtn}
+          onClick={handleClickCreate}
+        >
           Create
         </Button>
       </div>
@@ -164,8 +171,8 @@ const Additionpage = ({
 Additionpage.propTypes = {
   problemValue: PropTypes.string,
   problemDirection: PropTypes.string,
-  fromValue: PropTypes.number,
-  toValue: PropTypes.number,
+  fromValue: PropTypes.string,
+  toValue: PropTypes.string,
   updateFromValue: PropTypes.func,
   updateToValue: PropTypes.func,
   isFromValueError: PropTypes.bool,
@@ -173,7 +180,8 @@ Additionpage.propTypes = {
   updateProblemNumber: PropTypes.func,
   updateProblemDirection: PropTypes.func,
   restrictionsCheckedArr: PropTypes.array,
-  updateRestrictions: PropTypes.func
+  updateRestrictions: PropTypes.func,
+  disableCreateBtn: PropTypes.bool
 };
 
 const mapStateToProps = state => ({
@@ -183,7 +191,8 @@ const mapStateToProps = state => ({
   toValue: state.additionData.toValue,
   isFromValueError: state.additionData.isFromValueError,
   isToValueError: state.additionData.isToValueError,
-  restrictionsCheckedArr: state.additionData.restrictionsChecked
+  restrictionsCheckedArr: state.additionData.restrictionsChecked,
+  disableCreateBtn: disableCreateBtn(state)
 });
 
 const mapDispatchToProps = {

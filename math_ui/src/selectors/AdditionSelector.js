@@ -1,3 +1,9 @@
-const isCreatBtnActive = addendCheckedArr => addendCheckedArr.length > 0;
+export const selectAdditionData = state => state.additionData;
 
-export { isCreatBtnActive };
+export const disableCreateBtn = state => {
+  const { isFromValueError, isToValueError } = selectAdditionData(state);
+
+  return isFromValueError || isToValueError;
+};
+
+export default { selectAdditionData, disableCreateBtn };
