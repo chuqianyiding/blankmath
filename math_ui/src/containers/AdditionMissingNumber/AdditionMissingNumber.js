@@ -4,28 +4,23 @@ import PropTypes from "prop-types";
 import NumberRange from "../../components/NumberRange";
 import {
   updateProblemNumber,
-  updateProblemDirection,
   updateFromValue,
   updateToValue,
   updateRestrictions
-} from "../../actions/additionActions";
+} from "../../actions/additionMNActions";
 import { LOWER_RANGE, UPPER_RANGE } from "../../constants/ranges";
 import ProblemNumber from "../../components/ProblemNumber";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
-import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
 import FormGroup from "@material-ui/core/FormGroup";
 import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
-import * as directions from "../../constants/directions";
 import * as filters from "../../constants/filters";
 import { generateAddition } from "../../utils/additionGenerator";
 import axios from "axios";
 import config from "../../config.json";
 
-const Additionpage = ({
+const AdditionMNpage = ({
   fromValue,
   toValue,
   updateFromValue,
@@ -35,7 +30,6 @@ const Additionpage = ({
   problemValue,
   problemDirection,
   updateProblemNumber,
-  updateProblemDirection,
   updateRestrictions,
   restrictionsCheckedArr
 }) => {
@@ -56,10 +50,6 @@ const Additionpage = ({
 
   const handleProblemNumberChange = event => {
     updateProblemNumber(event.target.value);
-  };
-
-  const handleProblemDirectionChange = event => {
-    updateProblemDirection(event.target.value);
   };
 
   const handleClickCreate = () => {
@@ -105,35 +95,6 @@ const Additionpage = ({
       </div>
 
       <div className="mt-4">
-        <FormControl component="fieldset" className="sub-form-control">
-          <FormLabel component="legend">Write the problems</FormLabel>
-          <RadioGroup
-            aria-label="direction of problems"
-            name="direction of problems"
-            value={problemDirection}
-            onChange={handleProblemDirectionChange}
-          >
-            <FormControlLabel
-              key={directions.HORIZONTAL}
-              value={directions.HORIZONTAL}
-              control={<Radio color="primary" />}
-              label={directions.HORIZONTAL}
-              labelPlacement="start"
-              className="sub-form-control-label"
-            />
-            <FormControlLabel
-              key={directions.VERTICAL}
-              value={directions.VERTICAL}
-              control={<Radio color="primary" />}
-              label={directions.VERTICAL}
-              labelPlacement="start"
-              className="sub-form-control-label"
-            />
-          </RadioGroup>
-        </FormControl>
-      </div>
-
-      <div className="mt-4">
         <FormLabel component="legend">Restrictions</FormLabel>
         <FormGroup>
           {restrictions.map(item => (
@@ -161,7 +122,7 @@ const Additionpage = ({
   );
 };
 
-Additionpage.propTypes = {
+AdditionMNpage.propTypes = {
   problemValue: PropTypes.string,
   problemDirection: PropTypes.string,
   fromValue: PropTypes.number,
@@ -177,21 +138,20 @@ Additionpage.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  problemValue: state.additionData.problemNumber,
-  problemDirection: state.additionData.problemDirection,
-  fromValue: state.additionData.fromValue,
-  toValue: state.additionData.toValue,
-  isFromValueError: state.additionData.isFromValueError,
-  isToValueError: state.additionData.isToValueError,
-  restrictionsCheckedArr: state.additionData.restrictionsChecked
+  problemValue: state.additionMNData.problemNumber,
+  problemDirection: state.additionMNData.problemDirection,
+  fromValue: state.additionMNData.fromValue,
+  toValue: state.additionMNData.toValue,
+  isFromValueError: state.additionMNData.isFromValueError,
+  isToValueError: state.additionMNData.isToValueError,
+  restrictionsCheckedArr: state.additionMNData.restrictionsChecked
 });
 
 const mapDispatchToProps = {
   updateProblemNumber,
-  updateProblemDirection,
   updateFromValue,
   updateToValue,
   updateRestrictions
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Additionpage);
+export default connect(mapStateToProps, mapDispatchToProps)(AdditionMNpage);

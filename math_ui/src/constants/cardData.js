@@ -10,7 +10,8 @@ export const cardData = [
     cardKey: "mnAdditionCard",
     sign: ["plus"],
     title: "Missing Number",
-    subtitle: ["7 + ? = 15", "? + 3 = 12"]
+    subtitle: ["7 + ? = 15", "? + 3 = 12"],
+    link: "/additionmn"
   },
   {
     cardKey: "tnpAdditionCard",

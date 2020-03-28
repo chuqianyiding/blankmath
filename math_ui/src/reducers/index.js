@@ -7,6 +7,7 @@ import subtractionUpto40Data from "./subtractionUpto40Reducer";
 import addThreeNumbersData from "./addThreeNumbersReducer";
 import multiplicationMNUpto10Data from "./multiplicationMNUpto10Reducer";
 import additionData from "./additionReducer";
+import additionMNData from "./additionMNReducer";
 
 const reducers = combineReducers({
   subtractionUpto20Data,
@@ -16,7 +17,8 @@ const reducers = combineReducers({
   subtractionUpto40Data,
   addThreeNumbersData,
   multiplicationMNUpto10Data,
-  additionData
+  additionData,
+  additionMNData
 });
 
 export default reducers;
