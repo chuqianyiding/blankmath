@@ -6,9 +6,7 @@ import SubtractionUpto20Page from "../SubtractionUpto20";
 import SubtractionMNUpto20 from "../SubtractionMissingNumberUpto20";
 import AdditionMNUpto20 from "../AdditionMissingNumberUpto20";
 import HomePage from "../HomePage";
-import AdditionUpto20Page from "../AdditionUpto20";
 import GreatThanLessThanPage from "../GreaterThanLessThan";
-import AdditionUpto40Page from "../AdditionUpto40";
 import SubtractionUpto40Page from "../SubtractionUpto40";
 import AddThreeNumbersPage from "../AddThreeNumbers";
 import MultiplicationMNUpto10 from "../MultiplicationMissingNumberUpto10";
@@ -26,7 +24,6 @@ const App = ({ history }) => {
       <Header onClickLogo={handleClickLogo} />
       <Switch>
         <Route exact path="/" component={HomePage} />
-        <Route path="/add_upto20" component={AdditionUpto20Page} />
         <Route
           exact
           path="/subtract_upto20"
@@ -43,7 +40,6 @@ const App = ({ history }) => {
           path="/greater_than_less_than"
           component={GreatThanLessThanPage}
         />
-        <Route path="/add_upto40" component={AdditionUpto40Page} />
         <Route path="/subtract_upto40" component={SubtractionUpto40Page} />
         <Route path="/add_three_numbers" component={AddThreeNumbersPage} />
         <Route
