@@ -21,6 +21,9 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 import * as directions from "../../constants/directions";
 import * as filters from "../../constants/filters";
+import { generateAddition } from "../../utils/additionGenerator";
+import axios from "axios";
+import config from "../../config.json";
 
 const Additionpage = ({
   fromValue,
@@ -59,7 +62,23 @@ const Additionpage = ({
     updateProblemDirection(event.target.value);
   };
 
-  const handleClickCreate = () => {};
+  const handleClickCreate = () => {
+    const problems = generateAddition(
+      fromValue,
+      toValue,
+      parseInt(problemValue, 10),
+      restrictionsCheckedArr
+    );
+
+    axios
+      .post(config.PDFGeneratorEndpoint, {
+        equations: problems,
+        template: problemDirection
+      })
+      .then(resp => {
+        window.location.href = resp.data;
+      });
+  };
 
   const handleRestrictionsCheckboxChange = name => event => {
     updateRestrictions(name, event.target.checked);
