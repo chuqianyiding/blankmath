@@ -8,7 +8,27 @@ const initialState = {
   fromValue: "0",
   toValue: "20",
   isFromValueError: false,
-  isToValueError: false
+  isToValueError: false,
+  restrictionsChecked: []
+};
+
+const updateRestrictions = (state, checkboxName, value) => {
+  const stateCopy = { ...state };
+  if (value) {
+    stateCopy.restrictionsChecked = stateCopy.restrictionsChecked.slice();
+    stateCopy.restrictionsChecked.push(checkboxName);
+  } else {
+    stateCopy.restrictionsChecked = stateCopy.restrictionsChecked.filter(
+      item => {
+        if (checkboxName === item) {
+          return false;
+        }
+
+        return true;
+      }
+    );
+  }
+  return stateCopy;
 };
 
 const getFormValueError = (state, value) => {
@@ -53,6 +73,12 @@ const additionData = (state = initialState, action) => {
         toValue: action.payload,
         isToValueError: getToValueError(state, action.payload)
       };
+    case types.UPDATE_RESTRICTION_ADDITION:
+      return updateRestrictions(
+        state,
+        action.payload.checkboxName,
+        action.payload.value
+      );
     default:
       return state;
   }

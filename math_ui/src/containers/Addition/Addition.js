@@ -6,9 +6,21 @@ import {
   updateProblemNumber,
   updateProblemDirection,
   updateFromValue,
-  updateToValue
+  updateToValue,
+  updateRestrictions
 } from "../../actions/additionActions";
 import { LOWER_RANGE, UPPER_RANGE } from "../../constants/ranges";
+import ProblemNumber from "../../components/ProblemNumber";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormControl from "@material-ui/core/FormControl";
+import FormLabel from "@material-ui/core/FormLabel";
+import Radio from "@material-ui/core/Radio";
+import RadioGroup from "@material-ui/core/RadioGroup";
+import FormGroup from "@material-ui/core/FormGroup";
+import Checkbox from "@material-ui/core/Checkbox";
+import Button from "@material-ui/core/Button";
+import * as directions from "../../constants/directions";
+import * as filters from "../../constants/filters";
 
 const Additionpage = ({
   fromValue,
@@ -16,14 +28,41 @@ const Additionpage = ({
   updateFromValue,
   updateToValue,
   isFromValueError,
-  isToValueError
+  isToValueError,
+  problemValue,
+  problemDirection,
+  updateProblemNumber,
+  updateProblemDirection,
+  updateRestrictions,
+  restrictionsCheckedArr
 }) => {
+  const restrictions = [
+    {
+      key: filters.SMALL_ADDEND_LESSTHAN_10,
+      label: "Smaller addend less than 10"
+    }
+  ];
+
   const handleFromChange = event => {
     updateFromValue(event.target.value);
   };
 
   const handleToChange = event => {
     updateToValue(event.target.value);
+  };
+
+  const handleProblemNumberChange = event => {
+    updateProblemNumber(event.target.value);
+  };
+
+  const handleProblemDirectionChange = event => {
+    updateProblemDirection(event.target.value);
+  };
+
+  const handleClickCreate = () => {};
+
+  const handleRestrictionsCheckboxChange = name => event => {
+    updateRestrictions(name, event.target.checked);
   };
 
   return (
@@ -38,6 +77,67 @@ const Additionpage = ({
         isFromValueError={isFromValueError}
         isToValueError={isToValueError}
       />
+
+      <div className="mt-5">
+        <ProblemNumber
+          problemValue={problemValue}
+          onProblemNumberChange={handleProblemNumberChange}
+        />
+      </div>
+
+      <div className="mt-4">
+        <FormControl component="fieldset" className="sub-form-control">
+          <FormLabel component="legend">Write the problems</FormLabel>
+          <RadioGroup
+            aria-label="direction of problems"
+            name="direction of problems"
+            value={problemDirection}
+            onChange={handleProblemDirectionChange}
+          >
+            <FormControlLabel
+              key={directions.HORIZONTAL}
+              value={directions.HORIZONTAL}
+              control={<Radio color="primary" />}
+              label={directions.HORIZONTAL}
+              labelPlacement="start"
+              className="sub-form-control-label"
+            />
+            <FormControlLabel
+              key={directions.VERTICAL}
+              value={directions.VERTICAL}
+              control={<Radio color="primary" />}
+              label={directions.VERTICAL}
+              labelPlacement="start"
+              className="sub-form-control-label"
+            />
+          </RadioGroup>
+        </FormControl>
+      </div>
+
+      <div className="mt-4">
+        <FormLabel component="legend">Restrictions</FormLabel>
+        <FormGroup>
+          {restrictions.map(item => (
+            <FormControlLabel
+              key={item.key}
+              control={
+                <Checkbox
+                  checked={restrictionsCheckedArr.includes(item.key)}
+                  onChange={handleRestrictionsCheckboxChange(item.key)}
+                  color="primary"
+                />
+              }
+              label={item.label}
+            />
+          ))}
+        </FormGroup>
+      </div>
+      <div className="mt-4">
+        {" "}
+        <Button variant="contained" color="primary" onClick={handleClickCreate}>
+          Create
+        </Button>
+      </div>
     </>
   );
 };
@@ -50,7 +150,11 @@ Additionpage.propTypes = {
   updateFromValue: PropTypes.func,
   updateToValue: PropTypes.func,
   isFromValueError: PropTypes.bool,
-  isToValueError: PropTypes.bool
+  isToValueError: PropTypes.bool,
+  updateProblemNumber: PropTypes.func,
+  updateProblemDirection: PropTypes.func,
+  restrictionsCheckedArr: PropTypes.array,
+  updateRestrictions: PropTypes.func
 };
 
 const mapStateToProps = state => ({
@@ -59,14 +163,16 @@ const mapStateToProps = state => ({
   fromValue: state.additionData.fromValue,
   toValue: state.additionData.toValue,
   isFromValueError: state.additionData.isFromValueError,
-  isToValueError: state.additionData.isToValueError
+  isToValueError: state.additionData.isToValueError,
+  restrictionsCheckedArr: state.additionData.restrictionsChecked
 });
 
 const mapDispatchToProps = {
   updateProblemNumber,
   updateProblemDirection,
   updateFromValue,
-  updateToValue
+  updateToValue,
+  updateRestrictions
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Additionpage);

@@ -75,10 +75,10 @@ NumberRange.defaultProps = {
 };
 
 NumberRange.propTypes = {
-  lower: PropTypes.number,
-  upper: PropTypes.number,
-  fromValue: PropTypes.number,
-  toValue: PropTypes.number,
+  lower: PropTypes.string,
+  upper: PropTypes.string,
+  fromValue: PropTypes.string,
+  toValue: PropTypes.string,
   onFromChange: PropTypes.func,
   onToChange: PropTypes.func,
   isFromValueError: PropTypes.bool,

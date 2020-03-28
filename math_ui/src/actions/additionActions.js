@@ -19,3 +19,8 @@ export const updateToValue = value => ({
   type: types.UPDATE_TO_VALUE_ADDITION,
   payload: value
 });
+
+export const updateRestrictions = (checkboxName, value) => ({
+  type: types.UPDATE_RESTRICTION_ADDITION,
+  payload: { checkboxName, value }
+});

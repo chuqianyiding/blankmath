@@ -15,27 +15,25 @@ const problems = [
 
 const ProblemNumberComponent = ({ problemValue, onProblemNumberChange }) => {
   return (
-    <div className="mt-4">
-      <FormControl component="fieldset" className="sub-form-control">
-        <FormLabel component="legend">Number of Problems</FormLabel>
-        <RadioGroup
-          aria-label="number of problems"
-          name="number of problems"
-          value={problemValue}
-          onChange={onProblemNumberChange}
-        >
-          {problems.map(item => (
-            <FormControlLabel
-              key={item.key}
-              value={item.value}
-              control={<Radio color="primary" />}
-              label={item.label}
-              className="sub-form-control-label"
-            />
-          ))}
-        </RadioGroup>
-      </FormControl>
-    </div>
+    <FormControl component="fieldset" className="sub-form-control">
+      <FormLabel component="legend">Number of Problems</FormLabel>
+      <RadioGroup
+        aria-label="number of problems"
+        name="number of problems"
+        value={problemValue}
+        onChange={onProblemNumberChange}
+      >
+        {problems.map(item => (
+          <FormControlLabel
+            key={item.key}
+            value={item.value}
+            control={<Radio color="primary" />}
+            label={item.label}
+            className="sub-form-control-label"
+          />
+        ))}
+      </RadioGroup>
+    </FormControl>
   );
 };
 
