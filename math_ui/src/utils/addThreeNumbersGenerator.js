@@ -1,4 +1,7 @@
-import { generateThreeNumberTemplate } from "./common";
+import {
+  getRandomIntFromInterval,
+  generateThreeNumberTemplate
+} from "./common";
 
 const generateThreeNumbersArray = (digitValue, count) => {
   const result = [];
@@ -15,7 +18,7 @@ const generateThreeNumbersArray = (digitValue, count) => {
       range = 1000;
       break;
     case "l20":
-      range = 20;
+      range = 10;
       break;
     default:
       break;
@@ -26,10 +29,13 @@ const generateThreeNumbersArray = (digitValue, count) => {
   let c = 0;
 
   while (c < count) {
-    const a1 = Math.floor(Math.random() * (range - 1)) + 1;
-    const a2 = Math.floor(Math.random() * (range - 1)) + 1;
-    const a3 = Math.floor(Math.random() * (range - 1)) + 1;
+    const a1 = getRandomIntFromInterval(0, range - 1);
+    const a2 = getRandomIntFromInterval(0, range - 1);
+    const a3 = getRandomIntFromInterval(0, range - 1);
 
+    if (digitValue === "l20" && a1 + a2 + a3 > 20) {
+      continue;
+    }
     const hash = `${a1},${a2},${a3}`;
 
     if (!set.has(hash)) {

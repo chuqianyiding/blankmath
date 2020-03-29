@@ -1,7 +1,7 @@
 import * as types from "../constants/actionTypes";
 
 const initialState = {
-  problemNumber: "10",
+  problemNumber: "20",
   digitNumber: "1d"
 };
 

@@ -30,7 +30,7 @@ class AddThreeNumbersPage extends React.Component {
     axios
       .post(config.PDFGeneratorEndpoint, {
         equations: problems,
-        template:"3num"
+        template: "3num"
       })
       .then(resp => {
         window.location.href = resp.data;
@@ -41,14 +41,13 @@ class AddThreeNumbersPage extends React.Component {
     const { problemValue, digitValue } = this.props;
     return (
       <>
-        <div className="mt-4">
-          <h3> Add three numbers Worksheets</h3>
+        <div className="mt-5">
+          <ProblemNumber
+            problemValue={problemValue}
+            onProblemNumberChange={this.handleProblemNumberChange}
+          />
         </div>
 
-        <ProblemNumber
-          problemValue={problemValue}
-          onProblemNumberChange={this.handleProblemNumberChange}
-        />
         <div className="mt-4">
           <NumberOfDigits
             digitValue={digitValue}
