@@ -5,12 +5,12 @@ const generateFullArr = (from, to) => {
   const result = [];
   for (let i = 0; i <= to; i++)
     for (let j = 0; j <= to; j++) {
-      if (i <= j) {
+      if (i <= j && j - i >= from) {
         result.push([i, "x", j]);
         result.push(["x", i, j]);
       }
 
-      if (i + j <= to) {
+      if (i + j >= from && i + j <= to) {
         result.push([i, j, "x"]);
       }
     }

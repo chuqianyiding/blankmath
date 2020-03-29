@@ -23,7 +23,8 @@ export const cardData = [
     cardKey: "minusCard",
     sign: ["minus"],
     title: "Minus",
-    subtitle: ["12 - 9 = ?", "8 - 2 = ?"]
+    subtitle: ["12 - 9 = ?", "8 - 2 = ?"],
+    link: "/minus"
   },
   {
     cardKey: "mnMinusCard",

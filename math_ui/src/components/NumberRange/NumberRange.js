@@ -25,7 +25,7 @@ const NumberRange = ({
   return (
     <div className="mt-5">
       <FormControl component="fieldset" className="sub-form-control">
-        <FormLabel component="legend">Range of result</FormLabel>
+        <FormLabel component="legend">Range of number</FormLabel>
         <div className="pt-3 d-flex flex-row">
           <div className="mr-3">
             <TextField

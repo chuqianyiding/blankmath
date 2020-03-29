@@ -22,7 +22,7 @@ import Button from "@material-ui/core/Button";
 import * as directions from "../../constants/directions";
 import * as filters from "../../constants/filters";
 import { generateAddition } from "../../utils/additionGenerator";
-import { disableCreateBtn } from "../../selectors/AdditionSelector";
+import { disableCreateBtn } from "../../selectors/additionSelector";
 import axios from "axios";
 import config from "../../config.json";
 
