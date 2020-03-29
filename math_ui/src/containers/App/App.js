@@ -11,6 +11,7 @@ import MultiplicationMNUpto10 from "../MultiplicationMissingNumberUpto10";
 import AdditionPage from "../Addition";
 import AdditionMNPage from "../AdditionMissingNumber";
 import SubtractionPage from "../Subtraction";
+import SubtractionMNPage from "../SubtractionMissingNumber";
 import Header from "../../components/Header";
 import "./App.scss";
 
@@ -44,6 +45,7 @@ const App = ({ history }) => {
         <Route exact path="/addition" component={AdditionPage} />
         <Route exact path="/additionmn" component={AdditionMNPage} />
         <Route exact path="/minus" component={SubtractionPage} />
+        <Route exact path="/minusmn" component={SubtractionMNPage} />
       </Switch>
     </Container>
   );
