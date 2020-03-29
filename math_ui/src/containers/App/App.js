@@ -2,8 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Switch, Route, withRouter } from "react-router-dom";
 import { Container } from "reactstrap";
-import SubtractionMNUpto20 from "../SubtractionMissingNumberUpto20";
-import AdditionMNUpto20 from "../AdditionMissingNumberUpto20";
 import HomePage from "../HomePage";
 import GreatThanLessThanPage from "../GreaterThanLessThan";
 import AddThreeNumbersPage from "../AddThreeNumbers";
@@ -25,12 +23,6 @@ const App = ({ history }) => {
       <Header onClickLogo={handleClickLogo} />
       <Switch>
         <Route exact path="/" component={HomePage} />
-        <Route
-          exact
-          path="/subtract_mn_upto20"
-          component={SubtractionMNUpto20}
-        />
-        <Route exact path="/add_mn_upto20" component={AdditionMNUpto20} />
         <Route
           exact
           path="/greater_than_less_than"
