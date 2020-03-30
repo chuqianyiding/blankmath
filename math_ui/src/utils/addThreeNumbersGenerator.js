@@ -29,9 +29,9 @@ const generateThreeNumbersArray = (digitValue, count) => {
   let c = 0;
 
   while (c < count) {
-    const a1 = getRandomIntFromInterval(0, range - 1);
-    const a2 = getRandomIntFromInterval(0, range - 1);
-    const a3 = getRandomIntFromInterval(0, range - 1);
+    const a1 = getRandomIntFromInterval(1, range - 1);
+    const a2 = getRandomIntFromInterval(1, range - 1);
+    const a3 = getRandomIntFromInterval(1, range - 1);
 
     if (digitValue === "l20" && a1 + a2 + a3 > 20) {
       continue;
