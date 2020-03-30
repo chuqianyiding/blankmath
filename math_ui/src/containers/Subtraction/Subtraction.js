@@ -117,7 +117,7 @@ const Subtractionpage = ({
               value={directions.HORIZONTAL}
               control={<Radio color="primary" />}
               label={directions.HORIZONTAL}
-              labelPlacement="start"
+              labelPlacement="end"
               className="sub-form-control-label"
             />
             <FormControlLabel
@@ -125,7 +125,7 @@ const Subtractionpage = ({
               value={directions.VERTICAL}
               control={<Radio color="primary" />}
               label={directions.VERTICAL}
-              labelPlacement="start"
+              labelPlacement="end"
               className="sub-form-control-label"
             />
           </RadioGroup>
