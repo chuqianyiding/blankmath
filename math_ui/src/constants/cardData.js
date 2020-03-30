@@ -56,7 +56,8 @@ export const cardData = [
     cardKey: "comparisionCard",
     sign: ["greaterThan", "lessThan"],
     title: "Comparision",
-    subtitle: ["7 > 8 or 7 < 8 ?", "12 > 2 or 12 < 2 ?"]
+    subtitle: ["7 > 8 or 7 < 8 ?", "12 > 2 or 12 < 2 ?"],
+    link: "/greater_than_less_than"
   },
   {
     cardKey: "divisionCard",
