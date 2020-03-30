@@ -1,3 +1,8 @@
+// min, max included
+export const getRandomIntFromInterval = (min, max) => {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+};
+
 export const pickRandomArr = (arr, count) => {
   const result = [];
   while (result.length < count && arr.length > 0) {

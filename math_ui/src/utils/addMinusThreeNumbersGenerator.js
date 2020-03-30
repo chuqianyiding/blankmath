@@ -1,7 +1,4 @@
-import {
-  getRandomIntFromInterval,
-  generateThreeNumberTemplate
-} from "./common";
+import { getRandomIntFromInterval } from "./common";
 
 const generateThreeNumbersArray = (digitValue, count) => {
   const result = [];
@@ -33,15 +30,36 @@ const generateThreeNumbersArray = (digitValue, count) => {
     const a2 = getRandomIntFromInterval(1, range - 1);
     const a3 = getRandomIntFromInterval(1, range - 1);
 
-    if (digitValue === "l20" && a1 + a2 + a3 > 20) {
+    const signV = getRandomIntFromInterval(0, 1);
+    if (signV === 0 && a1 + a2 - a3 < 0) {
       continue;
     }
-    const hash = `${a1},${a2},${a3}`;
+
+    if (signV === 1 && (a1 - a2 + a3 < 0 || a1 - a2 < 0)) {
+      continue;
+    }
+
+    if (digitValue === "l20") {
+      if (signV === 0) {
+        if (a1 + a2 - a3 > 20) {
+          continue;
+        }
+      } else {
+        if (a1 - a2 + a3 > 20) {
+          continue;
+        }
+      }
+    }
+    let hash = "";
+    if (signV === 0) {
+      hash = `${a1}+${a2}-${a3}=x`;
+    } else {
+      hash = `${a1}-${a2}+${a3}=x`;
+    }
 
     if (!set.has(hash)) {
-      const item = [a1, a2, a3, "x"];
       set.add(hash);
-      result.push(item);
+      result.push(hash);
       c++;
     }
   }
@@ -52,5 +70,5 @@ const generateThreeNumbersArray = (digitValue, count) => {
 export const generateThreeNumbers = (digitValue, count) => {
   const arr = generateThreeNumbersArray(digitValue, count);
 
-  return generateThreeNumberTemplate(arr, "+");
+  return arr;
 };

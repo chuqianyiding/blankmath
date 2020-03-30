@@ -1,121 +1,46 @@
 import React from "react";
 import "./HomePage.scss";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faPlus,
-  faMinus,
-  faGreaterThanEqual,
-  faTimes,
-  faDivide
-} from "@fortawesome/free-solid-svg-icons";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
-import Link from "@material-ui/core/Link";
-import { Link as RouterLink } from "react-router-dom";
+import bee from "../../img/bee-705412.svg";
+import { cardData } from "../../constants/cardData";
+import Card from "../Card/Card";
 
 class HomePage extends React.Component {
   render() {
     return (
-      <React.Fragment>
-        <Grid container spacing={24}>
-          <Grid item xs={4}>
-            <Paper className="paper-container">
-              <Grid container spacing={24}>
-                <Grid item>
-                  <FontAwesomeIcon icon={faPlus} size="3x" />
-                </Grid>
-                <Grid item xs container direction="column" spacing={8}>
-                  <Grid item xs>
-                    <Link component={RouterLink} to="/add_upto20">
-                      Numbers up to 20
-                    </Link>
-                  </Grid>
-                  <Grid item xs>
-                    <Link component={RouterLink} to="/add_mn_upto20">
-                      Missing numbers up to 20
-                    </Link>
-                  </Grid>
-                  <Grid item xs>
-                    <Link component={RouterLink} to="/add_upto40">
-                      Numbers up to 40
-                    </Link>
-                  </Grid>
-                  <Grid item xs>
-                    <Link component={RouterLink} to="/add_three_numbers">
-                      Add three numbers
-                    </Link>
-                  </Grid>
-                </Grid>
-              </Grid>
-            </Paper>
-          </Grid>
-          <Grid item xs={4}>
-            <Paper className="paper-container">
-              <Grid container spacing={24}>
-                <Grid item>
-                  <FontAwesomeIcon icon={faMinus} size="3x" />
-                </Grid>
-                <Grid item xs container direction="column" spacing={8}>
-                  <Grid item xs>
-                    <Link component={RouterLink} to="/subtract_upto20">
-                      Numbers up to 20
-                    </Link>
-                  </Grid>
-                  <Grid item xs>
-                    <Link component={RouterLink} to="/subtract_mn_upto20">
-                      Missing numbers up to 20
-                    </Link>
-                  </Grid>
-                  <Grid item xs>
-                    <Link component={RouterLink} to="/subtract_upto40">
-                      Numbers up to 40
-                    </Link>
-                  </Grid>
-                </Grid>
-              </Grid>
-            </Paper>
-          </Grid>
-          <Grid item xs={4}>
-            <Paper className="paper-container">
-              <Grid container spacing={24}>
-                <Grid item>
-                  <FontAwesomeIcon icon={faGreaterThanEqual} size="3x" />
-                </Grid>
-                <Grid item xs container direction="column" spacing={8}>
-                  <Grid item xs>
-                    <Link component={RouterLink} to="/greater_than_less_than">
-                      Greater, equal or less
-                    </Link>
-                  </Grid>
-                </Grid>
-              </Grid>
-            </Paper>
-          </Grid>
-          <Grid item xs={4}>
-            <Paper className="paper-container">
-              <Grid container spacing={24}>
-                <Grid item>
-                  <FontAwesomeIcon icon={faTimes} size="3x" />
-                </Grid>
-                <Grid item xs>
-                  <Link component={RouterLink} to="/multiply_mn_upto10">
-                    Missing numbers up to 10
-                  </Link>
-                </Grid>
-              </Grid>
-            </Paper>
-          </Grid>
-          <Grid item xs={4}>
-            <Paper className="paper-container">
-              <Grid container spacing={24}>
-                <Grid item>
-                  <FontAwesomeIcon icon={faDivide} size="3x" />
-                </Grid>
-              </Grid>
-            </Paper>
-          </Grid>
-        </Grid>
-      </React.Fragment>
+      <>
+        <div className="position-relative bm-bee-container">
+          <img src={bee} alt="bee" />
+        </div>
+        <div className="bm-bullet-container">
+          <ul>
+            <div className="d-md-none d-lg-block">
+              <li className="bm-text-24">Printable in PDF format</li>
+            </div>
+            <div className="d-none d-md-block d-lg-none">
+              <li className="bm-text-24">Printable</li>
+            </div>
+            <li className="bm-text-24">100% free</li>
+            <li className="bm-text-24">Open source</li>
+          </ul>
+        </div>
+
+        <div className="mt-5 row row-cols-1 row-cols-sm-2 row-cols-md-3">
+          {cardData.map(item => (
+            <div
+              key={item.cardKey}
+              className="col d-flex justify-content-center bm-card-container"
+            >
+              <Card
+                key={item.cardKey}
+                sign={item.sign}
+                title={item.title}
+                subtitle={item.subtitle}
+                link={item.link}
+              />
+            </div>
+          ))}
+        </div>
+      </>
     );
   }
 }

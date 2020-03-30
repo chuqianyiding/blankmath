@@ -3,16 +3,16 @@
 import { pickRandomArr, generateWithTemplate } from "./common";
 import * as filters from "../constants/filters";
 
-const generateFullArr = () => {
+const generateFullArr = (from, to) => {
   const result = [];
-  for (let i = 0; i <= 20; i++)
-    for (let j = 0; j <= 20; j++) {
-      if (i >= j) {
+  for (let i = 0; i <= to; i++)
+    for (let j = 0; j <= to; j++) {
+      if (i >= j && i - j >= from) {
         result.push([i, j, "x"]);
         result.push([i, "x", j]);
       }
 
-      if (i + j <= 20) {
+      if (i + j >= from && i + j <= 20) {
         result.push(["x", i, j]);
       }
     }
@@ -35,8 +35,8 @@ const filterRestrictions = (arr, restrictions) => {
   return arr;
 };
 
-export const generateSubstractionMN = (count, restrictions) => {
-  const fullArr = generateFullArr();
+export const generateSubstractionMN = (from, to, count, restrictions) => {
+  const fullArr = generateFullArr(from, to);
   const filteredArr = filterRestrictions(fullArr, restrictions);
   const randomArr = pickRandomArr(filteredArr, count);
   return generateWithTemplate(randomArr, "-");
