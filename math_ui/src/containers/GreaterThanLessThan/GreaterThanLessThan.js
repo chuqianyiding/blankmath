@@ -5,7 +5,7 @@ import ProblemNumber from "../../components/ProblemNumber";
 import {
   updateProblemNumber,
   updateNumberOfDigits
-} from "../../actions/greaterThanLessThanAction";
+} from "../../actions/greaterThanLessThanActions";
 import NumberOfDigits from "../../components/NumberOfDigits";
 import Button from "@material-ui/core/Button";
 import { generateData } from "../../utils/greaterThanLessThanGenerator";
@@ -40,14 +40,13 @@ class GreatThanLessThanPage extends React.Component {
     const { problemValue, digitValue } = this.props;
     return (
       <>
-        <div className="mt-4">
-          <h3> Greater Than Less Than Worksheets</h3>
+        <div className="mt-5">
+          <ProblemNumber
+            problemValue={problemValue}
+            onProblemNumberChange={this.handleProblemNumberChange}
+          />
         </div>
 
-        <ProblemNumber
-          problemValue={problemValue}
-          onProblemNumberChange={this.handleProblemNumberChange}
-        />
         <div className="mt-4">
           <NumberOfDigits
             digitValue={digitValue}

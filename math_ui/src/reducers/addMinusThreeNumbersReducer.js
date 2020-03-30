@@ -5,14 +5,14 @@ const initialState = {
   digitNumber: "1d"
 };
 
-const addThreeNumbersData = (state = initialState, action) => {
+const addMinusThreeNumbersData = (state = initialState, action) => {
   switch (action.type) {
-    case types.UPDATE_PROBLEM_NUMBER_ADDTHREE:
+    case types.UPDATE_PROBLEM_NUMBER_ADDMINUSTHREE:
       return {
         ...state,
         problemNumber: action.payload
       };
-    case types.UPDATE_NUMBER_OF_DIGITS_ADDTHREE:
+    case types.UPDATE_NUMBER_OF_DIGITS_ADDMINUSTHREE:
       return {
         ...state,
         digitNumber: action.payload
@@ -22,4 +22,4 @@ const addThreeNumbersData = (state = initialState, action) => {
   }
 };
 
-export default addThreeNumbersData;
+export default addMinusThreeNumbersData;

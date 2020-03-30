@@ -1,0 +1,181 @@
+import React from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import NumberRange from "../../components/NumberRange";
+import {
+  updateProblemNumber,
+  updateProblemDirection,
+  updateFromValue,
+  updateToValue,
+  updateRestrictions
+} from "../../actions/additionActions";
+import { LOWER_RANGE, UPPER_RANGE } from "../../constants/ranges";
+import ProblemNumber from "../../components/ProblemNumber";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormLabel from "@material-ui/core/FormLabel";
+import FormGroup from "@material-ui/core/FormGroup";
+import Checkbox from "@material-ui/core/Checkbox";
+import Button from "@material-ui/core/Button";
+import ProblemDirection from "../../components/ProblemDirection";
+import * as filters from "../../constants/filters";
+import { generateAddition } from "../../utils/additionGenerator";
+import { disableCreateBtn } from "../../selectors/additionSelector";
+import axios from "axios";
+import config from "../../config.json";
+
+const Additionpage = ({
+  fromValue,
+  toValue,
+  updateFromValue,
+  updateToValue,
+  isFromValueError,
+  isToValueError,
+  problemValue,
+  problemDirection,
+  updateProblemNumber,
+  updateProblemDirection,
+  updateRestrictions,
+  disableCreateBtn,
+  restrictionsCheckedArr
+}) => {
+  const restrictions = [
+    {
+      key: filters.SMALL_ADDEND_LESSTHAN_10,
+      label: "Smaller addend less than 10"
+    }
+  ];
+
+  const handleFromChange = event => {
+    updateFromValue(event.target.value);
+  };
+
+  const handleToChange = event => {
+    updateToValue(event.target.value);
+  };
+
+  const handleProblemNumberChange = event => {
+    updateProblemNumber(event.target.value);
+  };
+
+  const handleProblemDirectionChange = event => {
+    updateProblemDirection(event.target.value);
+  };
+
+  const handleClickCreate = () => {
+    const problems = generateAddition(
+      parseInt(fromValue, 10),
+      parseInt(toValue, 10),
+      parseInt(problemValue, 10),
+      restrictionsCheckedArr
+    );
+
+    axios
+      .post(config.PDFGeneratorEndpoint, {
+        equations: problems,
+        template: problemDirection
+      })
+      .then(resp => {
+        window.location.href = resp.data;
+      });
+  };
+
+  const handleRestrictionsCheckboxChange = name => event => {
+    updateRestrictions(name, event.target.checked);
+  };
+
+  return (
+    <>
+      <NumberRange
+        lower={LOWER_RANGE}
+        upper={UPPER_RANGE}
+        fromValue={fromValue}
+        toValue={toValue}
+        onFromChange={handleFromChange}
+        onToChange={handleToChange}
+        isFromValueError={isFromValueError}
+        isToValueError={isToValueError}
+      />
+
+      <div className="mt-5">
+        <ProblemNumber
+          problemValue={problemValue}
+          onProblemNumberChange={handleProblemNumberChange}
+        />
+      </div>
+
+      <div className="mt-4">
+        <ProblemDirection
+          problemDirection={problemDirection}
+          onDirectionchange={handleProblemDirectionChange}
+        />
+      </div>
+
+      <div className="mt-4">
+        <FormLabel component="legend">Restrictions</FormLabel>
+        <FormGroup>
+          {restrictions.map(item => (
+            <FormControlLabel
+              key={item.key}
+              control={
+                <Checkbox
+                  checked={restrictionsCheckedArr.includes(item.key)}
+                  onChange={handleRestrictionsCheckboxChange(item.key)}
+                  color="primary"
+                />
+              }
+              label={item.label}
+            />
+          ))}
+        </FormGroup>
+      </div>
+      <div className="mt-4">
+        {" "}
+        <Button
+          variant="contained"
+          color="primary"
+          disabled={disableCreateBtn}
+          onClick={handleClickCreate}
+        >
+          Create
+        </Button>
+      </div>
+    </>
+  );
+};
+
+Additionpage.propTypes = {
+  problemValue: PropTypes.string,
+  problemDirection: PropTypes.string,
+  fromValue: PropTypes.string,
+  toValue: PropTypes.string,
+  updateFromValue: PropTypes.func,
+  updateToValue: PropTypes.func,
+  isFromValueError: PropTypes.bool,
+  isToValueError: PropTypes.bool,
+  updateProblemNumber: PropTypes.func,
+  updateProblemDirection: PropTypes.func,
+  restrictionsCheckedArr: PropTypes.array,
+  updateRestrictions: PropTypes.func,
+  disableCreateBtn: PropTypes.bool
+};
+
+const mapStateToProps = state => ({
+  problemValue: state.additionData.problemNumber,
+  problemDirection: state.additionData.problemDirection,
+  fromValue: state.additionData.fromValue,
+  toValue: state.additionData.toValue,
+  isFromValueError: state.additionData.isFromValueError,
+  isToValueError: state.additionData.isToValueError,
+  restrictionsCheckedArr: state.additionData.restrictionsChecked,
+  disableCreateBtn: disableCreateBtn(state)
+});
+
+const mapDispatchToProps = {
+  updateProblemNumber,
+  updateProblemDirection,
+  updateFromValue,
+  updateToValue,
+  updateRestrictions
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Additionpage);
