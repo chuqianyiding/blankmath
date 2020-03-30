@@ -5,6 +5,7 @@ import { Container } from "reactstrap";
 import HomePage from "../HomePage";
 import GreatThanLessThanPage from "../GreaterThanLessThan";
 import AddThreeNumbersPage from "../AddThreeNumbers";
+import AddMinusThreeNumbersPage from "../AddMinusThreeNumbers";
 import MultiplicationMNUpto10 from "../MultiplicationMissingNumberUpto10";
 import AdditionPage from "../Addition";
 import AdditionMNPage from "../AdditionMissingNumber";
@@ -29,6 +30,10 @@ const App = ({ history }) => {
           component={GreatThanLessThanPage}
         />
         <Route path="/add_three_numbers" component={AddThreeNumbersPage} />
+        <Route
+          path="/add_minus_three_numbers"
+          component={AddMinusThreeNumbersPage}
+        />
         <Route
           exact
           path="/multiply_mn_upto10"

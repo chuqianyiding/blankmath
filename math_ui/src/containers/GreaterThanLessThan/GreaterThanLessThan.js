@@ -5,7 +5,7 @@ import ProblemNumber from "../../components/ProblemNumber";
 import {
   updateProblemNumber,
   updateNumberOfDigits
-} from "../../actions/greaterThanLessThanAction";
+} from "../../actions/greaterThanLessThanActions";
 import NumberOfDigits from "../../components/NumberOfDigits";
 import Button from "@material-ui/core/Button";
 import { generateData } from "../../utils/greaterThanLessThanGenerator";

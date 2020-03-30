@@ -5,14 +5,14 @@ import ProblemNumber from "../../components/ProblemNumber";
 import {
   updateProblemNumber,
   updateNumberOfDigits
-} from "../../actions/addThreeNumbersActions";
+} from "../../actions/addMinusThreeNumbersActions";
 import NumberOfDigits from "../../components/NumberOfDigits";
 import Button from "@material-ui/core/Button";
-import { generateThreeNumbers } from "../../utils/addThreeNumbersGenerator";
+import { generateThreeNumbers } from "../../utils/addMinusThreeNumbersGenerator";
 import axios from "axios";
 import config from "../../config.json";
 
-class AddThreeNumbersPage extends React.Component {
+class AddMinusThreeNumbersPage extends React.Component {
   handleProblemNumberChange = event => {
     this.props.updateProblemNumber(event.target.value);
   };
@@ -70,7 +70,7 @@ class AddThreeNumbersPage extends React.Component {
   }
 }
 
-AddThreeNumbersPage.propTypes = {
+AddMinusThreeNumbersPage.propTypes = {
   problemValue: PropTypes.string,
   digitValue: PropTypes.string,
   updateProblemNumber: PropTypes.func,
@@ -78,8 +78,8 @@ AddThreeNumbersPage.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  problemValue: state.addThreeNumbersData.problemNumber,
-  digitValue: state.addThreeNumbersData.digitNumber
+  problemValue: state.addMinusThreeNumbersData.problemNumber,
+  digitValue: state.addMinusThreeNumbersData.digitNumber
 });
 
 const mapDispatchToProps = {
@@ -90,4 +90,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(AddThreeNumbersPage);
+)(AddMinusThreeNumbersPage);

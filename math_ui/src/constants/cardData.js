@@ -38,7 +38,8 @@ export const cardData = [
     cardKey: "tnpAdditionMinusCard",
     sign: ["plus", "minus"],
     title: "Three Number",
-    subtitle: ["17 - 8 + 7 = ?", "8 + 3 - 4 = ?"]
+    subtitle: ["17 - 8 + 7 = ?", "8 + 3 - 4 = ?"],
+    link: "/add_minus_three_numbers"
   },
   {
     cardKey: "timesCard",
