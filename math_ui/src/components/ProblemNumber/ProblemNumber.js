@@ -18,6 +18,7 @@ const ProblemNumberComponent = ({ problemValue, onProblemNumberChange }) => {
     <FormControl component="fieldset" className="sub-form-control">
       <FormLabel component="legend">Number of Problems</FormLabel>
       <RadioGroup
+        row
         aria-label="number of problems"
         name="number of problems"
         value={problemValue}

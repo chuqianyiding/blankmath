@@ -19,6 +19,7 @@ const NumberOfDigits = ({ digitValue, onDigitChange }) => {
       <FormControl component="fieldset" className="sub-form-control">
         <FormLabel component="legend">Number of Digits</FormLabel>
         <RadioGroup
+          row
           aria-label="number of digits"
           name="number of digits"
           value={digitValue}

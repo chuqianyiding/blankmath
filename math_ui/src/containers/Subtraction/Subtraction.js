@@ -12,14 +12,11 @@ import {
 import { LOWER_RANGE, UPPER_RANGE } from "../../constants/ranges";
 import ProblemNumber from "../../components/ProblemNumber";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
-import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
 import FormGroup from "@material-ui/core/FormGroup";
 import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
-import * as directions from "../../constants/directions";
+import ProblemDirection from "../../components/ProblemDirection";
 import * as filters from "../../constants/filters";
 import { generateSubtraction } from "../../utils/subtractionGenerator";
 import { disableCreateBtn } from "../../selectors/substractionSelector";
@@ -104,32 +101,10 @@ const Subtractionpage = ({
       </div>
 
       <div className="mt-4">
-        <FormControl component="fieldset" className="sub-form-control">
-          <FormLabel component="legend">Write the problems</FormLabel>
-          <RadioGroup
-            aria-label="direction of problems"
-            name="direction of problems"
-            value={problemDirection}
-            onChange={handleProblemDirectionChange}
-          >
-            <FormControlLabel
-              key={directions.HORIZONTAL}
-              value={directions.HORIZONTAL}
-              control={<Radio color="primary" />}
-              label={directions.HORIZONTAL}
-              labelPlacement="end"
-              className="sub-form-control-label"
-            />
-            <FormControlLabel
-              key={directions.VERTICAL}
-              value={directions.VERTICAL}
-              control={<Radio color="primary" />}
-              label={directions.VERTICAL}
-              labelPlacement="end"
-              className="sub-form-control-label"
-            />
-          </RadioGroup>
-        </FormControl>
+        <ProblemDirection
+          problemDirection={problemDirection}
+          onDirectionchange={handleProblemDirectionChange}
+        />
       </div>
 
       <div className="mt-4">
