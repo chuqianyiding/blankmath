@@ -7,6 +7,19 @@ import FormLabel from "@material-ui/core/FormLabel";
 import PropTypes from "prop-types";
 import * as directions from "../../constants/directions";
 
+const dirs = [
+  {
+    value: directions.HORIZONTAL,
+    label: directions.HORIZONTAL,
+    key: `direction_${directions.HORIZONTAL}`
+  },
+  {
+    value: directions.VERTICAL,
+    label: directions.VERTICAL,
+    key: `direction_${directions.VERTICAL}`
+  }
+];
+
 const ProblemDirection = ({ problemDirection, onDirectionchange }) => {
   return (
     <FormControl component="fieldset" className="sub-form-control">
@@ -18,22 +31,15 @@ const ProblemDirection = ({ problemDirection, onDirectionchange }) => {
         value={problemDirection}
         onChange={onDirectionchange}
       >
-        <FormControlLabel
-          key={directions.HORIZONTAL}
-          value={directions.HORIZONTAL}
-          control={<Radio color="primary" />}
-          label={directions.HORIZONTAL}
-          labelPlacement="end"
-          className="sub-form-control-label"
-        />
-        <FormControlLabel
-          key={directions.VERTICAL}
-          value={directions.VERTICAL}
-          control={<Radio color="primary" />}
-          label={directions.VERTICAL}
-          labelPlacement="end"
-          className="sub-form-control-label"
-        />
+        {dirs.map(item => (
+          <FormControlLabel
+            key={item.key}
+            value={item.value}
+            control={<Radio color="primary" />}
+            label={item.label}
+            className="sub-form-control-label"
+          />
+        ))}
       </RadioGroup>
     </FormControl>
   );
