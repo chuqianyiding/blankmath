@@ -45,7 +45,8 @@ export const cardData = [
     cardKey: "timesCard",
     sign: ["times"],
     title: "Multiplication",
-    subtitle: ["8 * 9 = ?", "2 * 3 = ?"]
+    subtitle: ["8 * 9 = ?", "2 * 3 = ?"],
+    link: "/multiplication"
   },
   {
     cardKey: "mnTimesCard",

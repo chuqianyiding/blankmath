@@ -6,7 +6,7 @@ import HomePage from "../HomePage";
 import GreatThanLessThanPage from "../GreaterThanLessThan";
 import AddThreeNumbersPage from "../AddThreeNumbers";
 import AddMinusThreeNumbersPage from "../AddMinusThreeNumbers";
-import MultiplicationMNUpto10 from "../MultiplicationMissingNumberUpto10";
+import MultiplicationPage from "../Multiplication";
 import AdditionPage from "../Addition";
 import AdditionMNPage from "../AdditionMissingNumber";
 import SubtractionPage from "../Subtraction";
@@ -34,11 +34,7 @@ const App = ({ history }) => {
           path="/add_minus_three_numbers"
           component={AddMinusThreeNumbersPage}
         />
-        <Route
-          exact
-          path="/multiply_mn_upto10"
-          component={MultiplicationMNUpto10}
-        />
+        <Route exact path="/multiplication" component={MultiplicationPage} />
         <Route exact path="/addition" component={AdditionPage} />
         <Route exact path="/additionmn" component={AdditionMNPage} />
         <Route exact path="/minus" component={SubtractionPage} />
