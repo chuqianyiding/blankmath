@@ -1,4 +1,4 @@
-import { getRandomIntFromInterval, generateWithTemplate } from "./common";
+import { getRandomIntFromInterval } from "./common";
 
 const generateMultiplicationArray = (digitValue, count) => {
   const result = [];
@@ -45,7 +45,7 @@ const generateMultiplicationArray = (digitValue, count) => {
 export const generateMultiplication = (digitValue, count) => {
   const arr = generateMultiplicationArray(digitValue, count);
 
-  return arr.map(item => {
+  return arr.map((item) => {
     return `${item[0]}*${item[1]}=${item[2]}`;
   });
 };

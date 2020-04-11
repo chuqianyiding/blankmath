@@ -3,6 +3,7 @@ import greaterThanLessThanData from "./greaterThanLessThanReducer";
 import addThreeNumbersData from "./addThreeNumbersReducer";
 import addMinusThreeNumbersData from "./addMinusThreeNumbersReducer";
 import multiplicationData from "./multiplicationReducer";
+import multiplicationMNData from "./multiplicationMNReducer";
 import additionData from "./additionReducer";
 import additionMNData from "./additionMNReducer";
 import subtractionData from "./subtractionReducer";
@@ -13,10 +14,11 @@ const reducers = combineReducers({
   addThreeNumbersData,
   addMinusThreeNumbersData,
   multiplicationData,
+  multiplicationMNData,
   additionData,
   additionMNData,
   subtractionData,
-  subtractionMNData
+  subtractionMNData,
 });
 
 export default reducers;

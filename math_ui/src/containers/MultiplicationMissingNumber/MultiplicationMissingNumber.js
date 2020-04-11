@@ -5,21 +5,18 @@ import ProblemNumber from "../../components/ProblemNumber";
 import {
   updateProblemNumber,
   updateNumberOfDigits,
-  updateProblemDirection,
-} from "../../actions/multiplicationActions";
+} from "../../actions/multiplicationMNActions";
 import NumberOfDigits from "../../components/NumberOfDigits";
 import Button from "@material-ui/core/Button";
-import { generateMultiplication } from "../../utils/multiplicationGenerator";
-import ProblemDirection from "../../components/ProblemDirection";
+import { generateMultiplicationMN } from "../../utils/multiplicationMNGenerator";
 import axios from "axios";
 import config from "../../config.json";
 
-const MultiplicationPage = ({
+const MultiplicationMNPage = ({
   problemValue,
   problemDirection,
   digitValue,
   updateProblemNumber,
-  updateProblemDirection,
   updateNumberOfDigits,
 }) => {
   const handleProblemNumberChange = (event) => {
@@ -30,12 +27,8 @@ const MultiplicationPage = ({
     updateNumberOfDigits(event.target.value);
   };
 
-  const handleProblemDirectionChange = (event) => {
-    updateProblemDirection(event.target.value);
-  };
-
   const handleClickCreate = (event) => {
-    const problems = generateMultiplication(
+    const problems = generateMultiplicationMN(
       digitValue,
       parseInt(problemValue, 10)
     );
@@ -67,13 +60,6 @@ const MultiplicationPage = ({
       </div>
 
       <div className="mt-4">
-        <ProblemDirection
-          problemDirection={problemDirection}
-          onDirectionchange={handleProblemDirectionChange}
-        />
-      </div>
-
-      <div className="mt-4">
         {" "}
         <Button variant="contained" color="primary" onClick={handleClickCreate}>
           Create
@@ -83,25 +69,26 @@ const MultiplicationPage = ({
   );
 };
 
-MultiplicationPage.propTypes = {
+MultiplicationMNPage.propTypes = {
   problemValue: PropTypes.string,
   problemDirection: PropTypes.string,
   digitValue: PropTypes.string,
   updateProblemNumber: PropTypes.func,
   updateNumberOfDigits: PropTypes.func,
-  updateProblemDirection: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
-  problemValue: state.multiplicationData.problemNumber,
-  problemDirection: state.multiplicationData.problemDirection,
-  digitValue: state.multiplicationData.digitNumber,
+  problemValue: state.multiplicationMNData.problemNumber,
+  problemDirection: state.multiplicationMNData.problemDirection,
+  digitValue: state.multiplicationMNData.digitNumber,
 });
 
 const mapDispatchToProps = {
   updateProblemNumber,
   updateNumberOfDigits,
-  updateProblemDirection,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MultiplicationPage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MultiplicationMNPage);

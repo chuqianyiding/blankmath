@@ -7,6 +7,7 @@ import GreatThanLessThanPage from "../GreaterThanLessThan";
 import AddThreeNumbersPage from "../AddThreeNumbers";
 import AddMinusThreeNumbersPage from "../AddMinusThreeNumbers";
 import MultiplicationPage from "../Multiplication";
+import MultiplicationMNPage from "../MultiplicationMissingNumber";
 import AdditionPage from "../Addition";
 import AdditionMNPage from "../AdditionMissingNumber";
 import SubtractionPage from "../Subtraction";
@@ -35,6 +36,11 @@ const App = ({ history }) => {
           component={AddMinusThreeNumbersPage}
         />
         <Route exact path="/multiplication" component={MultiplicationPage} />
+        <Route
+          exact
+          path="/multiplicationmn"
+          component={MultiplicationMNPage}
+        />
         <Route exact path="/addition" component={AdditionPage} />
         <Route exact path="/additionmn" component={AdditionMNPage} />
         <Route exact path="/minus" component={SubtractionPage} />
@@ -47,8 +53,8 @@ const App = ({ history }) => {
 App.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func,
-    back: PropTypes.func
-  })
+    back: PropTypes.func,
+  }),
 };
 
 export default withRouter(App);

@@ -1,27 +1,68 @@
-import { pickRandomArr, generateWithTemplate } from "./common";
+import { getRandomIntFromInterval } from "./common";
 
-const generateFullArr = () => {
+const generateMultiplicationArray = (digitValue, count) => {
   const result = [];
+  let range = 10;
+
+  switch (digitValue) {
+    case "1d":
+      range = 10;
+      break;
+    case "2d":
+      range = 100;
+      break;
+    case "3d":
+      range = 1000;
+      break;
+    case "l20":
+      range = 20;
+      break;
+    default:
+      break;
+  }
+
   const set = new Set();
-  for (let i = 0; i <= 10; i++)
-    for (let j = 0; j <= 10; j++) {
-      const t1 = `${i}, ${j}, x`;
-      if (!set.has(t1)) {
-        result.push([i, j, "x"]);
-        set.add(t1);
-      }
-      const t2 = `${i}, x, ${j}`;
-      if (!set.has(t2)) {
-        result.push([i, "x", i * j]);
-        set.add(t2);
-      }
+
+  let c = 0;
+
+  while (c < count) {
+    const a1 = getRandomIntFromInterval(1, range - 1);
+    const a2 = getRandomIntFromInterval(1, range - 1);
+
+    const p = getRandomIntFromInterval(0, 2);
+    let hash = "";
+    let item = [];
+    switch (p) {
+      case 0:
+        hash = `x,${a2},${a1 * a2}`;
+        item = ["x", a1, a1 * a2];
+        break;
+      case 1:
+        hash = `${a1},x,${a1 * a2}`;
+        item = [a1, "x", a1 * a2];
+        break;
+      case 2:
+        hash = `${a1},${a2},x`;
+        item = [a1, a2, "x"];
+        break;
+      default:
+        break;
     }
+
+    if (!set.has(hash)) {
+      set.add(hash);
+      result.push(item);
+      c++;
+    }
+  }
 
   return result;
 };
 
-export const generateMultiplicationMN = count => {
-  const fullArr = generateFullArr();
-  const randomArr = pickRandomArr(fullArr, count);
-  return generateWithTemplate(randomArr, "*");
+export const generateMultiplicationMN = (digitValue, count) => {
+  const arr = generateMultiplicationArray(digitValue, count);
+
+  return arr.map((item) => {
+    return `${item[0]}*${item[1]}=${item[2]}`;
+  });
 };
