@@ -13,6 +13,7 @@ import AdditionMNPage from "../AdditionMissingNumber";
 import SubtractionPage from "../Subtraction";
 import SubtractionMNPage from "../SubtractionMissingNumber";
 import Header from "../../components/Header";
+import AddThreeMissingNumber from "../AddThreeMissingNumber";
 import "./App.scss";
 
 const App = ({ history }) => {
@@ -35,6 +36,7 @@ const App = ({ history }) => {
           path="/add_minus_three_numbers"
           component={AddMinusThreeNumbersPage}
         />
+        <Route path="/add_three_numbers_mn" component={AddThreeMissingNumber} />
         <Route exact path="/multiplication" component={MultiplicationPage} />
         <Route
           exact

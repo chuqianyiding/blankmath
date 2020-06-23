@@ -42,6 +42,13 @@ export const cardData = [
     link: "/add_minus_three_numbers",
   },
   {
+    cardKey: "mnThreeNumberAdditionCard",
+    sign: ["plus"],
+    title: "Missing Number",
+    subtitle: ["7 + ? + 8 = 20", "2 + 3 + ? = 15"],
+    link: "add_three_numbers_mn",
+  },
+  {
     cardKey: "timesCard",
     sign: ["times"],
     title: "Multiplication",
