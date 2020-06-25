@@ -5,10 +5,10 @@ import ProblemNumber from "../../components/ProblemNumber";
 import {
   updateProblemNumber,
   updateNumberOfDigits,
-} from "../../actions/addThreeNumbersActions";
+} from "../../actions/addThreeNumbersMNActions";
 import NumberOfDigits from "../../components/NumberOfDigits";
 import Button from "@material-ui/core/Button";
-import { generateThreeNumbers } from "../../utils/addThreeNumbersGenerator";
+import { generateThreeMissingNumbers } from "../../utils/addThreeNumbersMNGenerator";
 import axios from "axios";
 import config from "../../config.json";
 
@@ -27,18 +27,19 @@ const AddThreeMissingNumber = ({
   };
 
   const handleClickCreate = (event) => {
-    // const problems = generateThreeNumbers(
-    //   this.props.digitValue,
-    //   parseInt(this.props.problemValue, 10)
-    // );
-    // axios
-    //   .post(config.PDFGeneratorEndpoint, {
-    //     equations: problems,
-    //     template: "3num",
-    //   })
-    //   .then((resp) => {
-    //     window.location.href = resp.data;
-    //   });
+    const problems = generateThreeMissingNumbers(
+      digitValue,
+      parseInt(problemValue, 10)
+    );
+
+    axios
+      .post(config.PDFGeneratorEndpoint, {
+        equations: problems,
+        template: "3num",
+      })
+      .then((resp) => {
+        window.location.href = resp.data;
+      });
   };
 
   return (
