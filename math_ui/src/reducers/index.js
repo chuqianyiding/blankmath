@@ -2,6 +2,7 @@ import { combineReducers } from "redux";
 import greaterThanLessThanData from "./greaterThanLessThanReducer";
 import addThreeNumbersData from "./addThreeNumbersReducer";
 import addMinusThreeNumbersData from "./addMinusThreeNumbersReducer";
+import addThreeNumbersMNData from "./addThreeNumbersMNReducer";
 import multiplicationData from "./multiplicationReducer";
 import multiplicationMNData from "./multiplicationMNReducer";
 import additionData from "./additionReducer";
@@ -13,6 +14,7 @@ const reducers = combineReducers({
   greaterThanLessThanData,
   addThreeNumbersData,
   addMinusThreeNumbersData,
+  addThreeNumbersMNData,
   multiplicationData,
   multiplicationMNData,
   additionData,
