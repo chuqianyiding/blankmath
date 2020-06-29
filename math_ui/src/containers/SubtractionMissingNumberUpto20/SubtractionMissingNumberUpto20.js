@@ -6,7 +6,7 @@ import FormLabel from "@material-ui/core/FormLabel";
 import FormGroup from "@material-ui/core/FormGroup";
 import {
   updateProblemNumber,
-  updateRestrictions
+  updateRestrictions,
 } from "../../actions/substractionMNUpto20Action";
 import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
@@ -19,14 +19,14 @@ import ProblemNumber from "../../components/ProblemNumber";
 
 class SubstractionMNUpto20 extends React.Component {
   restrictions = [
-    { key: filters.SUBTRAHEND_LESSTHAN_10, label: "Subtrahend less than 10" }
+    { key: filters.SUBTRAHEND_LESSTHAN_10, label: "Subtrahend less than 10" },
   ];
 
-  handleProblemNumberChange = event => {
+  handleProblemNumberChange = (event) => {
     this.props.updateProblemNumber(event.target.value);
   };
 
-  handleRestrictionsCheckboxChange = name => event => {
+  handleRestrictionsCheckboxChange = (name) => (event) => {
     this.props.updateRestrictions(name, event.target.checked);
   };
 
@@ -39,10 +39,10 @@ class SubstractionMNUpto20 extends React.Component {
     axios
       .post(config.PDFGeneratorEndpoint, {
         equations: problems,
-        template: directions.HORIZONTAL
+        template: directions.HORIZONTAL,
       })
-      .then(resp => {
-        window.location.href = resp.data;
+      .then((resp) => {
+        window.open(resp.data);
       });
   };
 
@@ -61,7 +61,7 @@ class SubstractionMNUpto20 extends React.Component {
         <div className="mt-4">
           <FormLabel component="legend">Restrictions</FormLabel>
           <FormGroup>
-            {this.restrictions.map(item => (
+            {this.restrictions.map((item) => (
               <FormControlLabel
                 key={item.key}
                 control={
@@ -95,17 +95,17 @@ SubstractionMNUpto20.propTypes = {
   problemValue: PropTypes.string,
   updateProblemNumber: PropTypes.func,
   restrictionsCheckedArr: PropTypes.array,
-  updateRestrictions: PropTypes.func
+  updateRestrictions: PropTypes.func,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   problemValue: state.subtractionMNUpto20Data.problemNumber,
-  restrictionsCheckedArr: state.subtractionMNUpto20Data.restrictionsChecked
+  restrictionsCheckedArr: state.subtractionMNUpto20Data.restrictionsChecked,
 });
 
 const mapDispatchToProps = {
   updateProblemNumber,
-  updateRestrictions
+  updateRestrictions,
 };
 
 export default connect(

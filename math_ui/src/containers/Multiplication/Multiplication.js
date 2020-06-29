@@ -46,7 +46,7 @@ const MultiplicationPage = ({
         template: problemDirection,
       })
       .then((resp) => {
-        window.location.href = resp.data;
+        window.open(resp.data);
       });
   };
 
