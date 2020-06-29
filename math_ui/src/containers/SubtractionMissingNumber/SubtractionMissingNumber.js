@@ -6,7 +6,7 @@ import {
   updateProblemNumber,
   updateFromValue,
   updateToValue,
-  updateRestrictions
+  updateRestrictions,
 } from "../../actions/subtractionMNActions";
 import { LOWER_RANGE, UPPER_RANGE } from "../../constants/ranges";
 import ProblemNumber from "../../components/ProblemNumber";
@@ -33,21 +33,21 @@ const SubtractionMNpage = ({
   updateProblemNumber,
   updateRestrictions,
   disableCreateBtn,
-  restrictionsCheckedArr
+  restrictionsCheckedArr,
 }) => {
   const restrictions = [
-    { key: filters.SUBTRAHEND_LESSTHAN_10, label: "Subtrahend less than 10" }
+    { key: filters.SUBTRAHEND_LESSTHAN_10, label: "Subtrahend less than 10" },
   ];
 
-  const handleFromChange = event => {
+  const handleFromChange = (event) => {
     updateFromValue(event.target.value);
   };
 
-  const handleToChange = event => {
+  const handleToChange = (event) => {
     updateToValue(event.target.value);
   };
 
-  const handleProblemNumberChange = event => {
+  const handleProblemNumberChange = (event) => {
     updateProblemNumber(event.target.value);
   };
 
@@ -62,14 +62,14 @@ const SubtractionMNpage = ({
     axios
       .post(config.PDFGeneratorEndpoint, {
         equations: problems,
-        template: problemDirection
+        template: problemDirection,
       })
-      .then(resp => {
-        window.location.href = resp.data;
+      .then((resp) => {
+        window.open(resp.data);
       });
   };
 
-  const handleRestrictionsCheckboxChange = name => event => {
+  const handleRestrictionsCheckboxChange = (name) => (event) => {
     updateRestrictions(name, event.target.checked);
   };
 
@@ -96,7 +96,7 @@ const SubtractionMNpage = ({
       <div className="mt-4">
         <FormLabel component="legend">Restrictions</FormLabel>
         <FormGroup>
-          {restrictions.map(item => (
+          {restrictions.map((item) => (
             <FormControlLabel
               key={item.key}
               control={
@@ -139,10 +139,10 @@ SubtractionMNpage.propTypes = {
   updateProblemDirection: PropTypes.func,
   restrictionsCheckedArr: PropTypes.array,
   updateRestrictions: PropTypes.func,
-  disableCreateBtn: PropTypes.bool
+  disableCreateBtn: PropTypes.bool,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   problemValue: state.subtractionMNData.problemNumber,
   problemDirection: state.subtractionMNData.problemDirection,
   fromValue: state.subtractionMNData.fromValue,
@@ -150,14 +150,14 @@ const mapStateToProps = state => ({
   isFromValueError: state.subtractionMNData.isFromValueError,
   isToValueError: state.subtractionMNData.isToValueError,
   restrictionsCheckedArr: state.subtractionMNData.restrictionsChecked,
-  disableCreateBtn: disableCreateBtn(state)
+  disableCreateBtn: disableCreateBtn(state),
 });
 
 const mapDispatchToProps = {
   updateProblemNumber,
   updateFromValue,
   updateToValue,
-  updateRestrictions
+  updateRestrictions,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SubtractionMNpage);

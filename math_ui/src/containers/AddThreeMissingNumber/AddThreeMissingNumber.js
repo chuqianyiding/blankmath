@@ -38,7 +38,7 @@ const AddThreeMissingNumber = ({
         template: "3num",
       })
       .then((resp) => {
-        window.location.href = resp.data;
+        window.open(resp.data);
       });
   };
 
