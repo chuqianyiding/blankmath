@@ -1,4 +1,8 @@
-import * as types from "../constants/actionTypes";
+import {
+  actionTypes as addtionMNActionTypes,
+  AdditionMNActionsType,
+} from "../actions/additionMNActions";
+import { CheckBoxType } from "../actions/types";
 import { LOWER_RANGE, UPPER_RANGE } from "../constants/ranges";
 import { RangeTemplateState } from "./types";
 import { Direction } from "../constants/directions";
@@ -13,7 +17,11 @@ const initialState: RangeTemplateState = {
   restrictionsChecked: [],
 };
 
-const updateRestrictions = (state, checkboxName, value) => {
+const updateRestrictions = (
+  state: RangeTemplateState,
+  checkboxName: string,
+  value: string
+): RangeTemplateState => {
   const stateCopy = { ...state };
   if (value) {
     stateCopy.restrictionsChecked = stateCopy.restrictionsChecked.slice();
@@ -32,49 +40,53 @@ const updateRestrictions = (state, checkboxName, value) => {
   return stateCopy;
 };
 
-const getFormValueError = (state, value) => {
+const getFormValueError = (
+  state: RangeTemplateState,
+  value: string
+): boolean => {
   if (!value) {
     return true;
   }
   const vint = parseInt(value, 10);
-
-  return vint < LOWER_RANGE || vint > UPPER_RANGE || value >= state.toValue;
+  const toint = parseInt(state.toValue, 10);
+  return vint < LOWER_RANGE || vint > UPPER_RANGE || vint >= toint;
 };
 
-const getToValueError = (state, value) => {
+const getToValueError = (state: RangeTemplateState, value: string): boolean => {
   if (!value) {
     return true;
   }
 
   const vint = parseInt(value, 10);
-  return vint < LOWER_RANGE || vint > UPPER_RANGE || vint <= state.fromValue;
+  const fromint = parseInt(state.fromValue, 10);
+  return vint < LOWER_RANGE || vint > UPPER_RANGE || vint <= fromint;
 };
 
-const additionMNData = (state = initialState, action): RangeTemplateState => {
+const additionMNData = (
+  state = initialState,
+  action: AdditionMNActionsType
+): RangeTemplateState => {
   switch (action.type) {
-    case types.UPDATE_PROBLEM_ADDITION_MN:
+    case addtionMNActionTypes.UPDATE_PROBLEM_ADDITION_MN:
       return {
         ...state,
-        problemNumber: action.payload,
+        problemNumber: action.payload as string,
       };
-    case types.UPDATE_FROM_VALUE_ADDITION_MN:
+    case addtionMNActionTypes.UPDATE_FROM_VALUE_ADDITION_MN:
       return {
         ...state,
-        fromValue: action.payload,
-        isFromValueError: getFormValueError(state, action.payload),
+        fromValue: action.payload as string,
+        isFromValueError: getFormValueError(state, action.payload as string),
       };
-    case types.UPDATE_TO_VALUE_ADDITION_MN:
+    case addtionMNActionTypes.UPDATE_TO_VALUE_ADDITION_MN:
       return {
         ...state,
-        toValue: action.payload,
-        isToValueError: getToValueError(state, action.payload),
+        toValue: action.payload as string,
+        isToValueError: getToValueError(state, action.payload as string),
       };
-    case types.UPDATE_RESTRICTION_ADDITION_MN:
-      return updateRestrictions(
-        state,
-        action.payload.checkboxName,
-        action.payload.value
-      );
+    case addtionMNActionTypes.UPDATE_RESTRICTION_ADDITION_MN:
+      const p: CheckBoxType = action.payload as CheckBoxType;
+      return updateRestrictions(state, p.checkboxName, p.value);
     default:
       return state;
   }

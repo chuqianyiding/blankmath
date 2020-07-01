@@ -1,4 +1,7 @@
-import * as types from "../constants/actionTypes";
+import {
+  actionTypes as greaterThanLessThanActionTypes,
+  GreatThanlessThanActionsType,
+} from "../actions/greaterThanLessThanActions";
 import { DigitTemplateState } from "./types";
 
 const initialState: DigitTemplateState = {
@@ -8,15 +11,15 @@ const initialState: DigitTemplateState = {
 
 const greaterThanLessThanData = (
   state = initialState,
-  action
+  action: GreatThanlessThanActionsType
 ): DigitTemplateState => {
   switch (action.type) {
-    case types.UPDATE_PROBLEM_NUMBER_GL:
+    case greaterThanLessThanActionTypes.UPDATE_PROBLEM_NUMBER_GL:
       return {
         ...state,
         problemNumber: action.payload,
       };
-    case types.UPDATE_NUMBER_OF_DIGITS_GL:
+    case greaterThanLessThanActionTypes.UPDATE_NUMBER_OF_DIGITS_GL:
       return {
         ...state,
         digitNumber: action.payload,

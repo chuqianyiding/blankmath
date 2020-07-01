@@ -1,4 +1,7 @@
-import * as types from "../constants/actionTypes";
+import {
+  actionTypes as addMinusThreeNumbersActionTypes,
+  AddMinusThreeNumbersActionsType,
+} from "../actions/addMinusThreeNumbersActions";
 import { DigitTemplateState } from "./types";
 
 const initialState: DigitTemplateState = {
@@ -8,15 +11,15 @@ const initialState: DigitTemplateState = {
 
 const addMinusThreeNumbersData = (
   state = initialState,
-  action
+  action: AddMinusThreeNumbersActionsType
 ): DigitTemplateState => {
   switch (action.type) {
-    case types.UPDATE_PROBLEM_NUMBER_ADDMINUSTHREE:
+    case addMinusThreeNumbersActionTypes.UPDATE_PROBLEM_NUMBER_ADDMINUSTHREE:
       return {
         ...state,
         problemNumber: action.payload,
       };
-    case types.UPDATE_NUMBER_OF_DIGITS_ADDMINUSTHREE:
+    case addMinusThreeNumbersActionTypes.UPDATE_NUMBER_OF_DIGITS_ADDMINUSTHREE:
       return {
         ...state,
         digitNumber: action.payload,
