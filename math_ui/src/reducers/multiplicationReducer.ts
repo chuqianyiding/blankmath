@@ -1,28 +1,32 @@
 import * as types from "../constants/actionTypes";
-import * as directions from "../constants/directions";
+import { Direction } from "../constants/directions";
+import { DigitTemplateState } from "./types";
 
-const initialState = {
+const initialState: DigitTemplateState = {
   problemNumber: "20",
   digitNumber: "1d",
-  problemDirection: directions.VERTICAL
+  problemDirection: Direction.VERTICAL,
 };
 
-const multiplicationData = (state = initialState, action) => {
+const multiplicationData = (
+  state = initialState,
+  action
+): DigitTemplateState => {
   switch (action.type) {
     case types.UPDATE_PROBLEM_NUMBER_MULTIPLICATION:
       return {
         ...state,
-        problemNumber: action.payload
+        problemNumber: action.payload,
       };
     case types.UPDATE_PROBLEM_DIRECTION_MULTIPLICATION:
       return {
         ...state,
-        problemDirection: action.payload
+        problemDirection: action.payload,
       };
     case types.UPDATE_NUMBER_OF_DIGITS_MULTIPLICATION:
       return {
         ...state,
-        digitNumber: action.payload
+        digitNumber: action.payload,
       };
     default:
       return state;

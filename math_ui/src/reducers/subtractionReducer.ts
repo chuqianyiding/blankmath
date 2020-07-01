@@ -1,15 +1,16 @@
 import * as types from "../constants/actionTypes";
 import { LOWER_RANGE, UPPER_RANGE } from "../constants/ranges";
-import * as directions from "../constants/directions";
+import { RangeTemplateState } from "./types";
+import { Direction } from "../constants/directions";
 
-const initialState = {
+const initialState: RangeTemplateState = {
   problemNumber: "20",
-  problemDirection: directions.HORIZONTAL,
+  problemDirection: Direction.VERTICAL,
   fromValue: "0",
   toValue: "20",
   isFromValueError: false,
   isToValueError: false,
-  restrictionsChecked: []
+  restrictionsChecked: [],
 };
 
 const updateRestrictions = (state, checkboxName, value) => {
@@ -19,7 +20,7 @@ const updateRestrictions = (state, checkboxName, value) => {
     stateCopy.restrictionsChecked.push(checkboxName);
   } else {
     stateCopy.restrictionsChecked = stateCopy.restrictionsChecked.filter(
-      item => {
+      (item) => {
         if (checkboxName === item) {
           return false;
         }
@@ -49,26 +50,31 @@ const getToValueError = (state, value) => {
   return vint < LOWER_RANGE || vint > UPPER_RANGE || vint <= state.fromValue;
 };
 
-const additionMNData = (state = initialState, action) => {
+const subtractionData = (state = initialState, action): RangeTemplateState => {
   switch (action.type) {
-    case types.UPDATE_PROBLEM_ADDITION_MN:
+    case types.UPDATE_PROBLEM_SUBTRACTION:
       return {
         ...state,
-        problemNumber: action.payload
+        problemNumber: action.payload,
       };
-    case types.UPDATE_FROM_VALUE_ADDITION_MN:
+    case types.UPDATE_PROBLEM_DIRECTION_SUBTRACTION:
+      return {
+        ...state,
+        problemDirection: action.payload,
+      };
+    case types.UPDATE_FROM_VALUE_SUBTRACTION:
       return {
         ...state,
         fromValue: action.payload,
-        isFromValueError: getFormValueError(state, action.payload)
+        isFromValueError: getFormValueError(state, action.payload),
       };
-    case types.UPDATE_TO_VALUE_ADDITION_MN:
+    case types.UPDATE_TO_VALUE_SUBTRACTION:
       return {
         ...state,
         toValue: action.payload,
-        isToValueError: getToValueError(state, action.payload)
+        isToValueError: getToValueError(state, action.payload),
       };
-    case types.UPDATE_RESTRICTION_ADDITION_MN:
+    case types.UPDATE_RESTRICTION_SUBTRACTION:
       return updateRestrictions(
         state,
         action.payload.checkboxName,
@@ -79,4 +85,4 @@ const additionMNData = (state = initialState, action) => {
   }
 };
 
-export default additionMNData;
+export default subtractionData;

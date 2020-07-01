@@ -1,11 +1,15 @@
 import * as types from "../constants/actionTypes";
+import { DigitTemplateState } from "./types";
 
-const initialState = {
+const initialState: DigitTemplateState = {
   problemNumber: "20",
   digitNumber: "1d",
 };
 
-const addThreeNumbersMNData = (state = initialState, action) => {
+const addThreeNumbersMNData = (
+  state = initialState,
+  action
+): DigitTemplateState => {
   switch (action.type) {
     case types.UPDATE_PROBLEM_NUMBER_ADDTHREE_MN:
       return {
