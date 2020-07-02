@@ -7,21 +7,30 @@ export const actionTypes = {
   UPDATE_RESTRICTION_ADDITION_MN: "UPDATE_RESTRICTION_ADDITION_MN",
 };
 
-export const updateProblemNumber = (value: string) =>
-  typedAction(actionTypes.UPDATE_PROBLEM_ADDITION_MN, value);
+export const updateProblemNumber = (value: string): typedAction => ({
+  type: actionTypes.UPDATE_PROBLEM_ADDITION_MN,
+  payload: value,
+});
 
-export const updateFromValue = (value: string) =>
-  typedAction(actionTypes.UPDATE_FROM_VALUE_ADDITION_MN, value);
+export const updateFromValue = (value: string): typedAction => ({
+  type: actionTypes.UPDATE_FROM_VALUE_ADDITION_MN,
+  payload: value,
+});
 
-export const updateToValue = (value: string) =>
-  typedAction(actionTypes.UPDATE_TO_VALUE_ADDITION_MN, value);
+export const updateToValue = (value: string): typedAction => ({
+  type: actionTypes.UPDATE_TO_VALUE_ADDITION_MN,
+  payload: value,
+});
 
-export const updateRestrictions = (checkboxName: string, value: string) => {
+export const updateRestrictions = (
+  checkboxName: string,
+  value: string
+): typedAction => {
   const payload: CheckBoxType = {
     checkboxName,
     value,
   };
-  return typedAction(actionTypes.UPDATE_RESTRICTION_ADDITION_MN, payload);
+  return { type: actionTypes.UPDATE_RESTRICTION_ADDITION_MN, payload };
 };
 
 export type AdditionMNActionsType = ReturnType<

@@ -23,17 +23,7 @@ const reducers = combineReducers({
   subtractionMNData,
 });
 
-export type ApplicationState = Readonly<{
-  greaterThanLessThanData;
-  addThreeNumbersData;
-  addMinusThreeNumbersData;
-  addThreeNumbersMNData;
-  multiplicationData;
-  multiplicationMNData;
-  additionData;
-  additionMNData;
-  subtractionData;
-  subtractionMNData;
-}>;
+export type ApplicationState = ReturnType<typeof reducers>;
+console.log("ApplicationState", typeof reducers);
 
 export default reducers;
