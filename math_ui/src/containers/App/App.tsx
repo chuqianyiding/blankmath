@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
+import { History } from "history";
 import { Switch, Route, withRouter } from "react-router-dom";
 import { Container } from "reactstrap";
 import HomePage from "../HomePage";
@@ -16,7 +16,11 @@ import Header from "../../components/Header";
 import AddThreeMissingNumber from "../AddThreeMissingNumber";
 import "./App.scss";
 
-const App = ({ history }) => {
+interface AppProps {
+  history: History;
+}
+
+const App: React.FC<AppProps> = ({ history }: AppProps) => {
   const handleClickLogo = () => {
     history.push("/");
   };
@@ -50,13 +54,6 @@ const App = ({ history }) => {
       </Switch>
     </Container>
   );
-};
-
-App.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func,
-    back: PropTypes.func,
-  }),
 };
 
 export default withRouter(App);
