@@ -1,0 +1,50 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/eslint-recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "settings": {
+    "react": {
+      "version": "^16.8.2"
+    },
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  },
+  "plugins": ["react", "@typescript-eslint"],
+  "rules": {
+    "prettier-check": "warn",
+    "consistent-return": "error",
+    "dot-notation": "warn",
+    "no-useless-concat": "error",
+    "radix": "error",
+    "no-shadow": "warn",
+    "no-duplicate-imports": "error",
+    "no-useless-constructor": "error",
+    "no-var": "error",
+    "prefer-const": "error",
+    "prefer-template": "error",
+    "react/default-props-match-prop-types": "warn",
+    "react/no-access-state-in-setstate": "warn",
+    "react/no-array-index-key": "warn",
+    "react/jsx-handler-names": "warn",
+    "@typescript-eslint/no-unsafe-return": "warn"
+  }
+}
