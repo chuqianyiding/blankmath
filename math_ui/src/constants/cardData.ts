@@ -1,4 +1,12 @@
-export const cardData = [
+export interface CardDataType {
+  cardKey: string;
+  sign: string[];
+  title: string;
+  subtitle: string[];
+  link?: string;
+}
+
+export const cardData: CardDataType[] = [
   {
     cardKey: "additionCard",
     sign: ["plus"],
