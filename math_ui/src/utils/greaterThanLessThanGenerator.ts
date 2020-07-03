@@ -1,6 +1,6 @@
 // return an array ["5o10", ""]
 
-export const generateData = (digitValue, count) => {
+export const generateData = (digitValue: string, count: number): string[] => {
   const result = [];
   let range = 10;
 

@@ -3,7 +3,10 @@ import {
   generateThreeNumberTemplate,
 } from "./common";
 
-const generateThreeNumbersArray = (digitValue, count) => {
+const generateThreeNumbersArray = (
+  digitValue: string,
+  count: number
+): Array<Array<number | string>> => {
   const result = [];
   let range = 10;
 
@@ -35,7 +38,7 @@ const generateThreeNumbersArray = (digitValue, count) => {
 
     const p = getRandomIntFromInterval(0, 3);
     let hash = "";
-    let item = [];
+    let item: Array<number | string> = [];
 
     switch (p) {
       case 0:
@@ -129,7 +132,10 @@ const generateThreeNumbersArray = (digitValue, count) => {
   return result;
 };
 
-export const generateThreeMissingNumbers = (digitValue, count) => {
+export const generateThreeMissingNumbers = (
+  digitValue: string,
+  count: number
+): string[] => {
   const arr = generateThreeNumbersArray(digitValue, count);
 
   return generateThreeNumberTemplate(arr, "+");

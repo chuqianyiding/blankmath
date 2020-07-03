@@ -1,6 +1,9 @@
 import { getRandomIntFromInterval } from "./common";
 
-const generateThreeNumbersArray = (digitValue, count) => {
+const generateThreeNumbersArray = (
+  digitValue: string,
+  count: number
+): string[] => {
   const result = [];
   let range = 10;
 
@@ -67,7 +70,10 @@ const generateThreeNumbersArray = (digitValue, count) => {
   return result;
 };
 
-export const generateThreeNumbers = (digitValue, count) => {
+export const generateThreeNumbers = (
+  digitValue: string,
+  count: number
+): string[] => {
   const arr = generateThreeNumbersArray(digitValue, count);
 
   return arr;
