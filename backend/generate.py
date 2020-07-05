@@ -172,20 +172,20 @@ class ExamGenerator:
         start_index = 0
         finished = False
 
-        #c.setDash([2],6)
-        c.setStrokeColorRGB(1, 1, 1)
-        c.setFillColorRGB(0.9, 0.9, 0.9)
-        vertLineX = template['margin']+template['block_width']-0.1*inch
-        drawRect = False
-        while vertLineX + template['block_width']< 8.5*inch:
-            drawRect=not drawRect
-            if drawRect:
-                c.rect(vertLineX, template['margin'], template['block_width'], template['y_top'], fill=1)
-                c.rect(0, 0, 10, 10)
-                c.line(vertLineX, template['margin'], vertLineX, 100)
-                #c.line(vertLineX, template['y_top']+template['block_height'], vertLineX, template['margin'])
-            vertLineX += template['block_width']
-        c.setFillColorRGB(0, 0, 0)
+        if 'horizontal' in template_name:
+            c.setStrokeColorRGB(1, 1, 1)
+            c.setFillColorRGB(0.9, 0.9, 0.9)
+            vertLineX = template['margin']+template['block_width']-0.1*inch
+            drawRect = False
+            while vertLineX + template['block_width']< 8.5*inch:
+                drawRect=not drawRect
+                if drawRect:
+                    c.rect(vertLineX, template['margin'], template['block_width'], template['y_top'], fill=1)
+                    c.rect(0, 0, 10, 10)
+                    c.line(vertLineX, template['margin'], vertLineX, 100)
+                    #c.line(vertLineX, template['y_top']+template['block_height'], vertLineX, template['margin'])
+                vertLineX += template['block_width']
+            c.setFillColorRGB(0, 0, 0)
         #c.setStrokeColorRGB(0, 0, 0)
         #c.setDash()
 
@@ -369,7 +369,7 @@ if __name__ == "__main__":
         '"43+12=x", "44-1=x", "45+x=99", "46+x=99", "x+47=23", "48+22=x",'
         '"49+12=x", "50-1=x", "51+x=99", "52+x=99", "x+53=23", "54+22=x",'
         '"55+12=x", "56-1=x", "57+x=99", "58+x=99", "x+59=23", "60+22=x"'
-        '], "template":"horizontal", "countPerPage":50}'
+        '], "template":"vertical", "countPerPage":50}'
         )
     test_case2 = ('{"equations":['
         '"1+12=x", "2-1=x", "3+x=99", "4+x=99", "x+5=23", "6+22=x",'
