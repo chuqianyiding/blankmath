@@ -2,9 +2,20 @@ import React from "react";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import TextField from "@material-ui/core/TextField";
-import PropTypes from "prop-types";
 
-const NumberRange = ({
+
+interface NumberRangeProps{
+  lower:number;
+  upper:number;
+  onFromChange:(event: React.ChangeEvent<HTMLInputElement>) => void;
+  onToChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  fromValue:string;
+  toValue:string;
+  isFromValueError: boolean;
+  isToValueError:boolean;
+}
+
+const NumberRange: React.FC<NumberRangeProps> = ({
   lower,
   upper,
   onFromChange,
@@ -13,7 +24,7 @@ const NumberRange = ({
   toValue,
   isFromValueError,
   isToValueError
-}) => {
+}:NumberRangeProps) => {
   const defaultHelperText = `${lower} <= number <= ${upper}`;
 
   const getFromHelperText = () =>
@@ -72,17 +83,6 @@ NumberRange.defaultProps = {
   toValue: "20",
   isFromValueError: false,
   isToValueError: false
-};
-
-NumberRange.propTypes = {
-  lower: PropTypes.number,
-  upper: PropTypes.number,
-  fromValue: PropTypes.string,
-  toValue: PropTypes.string,
-  onFromChange: PropTypes.func,
-  onToChange: PropTypes.func,
-  isFromValueError: PropTypes.bool,
-  isToValueError: PropTypes.bool
 };
 
 export default NumberRange;

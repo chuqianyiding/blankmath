@@ -4,23 +4,33 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
-import PropTypes from "prop-types";
-import * as directions from "../../constants/directions";
+import { Direction } from "../../constants/directions";
 
-const dirs = [
+interface DirType {
+  value: Direction;
+  label: Direction;
+  key:string;
+}
+
+const dirs:DirType[] = [
   {
-    value: directions.HORIZONTAL,
-    label: directions.HORIZONTAL,
-    key: `direction_${directions.HORIZONTAL}`
+    value: Direction.HORIZONTAL,
+    label: Direction.HORIZONTAL,
+    key: `direction_${Direction.HORIZONTAL}`
   },
   {
-    value: directions.VERTICAL,
-    label: directions.VERTICAL,
-    key: `direction_${directions.VERTICAL}`
+    value: Direction.VERTICAL,
+    label: Direction.VERTICAL,
+    key: `direction_${Direction.VERTICAL}`
   }
 ];
 
-const ProblemDirection = ({ problemDirection, onDirectionchange }) => {
+interface ProblemDirectionProps {
+  problemDirection: Direction;
+  onDirectionchange:(event: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+const ProblemDirection:React.FC<ProblemDirectionProps> = ({ problemDirection, onDirectionchange }:ProblemDirectionProps) => {
   return (
     <FormControl component="fieldset" className="sub-form-control">
       <FormLabel component="legend">Direction of Problems</FormLabel>
@@ -45,8 +55,4 @@ const ProblemDirection = ({ problemDirection, onDirectionchange }) => {
   );
 };
 
-ProblemDirection.propTypes = {
-  problemDirection: PropTypes.string,
-  onDirectionchange: PropTypes.func
-};
 export default ProblemDirection;

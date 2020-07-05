@@ -4,16 +4,26 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
-import PropTypes from "prop-types";
 
-const problems = [
+interface ProblemType {
+  value: string;
+  label: string;
+  key: string;
+}
+
+const problems: ProblemType[] = [
   { value: "10", label: "10 problems", key: "problem_10" },
   { value: "20", label: "20 problems", key: "problem_20" },
   { value: "30", label: "30 problems", key: "problem_30" },
   { value: "50", label: "50 problems", key: "problem_50" }
 ];
 
-const ProblemNumberComponent = ({ problemValue, onProblemNumberChange }) => {
+interface ProblemNumberComponentProps {
+  problemValue:string;
+  onProblemNumberChange:(event: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+const ProblemNumberComponent:React.FC<ProblemNumberComponentProps> = ({ problemValue, onProblemNumberChange }:ProblemNumberComponentProps) => {
   return (
     <FormControl component="fieldset" className="sub-form-control">
       <FormLabel component="legend">Number of Problems</FormLabel>
@@ -36,11 +46,6 @@ const ProblemNumberComponent = ({ problemValue, onProblemNumberChange }) => {
       </RadioGroup>
     </FormControl>
   );
-};
-
-ProblemNumberComponent.propTypes = {
-  problemValue: PropTypes.string,
-  onProblemNumberChange: PropTypes.func
 };
 
 export default ProblemNumberComponent;
