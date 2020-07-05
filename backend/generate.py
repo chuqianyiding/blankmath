@@ -1,3 +1,17 @@
+"""
+
+POST https://api.blankmath.com/
+
+Json body:
+
+{
+    "equations": array of equation strings, with "x" representing the missing number to be replaced with a rectangle. Example: ["1+x=2","5-7=x","9+x=100","1+x=2"]
+    "template": how the equations are arranged. Can be "horizontal" or "vertical"
+    "countPerPage": The amount of equations to be fit in a page. If more equations are given, the generated result will contain more than 1 page.
+}
+
+"""
+
 import json
 import re
 from math import floor
@@ -7,6 +21,12 @@ from reportlab.lib.pagesizes import letter
 from reportlab.pdfbase.pdfmetrics import stringWidth
 
 class ExamGenerator:
+
+    """
+    Notes on layout:
+    Bottom : y==0
+    Left:x==0
+    """
 
     LAYOUTS={
         "3num20":{
@@ -45,9 +65,9 @@ class ExamGenerator:
             "font_size":18
             },
         "horizontal52":{
-            "block_width":(1.925*inch),
+            "block_width":(1.915*inch),
             "block_height":0.7*inch,
-            "margin":0.4*inch,
+            "margin":0.41*inch,
             "y_top":9.5*inch,
             "font_size":14
             },
@@ -103,6 +123,10 @@ class ExamGenerator:
         c.drawImage('template/logo.jpg', 0, 10*inch, 8.5*inch, 1*inch)
 
     def findTemplate(self, jsondata):
+        """
+        Find a template to best fit this page using the number of equations,
+        and the layout on this page.
+        """
         if not "template" in jsondata:
             template_name = "horizontal"
         else:
@@ -134,12 +158,7 @@ class ExamGenerator:
 
         return (template_name, self.LAYOUTS[template_name])
 
-    def generate(self, data):
-        """
-        Args:
-            data: string in JSON format
-        """
-        jsondata = json.loads(data)
+    def _generatePage(self, jsondata, c):
         equations = jsondata['equations']
         template_name, template = self.findTemplate(jsondata)
 
@@ -150,11 +169,26 @@ class ExamGenerator:
         print(type(equations))
         print(len(equations))
 
-        c = canvas.Canvas('/tmp/result.pdf', pagesize=letter)
-        c.setTitle("BlankMath.com");
-
         start_index = 0
         finished = False
+
+        #c.setDash([2],6)
+        c.setStrokeColorRGB(1, 1, 1)
+        c.setFillColorRGB(0.9, 0.9, 0.9)
+        vertLineX = template['margin']+template['block_width']-0.1*inch
+        drawRect = False
+        while vertLineX + template['block_width']< 8.5*inch:
+            drawRect=not drawRect
+            if drawRect:
+                c.rect(vertLineX, template['margin'], template['block_width'], template['y_top'], fill=1)
+                c.rect(0, 0, 10, 10)
+                c.line(vertLineX, template['margin'], vertLineX, 100)
+                #c.line(vertLineX, template['y_top']+template['block_height'], vertLineX, template['margin'])
+            vertLineX += template['block_width']
+        c.setFillColorRGB(0, 0, 0)
+        #c.setStrokeColorRGB(0, 0, 0)
+        #c.setDash()
+
         while start_index < len(equations) and not finished:
             c.setFont(self.FONT, template['font_size'])
             self.printHeader(c)
@@ -165,17 +199,33 @@ class ExamGenerator:
                     continue
                 x = template['margin'] + (i%blocks_per_row)*template['block_width']
                 y = template['y_top'] - floor(i/blocks_per_row)*template['block_height']
-                if y<template['block_height']:
-                    # New page
-                    c.showPage()
-                    start_index = index
-                    finished = False
-                    break
-                else:
-                    self.drawEquation(template_name, c, value, x, y, template)
-
+                self.drawEquation(template_name, c, value, x, y, template)
+                    
         c.showPage()
+
+    def generate(self, data):
+        """
+        Args:
+            data: string in JSON format from user's request body
+        """
+        jsonData = json.loads(data)
+
+        c = canvas.Canvas('/tmp/result.pdf', pagesize=letter)
+        c.setTitle("BlankMath.com");
+
+        if 'countPerPage' in jsonData:
+            countPerPage=int(jsonData['countPerPage'])
+            equations = jsonData['equations']
+            while len(equations) > 0:
+                countThisPage = min(countPerPage, len(equations))
+                jsonData['equations'] = equations[:countThisPage]
+                self._generatePage(jsonData, c)
+                del equations[:countThisPage]
+        else:
+            self._generatePage(jsonData, c)
+        
         c.save()
+        
 
     def horizontalExpand(self, text):
         result=""
@@ -228,7 +278,7 @@ class ExamGenerator:
             print('Spliting horizontal: ', parts)
             my_canvas.drawString(x, y, parts[0])
             start_x = x + self.stringWidth(parts[0], template['font_size'])
-            margin=-0.1*inch
+            margin=-0.05*inch
             rect_width = 0.55*inch
             rect_height = 0.55*inch
             
@@ -243,15 +293,16 @@ class ExamGenerator:
             
             print("Rect dimension: %d %d %d %d "%(rect_width,rect_height,rect_x,rect_y))
 
+            my_canvas.setStrokeColorRGB(0.75, 0.75, 0.75)
             if 'o' in text:
                 # Reuse the dimention of the rect.
                 my_canvas.roundRect(rect_x, rect_y, rect_width, rect_height, stroke)
                 #my_canvas.circle(rect_x + rect_width / 2, rect_y+rect_height/2, rect_width/4)
             else:
                 my_canvas.roundRect(rect_x, rect_y, rect_width, rect_height, stroke)
+            my_canvas.setStrokeColorRGB(0, 0, 0)
             start_x = start_x + rect_width + 2*margin
             my_canvas.drawString(start_x, y, parts[1])
-
 
         elif 'vertical' in template_name:
             text = self.verticalExpand(text)
@@ -318,7 +369,7 @@ if __name__ == "__main__":
         '"43+12=x", "44-1=x", "45+x=99", "46+x=99", "x+47=23", "48+22=x",'
         '"49+12=x", "50-1=x", "51+x=99", "52+x=99", "x+53=23", "54+22=x",'
         '"55+12=x", "56-1=x", "57+x=99", "58+x=99", "x+59=23", "60+22=x"'
-        '], "template":"horizontal"}'
+        '], "template":"horizontal", "countPerPage":50}'
         )
     test_case2 = ('{"equations":['
         '"1+12=x", "2-1=x", "3+x=99", "4+x=99", "x+5=23", "6+22=x",'
@@ -344,5 +395,4 @@ if __name__ == "__main__":
         '], "template":"3num"}'
         )
     #print(test_case4)
-    gen.generate(test_case4)
-
+    gen.generate(test_case)
