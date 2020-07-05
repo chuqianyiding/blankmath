@@ -13,5 +13,4 @@ branches:
   only:
     - master
 before_install:
-  - openssl aes-256-cbc -K $encrypted_cf52f6cf0af6_key -iv $encrypted_cf52f6cf0af6_iv
-    -in deploy_key.enc -out deploy_key -d
+  - openssl aes-256-cbc -K $encrypted_189e52c2c347_key -iv $encrypted_189e52c2c347_iv -in deploy_key.enc -out deploy_key -d
