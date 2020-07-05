@@ -1,8 +1,11 @@
 import React from "react";
-import PropTypes from "prop-types";
 import "./Header.scss";
 
-const Header = ({ onClickLogo }) => {
+interface HeaderProps {
+  onClickLogo: () => void;
+}
+
+const Header:React.FC<HeaderProps> = ({ onClickLogo }: HeaderProps) => {
   return (
     <div className="bm-header d-flex flex-md-row flex-column mb-3">
       <div className="bm-header-title" onClick={onClickLogo}>
@@ -13,10 +16,6 @@ const Header = ({ onClickLogo }) => {
       </div>
     </div>
   );
-};
-
-Header.propTypes = {
-  onClickLogo: PropTypes.func
 };
 
 export default Header;
