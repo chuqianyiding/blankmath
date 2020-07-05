@@ -5,10 +5,10 @@ export const selectAdditionMNData = (
   state: ApplicationState
 ): RangeTemplateState => state.additionMNData;
 
-export const disableCreateBtn = (state: ApplicationState): boolean => {
+export const selectDisableCreateBtn = (state: ApplicationState): boolean => {
   const { isFromValueError, isToValueError } = selectAdditionMNData(state);
 
   return isFromValueError || isToValueError;
 };
 
-export default { selectAdditionMNData, disableCreateBtn };
+export default { selectAdditionMNData, selectDisableCreateBtn };

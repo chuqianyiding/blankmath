@@ -1,13 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
 import NumberRange from "../../components/NumberRange";
 import {
   updateProblemNumber,
   updateFromValue,
   updateToValue,
   updateRestrictions,
-} from "../../actions/subtractionMNActions";
+} from "../../actions/additionMNActions";
+import { typedAction } from "../../actions/types";
+import { ApplicationState } from "../../reducers";
+import { Direction } from "../../constants/directions";
 import { LOWER_RANGE, UPPER_RANGE } from "../../constants/ranges";
 import ProblemNumber from "../../components/ProblemNumber";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -16,12 +18,31 @@ import FormGroup from "@material-ui/core/FormGroup";
 import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 import * as filters from "../../constants/filters";
-import { generateSubstractionMN } from "../../utils/substractionMNGenerator";
-import { disableCreateBtn } from "../../selectors/subtractionMNSelector";
+import { generateAdditionMN } from "../../utils/additionMNGenerator";
+import { selectDisableCreateBtn } from "../../selectors/additionMNSelector";
 import axios from "axios";
 import config from "../../config.json";
 
-const SubtractionMNpage = ({
+interface AdditionMNPageProps {
+  fromValue: string;
+  toValue: string;
+  updateFromValue: (value: string) => typedAction;
+  updateToValue: (value: string) => typedAction;
+  isFromValueError: boolean;
+  isToValueError: boolean;
+  problemValue: string;
+  problemDirection: Direction;
+  updateProblemNumber: (value: string) => typedAction;
+  updateProblemDirection: (value: Direction) => typedAction;
+  updateRestrictions: (
+    checkboxName: string,
+    value: boolean
+  ) => typedAction;
+  disableCreateBtn: boolean;
+  restrictionsCheckedArr: string[];
+}
+
+const AdditionMNPage:React.FC<AdditionMNPageProps> = ({
   fromValue,
   toValue,
   updateFromValue,
@@ -34,25 +55,25 @@ const SubtractionMNpage = ({
   updateRestrictions,
   disableCreateBtn,
   restrictionsCheckedArr,
-}) => {
+}:AdditionMNPageProps) => {
   const restrictions = [
     { key: filters.SUBTRAHEND_LESSTHAN_10, label: "Subtrahend less than 10" },
   ];
 
-  const handleFromChange = (event) => {
+  const handleFromChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     updateFromValue(event.target.value);
   };
 
-  const handleToChange = (event) => {
+  const handleToChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     updateToValue(event.target.value);
   };
 
-  const handleProblemNumberChange = (event) => {
+  const handleProblemNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     updateProblemNumber(event.target.value);
   };
 
   const handleClickCreate = () => {
-    const problems = generateSubstractionMN(
+    const problems = generateAdditionMN(
       parseInt(fromValue, 10),
       parseInt(toValue, 10),
       parseInt(problemValue, 10),
@@ -69,7 +90,7 @@ const SubtractionMNpage = ({
       });
   };
 
-  const handleRestrictionsCheckboxChange = (name) => (event) => {
+  const handleRestrictionsCheckboxChange = (name:string) => (event: React.ChangeEvent<HTMLInputElement>) => {
     updateRestrictions(name, event.target.checked);
   };
 
@@ -126,31 +147,15 @@ const SubtractionMNpage = ({
   );
 };
 
-SubtractionMNpage.propTypes = {
-  problemValue: PropTypes.string,
-  problemDirection: PropTypes.string,
-  fromValue: PropTypes.string,
-  toValue: PropTypes.string,
-  updateFromValue: PropTypes.func,
-  updateToValue: PropTypes.func,
-  isFromValueError: PropTypes.bool,
-  isToValueError: PropTypes.bool,
-  updateProblemNumber: PropTypes.func,
-  updateProblemDirection: PropTypes.func,
-  restrictionsCheckedArr: PropTypes.array,
-  updateRestrictions: PropTypes.func,
-  disableCreateBtn: PropTypes.bool,
-};
-
-const mapStateToProps = (state) => ({
-  problemValue: state.subtractionMNData.problemNumber,
-  problemDirection: state.subtractionMNData.problemDirection,
-  fromValue: state.subtractionMNData.fromValue,
-  toValue: state.subtractionMNData.toValue,
-  isFromValueError: state.subtractionMNData.isFromValueError,
-  isToValueError: state.subtractionMNData.isToValueError,
-  restrictionsCheckedArr: state.subtractionMNData.restrictionsChecked,
-  disableCreateBtn: disableCreateBtn(state),
+const mapStateToProps = (state:ApplicationState) => ({
+  problemValue: state.additionMNData.problemNumber,
+  problemDirection: state.additionMNData.problemDirection,
+  fromValue: state.additionMNData.fromValue,
+  toValue: state.additionMNData.toValue,
+  isFromValueError: state.additionMNData.isFromValueError,
+  isToValueError: state.additionMNData.isToValueError,
+  restrictionsCheckedArr: state.additionMNData.restrictionsChecked,
+  disableCreateBtn: selectDisableCreateBtn(state),
 });
 
 const mapDispatchToProps = {
@@ -160,4 +165,4 @@ const mapDispatchToProps = {
   updateRestrictions,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SubtractionMNpage);
+export default connect(mapStateToProps, mapDispatchToProps)(AdditionMNPage);

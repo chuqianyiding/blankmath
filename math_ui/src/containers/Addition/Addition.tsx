@@ -44,7 +44,7 @@ interface AdditionPageProps {
   restrictionsCheckedArr: string[];
 }
 
-const Additionpage: React.FC<AdditionPageProps> = ({
+const AdditionPage: React.FC<AdditionPageProps> = ({
   fromValue,
   toValue,
   updateFromValue,
@@ -184,4 +184,4 @@ const mapDispatchToProps = {
   updateRestrictions,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Additionpage);
+export default connect(mapStateToProps, mapDispatchToProps)(AdditionPage);

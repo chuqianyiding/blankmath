@@ -1,2 +1,2 @@
-import Addition from './Addition';
-export default Addition;
+import AdditionPage from './Addition';
+export default AdditionPage;
