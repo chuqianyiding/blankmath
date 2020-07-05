@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlus,
@@ -11,7 +10,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "./Card.scss";
 
-const getSignIcon = sign => {
+const getSignIcon = (sign:string) => {
   switch (sign) {
     case "plus":
       return faPlus;
@@ -30,7 +29,15 @@ const getSignIcon = sign => {
   }
 };
 
-const Card = ({ cardKey, sign, title, subtitle, onClick }) => {
+interface CardProps {
+  cardKey: string;
+  sign: string[];
+  title:string;
+  subtitle: string[];
+  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+}
+
+const Card: React.FC<CardProps> = ({ cardKey, sign, title, subtitle, onClick }:CardProps) => {
   return (
     <div className="bm-card">
       <div className="bm-sign-area position-absolute d-flex justify-content-center align-items-center">
@@ -65,14 +72,6 @@ const Card = ({ cardKey, sign, title, subtitle, onClick }) => {
       </div>
     </div>
   );
-};
-
-Card.propTypes = {
-  cardKey: PropTypes.string,
-  sign: PropTypes.arrayOf(PropTypes.string),
-  title: PropTypes.string,
-  subtitle: PropTypes.arrayOf(PropTypes.string),
-  onClick: PropTypes.func
 };
 
 export default Card;
