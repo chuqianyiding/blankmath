@@ -31,7 +31,7 @@ export const updateToValue = (value: string): typedAction => ({
 
 export const updateRestrictions = (
   checkboxName: string,
-  value: string
+  value: boolean
 ): typedAction => {
   const payload: CheckBoxType = { checkboxName, value };
   return { type: actionTypes.UPDATE_RESTRICTION_ADDITION, payload };

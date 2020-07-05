@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
 import NumberRange from "../../components/NumberRange";
 import {
   updateProblemNumber,
@@ -9,6 +8,8 @@ import {
   updateToValue,
   updateRestrictions,
 } from "../../actions/additionActions";
+import { typedAction } from "../../actions/types";
+import { ApplicationState } from "../../reducers";
 import { LOWER_RANGE, UPPER_RANGE } from "../../constants/ranges";
 import ProblemNumber from "../../components/ProblemNumber";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -17,13 +18,33 @@ import FormGroup from "@material-ui/core/FormGroup";
 import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 import ProblemDirection from "../../components/ProblemDirection";
+import { Direction } from "../../constants/directions";
 import * as filters from "../../constants/filters";
 import { generateAddition } from "../../utils/additionGenerator";
-import { disableCreateBtn } from "../../selectors/additionSelector";
+import { selectDisableCreateBtn } from "../../selectors/additionSelector";
 import axios from "axios";
 import config from "../../config.json";
 
-const Additionpage = ({
+interface AdditionPageProps {
+  fromValue: string;
+  toValue: string;
+  updateFromValue: (value: string) => typedAction;
+  updateToValue: (value: string) => typedAction;
+  isFromValueError: boolean;
+  isToValueError: boolean;
+  problemValue: string;
+  problemDirection: Direction;
+  updateProblemNumber: (value: string) => typedAction;
+  updateProblemDirection: (value: Direction) => typedAction;
+  updateRestrictions: (
+    checkboxName: string,
+    value: boolean
+  ) => typedAction;
+  disableCreateBtn: boolean;
+  restrictionsCheckedArr: string[];
+}
+
+const Additionpage: React.FC<AdditionPageProps> = ({
   fromValue,
   toValue,
   updateFromValue,
@@ -37,7 +58,7 @@ const Additionpage = ({
   updateRestrictions,
   disableCreateBtn,
   restrictionsCheckedArr,
-}) => {
+}:AdditionPageProps) => {
   const restrictions = [
     {
       key: filters.SMALL_ADDEND_LESSTHAN_10,
@@ -45,20 +66,20 @@ const Additionpage = ({
     },
   ];
 
-  const handleFromChange = (event) => {
+  const handleFromChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     updateFromValue(event.target.value);
   };
 
-  const handleToChange = (event) => {
+  const handleToChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     updateToValue(event.target.value);
   };
 
-  const handleProblemNumberChange = (event) => {
+  const handleProblemNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     updateProblemNumber(event.target.value);
   };
 
-  const handleProblemDirectionChange = (event) => {
-    updateProblemDirection(event.target.value);
+  const handleProblemDirectionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    updateProblemDirection(event.target.value as Direction);
   };
 
   const handleClickCreate = () => {
@@ -79,7 +100,7 @@ const Additionpage = ({
       });
   };
 
-  const handleRestrictionsCheckboxChange = (name) => (event) => {
+  const handleRestrictionsCheckboxChange = (name:string) => (event: React.ChangeEvent<HTMLInputElement>) => {
     updateRestrictions(name, event.target.checked);
   };
 
@@ -143,23 +164,8 @@ const Additionpage = ({
   );
 };
 
-Additionpage.propTypes = {
-  problemValue: PropTypes.string,
-  problemDirection: PropTypes.string,
-  fromValue: PropTypes.string,
-  toValue: PropTypes.string,
-  updateFromValue: PropTypes.func,
-  updateToValue: PropTypes.func,
-  isFromValueError: PropTypes.bool,
-  isToValueError: PropTypes.bool,
-  updateProblemNumber: PropTypes.func,
-  updateProblemDirection: PropTypes.func,
-  restrictionsCheckedArr: PropTypes.array,
-  updateRestrictions: PropTypes.func,
-  disableCreateBtn: PropTypes.bool,
-};
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state:ApplicationState) => ({
   problemValue: state.additionData.problemNumber,
   problemDirection: state.additionData.problemDirection,
   fromValue: state.additionData.fromValue,
@@ -167,7 +173,7 @@ const mapStateToProps = (state) => ({
   isFromValueError: state.additionData.isFromValueError,
   isToValueError: state.additionData.isToValueError,
   restrictionsCheckedArr: state.additionData.restrictionsChecked,
-  disableCreateBtn: disableCreateBtn(state),
+  disableCreateBtn: selectDisableCreateBtn(state),
 });
 
 const mapDispatchToProps = {

@@ -20,7 +20,7 @@ const initialState: RangeTemplateState = {
 const updateRestrictions = (
   state: RangeTemplateState,
   checkboxName: string,
-  value: string
+  value: boolean
 ): RangeTemplateState => {
   const stateCopy = { ...state };
   if (value) {

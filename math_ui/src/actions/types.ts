@@ -7,5 +7,5 @@ export interface typedAction extends Action {
 
 export interface CheckBoxType {
   checkboxName: string;
-  value: string;
+  value: boolean;
 }
