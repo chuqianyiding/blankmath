@@ -351,7 +351,8 @@ def lambda_handler(event, context):
         'statusCode':200,
         'headers': {
             'Content-Type':'text/plain',
-            'Access-Control-Allow-Origin': '*'
+            'Access-Control-Allow-Origin': '*',
+            'Be_ver': '0.1'
         },
         'body': "https://r.blankmath.com/"+hash+'.pdf'
     }
