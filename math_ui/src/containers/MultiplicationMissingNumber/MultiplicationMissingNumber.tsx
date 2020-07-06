@@ -1,33 +1,43 @@
 import React from "react";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
 import ProblemNumber from "../../components/ProblemNumber";
 import {
   updateProblemNumber,
   updateNumberOfDigits,
 } from "../../actions/multiplicationMNActions";
+import { typedAction } from "../../actions/types";
+import { ApplicationState } from "../../reducers";
+import { Direction } from "../../constants/directions";
 import NumberOfDigits from "../../components/NumberOfDigits";
 import Button from "@material-ui/core/Button";
 import { generateMultiplicationMN } from "../../utils/multiplicationMNGenerator";
 import axios from "axios";
 import config from "../../config.json";
 
-const MultiplicationMNPage = ({
+interface MultiplicationMNPageProps {  
+  problemValue: string;
+  problemDirection: Direction;
+  digitValue: string;
+  updateProblemNumber: (value: string) => typedAction;
+  updateNumberOfDigits: (value: string) => typedAction;
+}
+
+const MultiplicationMNPage: React.FC<MultiplicationMNPageProps> = ({
   problemValue,
   problemDirection,
   digitValue,
   updateProblemNumber,
   updateNumberOfDigits,
-}) => {
-  const handleProblemNumberChange = (event) => {
+}:MultiplicationMNPageProps) => {
+  const handleProblemNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     updateProblemNumber(event.target.value);
   };
 
-  const handleDigitValueChange = (event) => {
+  const handleDigitValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     updateNumberOfDigits(event.target.value);
   };
 
-  const handleClickCreate = (event) => {
+  const handleClickCreate = () => {
     const problems = generateMultiplicationMN(
       digitValue,
       parseInt(problemValue, 10)
@@ -69,17 +79,9 @@ const MultiplicationMNPage = ({
   );
 };
 
-MultiplicationMNPage.propTypes = {
-  problemValue: PropTypes.string,
-  problemDirection: PropTypes.string,
-  digitValue: PropTypes.string,
-  updateProblemNumber: PropTypes.func,
-  updateNumberOfDigits: PropTypes.func,
-};
-
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state:ApplicationState) => ({
   problemValue: state.multiplicationMNData.problemNumber,
-  problemDirection: state.multiplicationMNData.problemDirection,
+  problemDirection: state.multiplicationMNData.problemDirection!,
   digitValue: state.multiplicationMNData.digitNumber,
 });
 
