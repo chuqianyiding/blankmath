@@ -1,32 +1,40 @@
 import React from "react";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
 import ProblemNumber from "../../components/ProblemNumber";
 import {
   updateProblemNumber,
   updateNumberOfDigits,
 } from "../../actions/addThreeNumbersMNActions";
+import { typedAction } from "../../actions/types";
+import { ApplicationState } from "../../reducers";
 import NumberOfDigits from "../../components/NumberOfDigits";
 import Button from "@material-ui/core/Button";
 import { generateThreeMissingNumbers } from "../../utils/addThreeNumbersMNGenerator";
 import axios from "axios";
 import config from "../../config.json";
 
-const AddThreeMissingNumber = ({
+interface AddThreeMissingNumberProps {
+  updateProblemNumber: (value: string) => typedAction;
+  updateNumberOfDigits: (value: string) => typedAction;
+  problemValue: string;
+  digitValue: string;
+}
+
+const AddThreeMissingNumber:React.FC<AddThreeMissingNumberProps> = ({
   problemValue,
   digitValue,
   updateProblemNumber,
   updateNumberOfDigits,
-}) => {
-  const handleProblemNumberChange = (event) => {
+}:AddThreeMissingNumberProps) => {
+  const handleProblemNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     updateProblemNumber(event.target.value);
   };
 
-  const handleDigitValueChange = (event) => {
+  const handleDigitValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     updateNumberOfDigits(event.target.value);
   };
 
-  const handleClickCreate = (event) => {
+  const handleClickCreate = () => {
     const problems = generateThreeMissingNumbers(
       digitValue,
       parseInt(problemValue, 10)
@@ -68,14 +76,7 @@ const AddThreeMissingNumber = ({
   );
 };
 
-AddThreeMissingNumber.propTypes = {
-  problemValue: PropTypes.string,
-  digitValue: PropTypes.string,
-  updateProblemNumber: PropTypes.func,
-  updateNumberOfDigits: PropTypes.func,
-};
-
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state:ApplicationState) => ({
   problemValue: state.addThreeNumbersMNData.problemNumber,
   digitValue: state.addThreeNumbersMNData.digitNumber,
 });
