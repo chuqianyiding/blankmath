@@ -1,12 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
 import ProblemNumber from "../../components/ProblemNumber";
 import {
   updateProblemNumber,
   updateNumberOfDigits,
   updateProblemDirection,
 } from "../../actions/multiplicationActions";
+import { typedAction } from "../../actions/types";
+import { ApplicationState } from "../../reducers";
+import { Direction } from "../../constants/directions";
 import NumberOfDigits from "../../components/NumberOfDigits";
 import Button from "@material-ui/core/Button";
 import { generateMultiplication } from "../../utils/multiplicationGenerator";
@@ -14,27 +16,36 @@ import ProblemDirection from "../../components/ProblemDirection";
 import axios from "axios";
 import config from "../../config.json";
 
-const MultiplicationPage = ({
+interface MultiplicationPageProps {  
+  problemValue: string;
+  problemDirection: Direction;
+  digitValue: string;
+  updateProblemNumber: (value: string) => typedAction;
+  updateProblemDirection: (value: Direction) => typedAction;
+  updateNumberOfDigits: (value: string) => typedAction;
+}
+
+const MultiplicationPage:React.FC<MultiplicationPageProps> = ({
   problemValue,
   problemDirection,
   digitValue,
   updateProblemNumber,
   updateProblemDirection,
   updateNumberOfDigits,
-}) => {
-  const handleProblemNumberChange = (event) => {
+}:MultiplicationPageProps) => {
+  const handleProblemNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     updateProblemNumber(event.target.value);
   };
 
-  const handleDigitValueChange = (event) => {
+  const handleDigitValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     updateNumberOfDigits(event.target.value);
   };
 
-  const handleProblemDirectionChange = (event) => {
-    updateProblemDirection(event.target.value);
+  const handleProblemDirectionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    updateProblemDirection(event.target.value as Direction);
   };
 
-  const handleClickCreate = (event) => {
+  const handleClickCreate = () => {
     const problems = generateMultiplication(
       digitValue,
       parseInt(problemValue, 10)
@@ -71,7 +82,7 @@ const MultiplicationPage = ({
           problemDirection={problemDirection}
           onDirectionchange={handleProblemDirectionChange}
         />
-      </div>
+      </div> 
 
       <div className="mt-4">
         {" "}
@@ -83,18 +94,9 @@ const MultiplicationPage = ({
   );
 };
 
-MultiplicationPage.propTypes = {
-  problemValue: PropTypes.string,
-  problemDirection: PropTypes.string,
-  digitValue: PropTypes.string,
-  updateProblemNumber: PropTypes.func,
-  updateNumberOfDigits: PropTypes.func,
-  updateProblemDirection: PropTypes.func,
-};
-
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state:ApplicationState) => ({
   problemValue: state.multiplicationData.problemNumber,
-  problemDirection: state.multiplicationData.problemDirection,
+  problemDirection: state.multiplicationData.problemDirection!,
   digitValue: state.multiplicationData.digitNumber,
 });
 
