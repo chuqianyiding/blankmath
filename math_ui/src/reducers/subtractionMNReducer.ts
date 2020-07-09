@@ -74,6 +74,11 @@ const subtractionMNData = (state = initialState, action: SubtractionMNActionsTyp
         case subtractionMNActionTypes.UPDATE_RESTRICTION_SUBTRACTION_MN:
             const p: CheckBoxType = action.payload as CheckBoxType;
             return updateRestrictions(state, p.checkboxName, p.value);
+        case subtractionMNActionTypes.UPDATE_SHEET_NUMBER_SUBTRACTION_MN:
+            return {
+                ...state,
+                sheetNumber: action.payload,
+            };
         default:
             return state;
     }
