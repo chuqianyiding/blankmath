@@ -78,6 +78,11 @@ const additionData = (state = initialState, action: AdditionActionsType): RangeT
         case addtionActionTypes.UPDATE_RESTRICTION_ADDITION:
             const p: CheckBoxType = action.payload as CheckBoxType;
             return updateRestrictions(state, p.checkboxName, p.value);
+        case addtionActionTypes.UPDATE_SHEET_NUMBER_ADDITION:
+            return {
+                ...state,
+                sheetNumber: action.payload,
+            };
         default:
             return state;
     }
