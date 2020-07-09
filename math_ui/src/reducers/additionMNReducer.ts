@@ -73,6 +73,11 @@ const additionMNData = (state = initialState, action: AdditionMNActionsType): Ra
         case addtionMNActionTypes.UPDATE_RESTRICTION_ADDITION_MN:
             const p: CheckBoxType = action.payload as CheckBoxType;
             return updateRestrictions(state, p.checkboxName, p.value);
+        case addtionMNActionTypes.UPDATE_SHEET_NUMBER_ADDITION_MN:
+            return {
+                ...state,
+                sheetNumber: action.payload,
+            };
         default:
             return state;
     }
