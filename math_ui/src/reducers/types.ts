@@ -15,4 +15,5 @@ export interface DigitTemplateState {
     problemNumber: string;
     digitNumber: string;
     problemDirection?: Direction;
+    sheetNumber: number;
 }
