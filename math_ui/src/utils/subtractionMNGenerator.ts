@@ -1,3 +1,5 @@
+//return an array ["1+x=2","5-7=x","9+x=100","1+x=2"]
+
 import {
     getRandomIntFromInterval,
     isSmallAddendLessThan10,
@@ -6,7 +8,7 @@ import {
 } from './common';
 import * as filters from '../constants/filters';
 
-const generateAdditionMNArray = (
+const generateSubstractionMNArray = (
     from: number,
     to: number,
     count: number,
@@ -23,34 +25,34 @@ const generateAdditionMNArray = (
         const p = getRandomIntFromInterval(0, 2);
         let hash = '';
         let item: Array<number | string> = [];
-
         switch (p) {
             case 0:
-                if (a2 - a1 < from) {
+                if (a1 + a2 < from || a1 + a2 > to) {
                     break;
                 }
                 item = ['x', a1, a2];
-                if (restrictions.includes(filters.SUBTRAHEND_LESSTHAN_10) && !isSubtrahendLessThan10(item, '+')) {
+                if (restrictions.includes(filters.SMALL_ADDEND_LESSTHAN_10) && !isSmallAddendLessThan10(item, '-')) {
                     break;
                 }
+
                 hash = `'x',${a1},${a2}`;
                 break;
             case 1:
-                if (a2 - a1 < from) {
+                if (a1 - a2 < from) {
                     break;
                 }
-                item = [a1, 'x', a2];
-                if (restrictions.includes(filters.SUBTRAHEND_LESSTHAN_10) && !isSubtrahendLessThan10(item, '+')) {
+                item = [a2, 'x', a2];
+                if (restrictions.includes(filters.SUBTRAHEND_LESSTHAN_10) && !isSubtrahendLessThan10(item, '-')) {
                     break;
                 }
                 hash = `${a1},'x',${a2}`;
                 break;
             case 2:
-                if (a1 + a2 < from || a1 + a2 > to) {
+                if (a1 - a2 < from) {
                     break;
                 }
-                item = [a1, a2, 'x'];
-                if (restrictions.includes(filters.SMALL_ADDEND_LESSTHAN_10) && !isSmallAddendLessThan10(item, '+')) {
+                item = [a2, a2, 'x'];
+                if (restrictions.includes(filters.SUBTRAHEND_LESSTHAN_10) && !isSubtrahendLessThan10(item, '-')) {
                     break;
                 }
                 hash = `${a1},${a2},'x`;
@@ -77,7 +79,7 @@ const generateAdditionMNArray = (
     return result;
 };
 
-export const generateAdditionMN = (from: number, to: number, count: number, restrictions: string[]): string[] => {
-    const arr = generateAdditionMNArray(from, to, count, restrictions);
-    return generateWithTemplate(arr, '+');
+export const generateSubstractionMN = (from: number, to: number, count: number, restrictions: string[]): string[] => {
+    const arr = generateSubstractionMNArray(from, to, count, restrictions);
+    return generateWithTemplate(arr, '-');
 };
