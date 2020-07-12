@@ -59,7 +59,13 @@ const AdditionMNPage: React.FC<AdditionMNPageProps> = ({
     disableCreateBtn,
     restrictionsCheckedArr,
 }: AdditionMNPageProps) => {
-    const restrictions = [{ key: filters.SUBTRAHEND_LESSTHAN_10, label: 'Subtrahend less than 10' }];
+    const restrictions = [
+        {
+            key: filters.SMALL_ADDEND_LESSTHAN_10,
+            label: 'Smaller addend less than 10',
+        },
+        { key: filters.SUBTRAHEND_LESSTHAN_10, label: 'Subtrahend less than 10' },
+    ];
 
     const handleFromChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         updateFromValue(event.target.value);

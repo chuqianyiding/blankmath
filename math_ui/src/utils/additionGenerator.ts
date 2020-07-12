@@ -1,47 +1,40 @@
-import { pickRandomArr, generateWithTemplate } from "./common";
-import * as filters from "../constants/filters";
+import { getRandomIntFromInterval, isSmallAddendLessThan10, generateWithTemplate } from './common';
+import * as filters from '../constants/filters';
 
-const generateFullArr = (
-  from: number,
-  to: number
+const generateAdditionArray = (
+    from: number,
+    to: number,
+    count: number,
+    restrictions: string[],
 ): Array<Array<number | string>> => {
-  const result = []; // 7, 5, x
-  for (let i = 0; i <= to; i++)
-    for (let j = 0; j <= to; j++) {
-      if (i + j >= from && i + j <= to) {
-        const item = [i, j, "x"];
-        result.push(item);
-      }
+    const result = [];
+    const set = new Set();
+
+    while (result.length < count) {
+        const a1 = getRandomIntFromInterval(0, to);
+        const a2 = getRandomIntFromInterval(0, to);
+
+        if (a1 + a2 < from || a1 + a2 > to) {
+            continue;
+        }
+
+        const hash = `${a1},${a2}`;
+
+        if (!set.has(hash)) {
+            const item = [a1, a2, 'x'];
+            if (restrictions.includes(filters.SMALL_ADDEND_LESSTHAN_10) && !isSmallAddendLessThan10(item, '+')) {
+                continue;
+            }
+
+            set.add(hash);
+            result.push(item);
+        }
     }
 
-  return result;
+    return result;
 };
 
-const filterRestrictions = (
-  arr: Array<Array<number | string>>,
-  restrictions: string[]
-): Array<Array<number | string>> => {
-  if (restrictions.includes(filters.SMALL_ADDEND_LESSTHAN_10)) {
-    arr = arr.filter((item) => {
-      if (item[0] <= item[1]) {
-        return item[0] < 10;
-      }
-
-      return item[1] < 10;
-    });
-  }
-
-  return arr;
-};
-
-export const generateAddition = (
-  from: number,
-  to: number,
-  count: number,
-  restrictions: string[]
-): string[] => {
-  const fullArr = generateFullArr(from, to);
-  const filteredArr = filterRestrictions(fullArr, restrictions);
-  const randomArr = pickRandomArr(filteredArr, count);
-  return generateWithTemplate(randomArr, "+");
+export const generateAddition = (from: number, to: number, count: number, restrictions: string[]): string[] => {
+    const arr = generateAdditionArray(from, to, count, restrictions);
+    return generateWithTemplate(arr, '+');
 };
