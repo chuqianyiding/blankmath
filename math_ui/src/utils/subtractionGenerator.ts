@@ -34,7 +34,7 @@ const generateSubtractionArray = (
             dupCnt += 1;
         }
 
-        if (dupCnt == 20) {
+        if (dupCnt === 20) {
             break;
         }
     }

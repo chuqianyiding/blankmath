@@ -20,7 +20,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import * as filters from '../../constants/filters';
-import { generateSubstractionMN } from '../../utils/substractionMNGenerator';
+import { generateSubstractionMN } from '../../utils/subtractionMNGenerator';
 import { selectDisableCreateBtn } from '../../selectors/subtractionMNSelector';
 import axios from 'axios';
 import config from '../../config.json';
@@ -59,7 +59,13 @@ const SubtractionMNPage: React.FC<SubtractionMNPageProps> = ({
     disableCreateBtn,
     restrictionsCheckedArr,
 }: SubtractionMNPageProps) => {
-    const restrictions = [{ key: filters.SUBTRAHEND_LESSTHAN_10, label: 'Subtrahend less than 10' }];
+    const restrictions = [
+        {
+            key: filters.SMALL_ADDEND_LESSTHAN_10,
+            label: 'Smaller addend less than 10',
+        },
+        { key: filters.SUBTRAHEND_LESSTHAN_10, label: 'Subtrahend less than 10' },
+    ];
 
     const handleFromChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         updateFromValue(event.target.value);

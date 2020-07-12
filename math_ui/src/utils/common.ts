@@ -3,16 +3,6 @@ export const getRandomIntFromInterval = (min: number, max: number): number => {
     return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
-export const pickRandomArr = (arr: Array<Array<number | string>>, count: number): Array<Array<number | string>> => {
-    const result = [];
-    while (result.length < count && arr.length > 0) {
-        const index = Math.floor(Math.random() * arr.length);
-        result.push(arr[index]);
-    }
-
-    return result;
-};
-
 export const isSmallAddendLessThan10 = (item: Array<number | string>, sign: string): boolean => {
     if (item[2] === 'x' && sign === '+') {
         // 2 +5 = x
