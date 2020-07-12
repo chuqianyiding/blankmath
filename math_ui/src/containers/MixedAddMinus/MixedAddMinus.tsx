@@ -23,6 +23,9 @@ import SheetSelect from '../../components/SheetSelect';
 import { Direction } from '../../constants/directions';
 import * as filters from '../../constants/filters';
 import { selectDisableCreateBtn } from '../../selectors/mixedAddMinusSelector';
+import { generateMixedAddMinus } from '../../utils/mixedAddMinusGenerator';
+import axios from 'axios';
+import config from '../../config.json';
 
 interface MixedAddMinusPageProps {
     fromValue: string;
@@ -91,7 +94,29 @@ const MixedAddMinusPage: React.FC<MixedAddMinusPageProps> = ({
         updateRestrictions(name, event.target.checked);
     };
 
-    const handleClickCreate = () => {};
+    const handleClickCreate = () => {
+        const generateProblems = (all: string[]) => {
+            const problems = generateMixedAddMinus(
+                parseInt(fromValue, 10),
+                parseInt(toValue, 10),
+                parseInt(problemValue, 10),
+                restrictionsCheckedArr,
+            );
+            all = [...all, ...problems];
+            return all;
+        };
+        const allProblems: string[] = Array.from(Array(sheetNumber).keys()).reduce(generateProblems, []);
+
+        axios
+            .post(config.PDFGeneratorEndpoint, {
+                equations: allProblems,
+                template: problemDirection,
+                countPerPage: parseInt(problemValue, 10),
+            })
+            .then((resp) => {
+                window.open(resp.data);
+            });
+    };
 
     return (
         <>
