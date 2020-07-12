@@ -9,6 +9,7 @@ const generateAdditionArray = (
 ): Array<Array<number | string>> => {
     const result = [];
     const set = new Set();
+    let dupCnt = 0;
 
     while (result.length < count) {
         const a1 = getRandomIntFromInterval(0, to);
@@ -28,6 +29,13 @@ const generateAdditionArray = (
 
             set.add(hash);
             result.push(item);
+            dupCnt = 0;
+        } else {
+            dupCnt += 1;
+        }
+
+        if (dupCnt == 20) {
+            break;
         }
     }
 
