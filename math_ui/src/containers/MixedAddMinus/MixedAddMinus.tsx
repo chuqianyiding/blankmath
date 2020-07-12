@@ -3,29 +3,31 @@ import { connect } from 'react-redux';
 import NumberRange from '../../components/NumberRange';
 import {
     updateProblemNumber,
+    updateProblemDirection,
     updateFromValue,
     updateToValue,
     updateRestrictions,
     updateSheetNumber,
-} from '../../actions/subtractionMNActions';
+} from '../../actions/mixedAddMinusActions';
 import { typedAction } from '../../actions/types';
 import { ApplicationState } from '../../reducers';
-import { Direction } from '../../constants/directions';
 import { LOWER_RANGE, UPPER_RANGE } from '../../constants/ranges';
 import ProblemNumber from '../../components/ProblemNumber';
-import SheetSelect from '../../components/SheetSelect';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
+import ProblemDirection from '../../components/ProblemDirection';
+import SheetSelect from '../../components/SheetSelect';
+import { Direction } from '../../constants/directions';
 import * as filters from '../../constants/filters';
-import { generateSubstractionMN } from '../../utils/subtractionMNGenerator';
-import { selectDisableCreateBtn } from '../../selectors/subtractionMNSelector';
+import { selectDisableCreateBtn } from '../../selectors/mixedAddMinusSelector';
+import { generateMixedAddMinus } from '../../utils/mixedAddMinusGenerator';
 import axios from 'axios';
 import config from '../../config.json';
 
-interface SubtractionMNPageProps {
+interface MixedAddMinusPageProps {
     fromValue: string;
     toValue: string;
     updateFromValue: (value: string) => typedAction;
@@ -43,7 +45,7 @@ interface SubtractionMNPageProps {
     restrictionsCheckedArr: string[];
 }
 
-const SubtractionMNPage: React.FC<SubtractionMNPageProps> = ({
+const MixedAddMinusPage: React.FC<MixedAddMinusPageProps> = ({
     fromValue,
     toValue,
     updateFromValue,
@@ -54,11 +56,12 @@ const SubtractionMNPage: React.FC<SubtractionMNPageProps> = ({
     problemDirection,
     sheetNumber,
     updateProblemNumber,
+    updateProblemDirection,
     updateRestrictions,
     updateSheetNumber,
     disableCreateBtn,
     restrictionsCheckedArr,
-}: SubtractionMNPageProps) => {
+}: MixedAddMinusPageProps) => {
     const restrictions = [
         {
             key: filters.SMALL_ADDEND_LESSTHAN_10,
@@ -79,13 +82,21 @@ const SubtractionMNPage: React.FC<SubtractionMNPageProps> = ({
         updateProblemNumber(event.target.value);
     };
 
+    const handleProblemDirectionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        updateProblemDirection(event.target.value as Direction);
+    };
+
     const handleSheetNumberChange = (event: React.ChangeEvent<{ value: unknown }>) => {
         updateSheetNumber(event.target.value as number);
     };
 
+    const handleRestrictionsCheckboxChange = (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+        updateRestrictions(name, event.target.checked);
+    };
+
     const handleClickCreate = () => {
         const generateProblems = (all: string[]) => {
-            const problems = generateSubstractionMN(
+            const problems = generateMixedAddMinus(
                 parseInt(fromValue, 10),
                 parseInt(toValue, 10),
                 parseInt(problemValue, 10),
@@ -107,10 +118,6 @@ const SubtractionMNPage: React.FC<SubtractionMNPageProps> = ({
             });
     };
 
-    const handleRestrictionsCheckboxChange = (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-        updateRestrictions(name, event.target.checked);
-    };
-
     return (
         <>
             <NumberRange
@@ -126,6 +133,13 @@ const SubtractionMNPage: React.FC<SubtractionMNPageProps> = ({
 
             <div className="mt-5">
                 <ProblemNumber problemValue={problemValue} onProblemNumberChange={handleProblemNumberChange} />
+            </div>
+
+            <div className="mt-4">
+                <ProblemDirection
+                    problemDirection={problemDirection}
+                    onDirectionchange={handleProblemDirectionChange}
+                />
             </div>
 
             <div className="mt-4">
@@ -162,23 +176,24 @@ const SubtractionMNPage: React.FC<SubtractionMNPageProps> = ({
 };
 
 const mapStateToProps = (state: ApplicationState) => ({
-    problemValue: state.subtractionMNData.problemNumber,
-    problemDirection: state.subtractionMNData.problemDirection,
-    fromValue: state.subtractionMNData.fromValue,
-    toValue: state.subtractionMNData.toValue,
-    isFromValueError: state.subtractionMNData.isFromValueError,
-    isToValueError: state.subtractionMNData.isToValueError,
-    restrictionsCheckedArr: state.subtractionMNData.restrictionsChecked,
-    sheetNumber: state.subtractionMNData.sheetNumber,
+    problemValue: state.mixedAddMinusData.problemNumber,
+    problemDirection: state.mixedAddMinusData.problemDirection,
+    fromValue: state.mixedAddMinusData.fromValue,
+    toValue: state.mixedAddMinusData.toValue,
+    isFromValueError: state.mixedAddMinusData.isFromValueError,
+    isToValueError: state.mixedAddMinusData.isToValueError,
+    restrictionsCheckedArr: state.mixedAddMinusData.restrictionsChecked,
+    sheetNumber: state.mixedAddMinusData.sheetNumber,
     disableCreateBtn: selectDisableCreateBtn(state),
 });
 
 const mapDispatchToProps = {
     updateProblemNumber,
+    updateProblemDirection,
     updateFromValue,
     updateToValue,
     updateRestrictions,
     updateSheetNumber,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SubtractionMNPage);
+export default connect(mapStateToProps, mapDispatchToProps)(MixedAddMinusPage);

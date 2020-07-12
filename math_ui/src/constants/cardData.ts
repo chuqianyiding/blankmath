@@ -77,6 +77,13 @@ export const cardData: CardDataType[] = [
         subtitle: ['7 > 8 or 7 < 8 ?', '12 > 2 or 12 < 2 ?'],
         link: '/greater_than_less_than',
     },
+    {
+        key: 'mixedAddMinusCard',
+        sign: ['plus', 'minus'],
+        title: 'Mixed Problems',
+        subtitle: ['12 + 9 = ?', '8 - 2 = ?'],
+        link: '/mixed_add_minus',
+    },
     // {
     //   key: "divisionCard",
     //   sign: ["divide"],
