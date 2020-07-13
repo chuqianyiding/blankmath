@@ -10,6 +10,7 @@ import additionMNData from './additionMNReducer';
 import subtractionData from './subtractionReducer';
 import subtractionMNData from './subtractionMNReducer';
 import mixedAddMinusData from './mixedAddMinusReducer';
+import mixedAddMinusMNData from './mixedAddMinusMNReducer';
 
 const reducers = combineReducers({
     greaterThanLessThanData,
@@ -23,6 +24,7 @@ const reducers = combineReducers({
     subtractionData,
     subtractionMNData,
     mixedAddMinusData,
+    mixedAddMinusMNData,
 });
 
 export type ApplicationState = ReturnType<typeof reducers>;
