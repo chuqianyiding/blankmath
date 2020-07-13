@@ -84,6 +84,13 @@ export const cardData: CardDataType[] = [
         subtitle: ['12 + 9 = ?', '8 - 2 = ?'],
         link: '/mixed_add_minus',
     },
+    {
+        key: 'mixedAddMinusMNCard',
+        sign: ['plus', 'minus'],
+        title: 'Missing Number',
+        subtitle: ['7 + ? = 15', '8 - ? = 6'],
+        link: '/mixed_add_minus_mn',
+    },
     // {
     //   key: "divisionCard",
     //   sign: ["divide"],
