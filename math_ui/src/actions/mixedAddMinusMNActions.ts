@@ -1,5 +1,4 @@
 import { typedAction, CheckBoxType } from './types';
-import { Direction } from '../constants/directions';
 
 export const actionTypes = {
     UPDATE_PROBLEM_ADDMINUS_MN: 'UPDATE_PROBLEM_ADDMINUS_MN',
