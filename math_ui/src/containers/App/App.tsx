@@ -16,6 +16,7 @@ import Header from '../../components/Header';
 import AddThreeMissingNumber from '../AddThreeMissingNumber';
 import MixedAddMinusPage from '../MixedAddMinus';
 import MixedAddMinusMNPage from '../MixedAddMinusMN';
+import DivisionPage from '../Division';
 import './App.scss';
 
 interface AppProps {
@@ -44,6 +45,7 @@ const App: React.FC<AppProps> = ({ history }: AppProps) => {
                 <Route exact path="/minusmn" component={SubtractionMNPage} />
                 <Route exact path="/mixed_add_minus" component={MixedAddMinusPage} />
                 <Route exact path="/mixed_add_minus_mn" component={MixedAddMinusMNPage} />
+                <Route exact path="/division" component={DivisionPage} />
             </Switch>
         </Container>
     );
