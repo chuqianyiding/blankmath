@@ -108,6 +108,13 @@ export const cardData: CardDataType[] = [
         link: '/division_mn',
     },
     {
+        key: 'mixedTimesDivideMNCard',
+        sign: ['times', 'divide'],
+        title: 'Missing Number',
+        subtitle: ['8 * ? = 72', '? / 4 = 3'],
+        link: '/mixed_times_divide_mn',
+    },
+    {
         key: 'comparisionCard',
         sign: ['greaterThan', 'lessThan'],
         title: 'Comparision',
