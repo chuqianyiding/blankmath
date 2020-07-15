@@ -98,10 +98,11 @@ export const cardData: CardDataType[] = [
         subtitle: ['8 / 2 = ?', '12 / 4 = ?'],
         link: '/division',
     },
-    // {
-    //   key: "mnDivisionCard",
-    //   sign: ["divide"],
-    //   title: "Missing Number",
-    //   subtitle: ["8 / ? = 2", "12 / ? = 3"],
-    // },
+    {
+        key: 'mnDivisionCard',
+        sign: ['divide'],
+        title: 'Missing Number',
+        subtitle: ['8 / ? = 2', '? / 4 = 3'],
+        link: '/division_mn',
+    },
 ];
