@@ -34,7 +34,7 @@ export const updateSheetNumber = (value: number): typedAction => ({
     payload: value,
 });
 
-export type MIXEDADDMINUSMNActionsType = ReturnType<
+export type MixedAddMinusMNActionsType = ReturnType<
     | typeof updateProblemNumber
     | typeof updateFromValue
     | typeof updateFromValue
