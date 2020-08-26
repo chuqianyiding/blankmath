@@ -41,7 +41,7 @@ const generateSubstractionMNArray = (
                 if (a1 - a2 < from) {
                     break;
                 }
-                item = [a2, 'x', a2];
+                item = [a1, 'x', a2];
                 if (restrictions.includes(filters.SUBTRAHEND_LESSTHAN_10) && !isSubtrahendLessThan10(item, '-')) {
                     break;
                 }
@@ -51,7 +51,7 @@ const generateSubstractionMNArray = (
                 if (a1 - a2 < from) {
                     break;
                 }
-                item = [a2, a2, 'x'];
+                item = [a1, a2, 'x'];
                 if (restrictions.includes(filters.SUBTRAHEND_LESSTHAN_10) && !isSubtrahendLessThan10(item, '-')) {
                     break;
                 }
