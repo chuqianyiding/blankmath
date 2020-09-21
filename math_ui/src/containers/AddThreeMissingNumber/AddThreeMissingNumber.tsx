@@ -86,7 +86,7 @@ const AddThreeMissingNumber: React.FC<AddThreeMissingNumberProps> = ({
 const mapStateToProps = (state: ApplicationState) => ({
     problemValue: state.addThreeNumbersMNData.problemNumber,
     digitValue: state.addThreeNumbersMNData.digitNumber,
-    sheetNumber: state.addMinusThreeNumbersData.sheetNumber,
+    sheetNumber: state.addThreeNumbersMNData.sheetNumber,
 });
 
 const mapDispatchToProps = {
