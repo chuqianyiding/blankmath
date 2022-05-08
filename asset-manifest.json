@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/blankmath/static/css/main.5e582fe0.chunk.css",
+    "main.js": "/blankmath/static/js/main.7f8a32d6.chunk.js",
+    "main.js.map": "/blankmath/static/js/main.7f8a32d6.chunk.js.map",
+    "runtime-main.js": "/blankmath/static/js/runtime-main.45ad9449.js",
+    "runtime-main.js.map": "/blankmath/static/js/runtime-main.45ad9449.js.map",
+    "static/css/2.af3c1da9.chunk.css": "/blankmath/static/css/2.af3c1da9.chunk.css",
+    "static/js/2.7477762b.chunk.js": "/blankmath/static/js/2.7477762b.chunk.js",
+    "static/js/2.7477762b.chunk.js.map": "/blankmath/static/js/2.7477762b.chunk.js.map",
+    "index.html": "/blankmath/index.html",
+    "precache-manifest.b01535245b60bf1526e4da1db2bb0953.js": "/blankmath/precache-manifest.b01535245b60bf1526e4da1db2bb0953.js",
+    "service-worker.js": "/blankmath/service-worker.js",
+    "static/css/2.af3c1da9.chunk.css.map": "/blankmath/static/css/2.af3c1da9.chunk.css.map",
+    "static/css/main.5e582fe0.chunk.css.map": "/blankmath/static/css/main.5e582fe0.chunk.css.map",
+    "static/js/2.7477762b.chunk.js.LICENSE.txt": "/blankmath/static/js/2.7477762b.chunk.js.LICENSE.txt",
+    "static/media/bee-705412.svg": "/blankmath/static/media/bee-705412.469e9fca.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.45ad9449.js",
+    "static/css/2.af3c1da9.chunk.css",
+    "static/js/2.7477762b.chunk.js",
+    "static/css/main.5e582fe0.chunk.css",
+    "static/js/main.7f8a32d6.chunk.js"
+  ]
+}
