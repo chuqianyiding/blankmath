@@ -27,6 +27,8 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: cd math_ui
+    - run: pwd
+    - run: ls -l
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
