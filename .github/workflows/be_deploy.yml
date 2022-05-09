@@ -24,6 +24,7 @@ jobs:
 
     # Runs a single command using the runners shell
     - name: Build the container that creates the package
+      working-directory: backend
       run: docker build . -t tt -f Dockerfile.packager
     - name: package
       working-directory: backend
