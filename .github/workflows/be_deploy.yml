@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Deploy the backend to lambda
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
@@ -23,11 +23,11 @@ jobs:
     - uses: actions/checkout@v2
 
     # Runs a single command using the runners shell
-    - name: Run a one-line script
-      run: echo Hello, world!
+    - name: Build the container that creates the package
+      run: docker build . -t tt -f Dockerfile.packager
     - name: package
       working-directory: backend
-      run: docker run --rm --user $(id -u):$(id -g) -v ${PWD}:/source reboot8/lambda_python_packer:python3.7large && ls
+      run: docker run --rm --user $(id -u):$(id -g) -v ${PWD}:/source tt && ls
     - name: inspect
       run: ls backend
     - uses: appleboy/lambda-action@master
