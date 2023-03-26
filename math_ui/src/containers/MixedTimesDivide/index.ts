@@ -1,2 +1,2 @@
-import MixedTimesDividePage from './MixedTiemsDivide';
+import MixedTimesDividePage from './MixedTimesDivide';
 export default MixedTimesDividePage;

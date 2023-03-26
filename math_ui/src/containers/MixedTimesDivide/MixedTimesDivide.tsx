@@ -88,7 +88,7 @@ const MixedTimesDividePage: React.FC<MixedTimesDividePageProps> = ({
 
 const mapStateToProps = (state: ApplicationState) => ({
     problemValue: state.mixedTimesDivideData.problemNumber,
-    problemDirection: state.mixedTimesDivideData.problemDirection!,
+    problemDirection: state.mixedTimesDivideData.problemDirection ?? Direction.HORIZONTAL,
     digitValue: state.mixedTimesDivideData.digitNumber,
     sheetNumber: state.mixedTimesDivideData.sheetNumber,
 });

@@ -88,7 +88,7 @@ const DivisionPage: React.FC<DivisionPageProps> = ({
 
 const mapStateToProps = (state: ApplicationState) => ({
     problemValue: state.divisionData.problemNumber,
-    problemDirection: state.divisionData.problemDirection!,
+    problemDirection: state.divisionData.problemDirection ?? Direction.HORIZONTAL,
     digitValue: state.divisionData.digitNumber,
     sheetNumber: state.divisionData.sheetNumber,
 });

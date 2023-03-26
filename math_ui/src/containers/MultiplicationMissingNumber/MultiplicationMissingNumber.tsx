@@ -87,7 +87,7 @@ const MultiplicationMNPage: React.FC<MultiplicationMNPageProps> = ({
 
 const mapStateToProps = (state: ApplicationState) => ({
     problemValue: state.multiplicationMNData.problemNumber,
-    problemDirection: state.multiplicationMNData.problemDirection!,
+    problemDirection: state.multiplicationMNData.problemDirection ?? Direction.HORIZONTAL,
     digitValue: state.multiplicationMNData.digitNumber,
     sheetNumber: state.multiplicationMNData.sheetNumber,
 });

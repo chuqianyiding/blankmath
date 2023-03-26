@@ -107,7 +107,7 @@ const MultiplicationPage: React.FC<MultiplicationPageProps> = ({
 
 const mapStateToProps = (state: ApplicationState) => ({
     problemValue: state.multiplicationData.problemNumber,
-    problemDirection: state.multiplicationData.problemDirection!,
+    problemDirection: state.multiplicationData.problemDirection ?? Direction.HORIZONTAL,
     digitValue: state.multiplicationData.digitNumber,
     sheetNumber: state.multiplicationData.sheetNumber,
 });
