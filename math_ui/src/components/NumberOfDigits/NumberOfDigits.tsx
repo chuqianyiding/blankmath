@@ -15,6 +15,7 @@ const options: OptionType[] = [
     { value: '1d', label: '1 digit', key: 'digit_1' },
     { value: '2d', label: '2 digit', key: 'digit_2' },
     { value: '3d', label: '3 digit', key: 'digit_3' },
+    { value: 'l12', label: 'number less than 12', key: 'digit_l12' },
     { value: 'l20', label: 'number less than 20', key: 'digit_l20' },
 ];
 

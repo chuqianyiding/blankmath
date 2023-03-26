@@ -17,6 +17,9 @@ const generateMultiplicationArray = (
     case "3d":
       range = 1000;
       break;
+    case "l12":
+      range = 12;
+      break;
     case "l20":
       range = 20;
       break;
