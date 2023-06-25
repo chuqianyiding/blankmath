@@ -36,15 +36,6 @@ const updateRestrictions = (state: RangeTemplateState, checkboxName: string, val
     return stateCopy;
 };
 
-const updateIncludeAnswerkey = (state: RangeTemplateState, value: boolean): RangeTemplateState => {
-    const stateCopy = { ...state };
-    if (value) {
-        stateCopy.includeAnswerKey = value
-    }
-
-    return stateCopy;
-}
-
 const mixedAddMinusMNData = (state = initialState, action: MixedAddMinusMNActionsType): RangeTemplateState => {
     switch (action.type) {
         case mixedAddMinusMNActionTypes.UPDATE_PROBLEM_ADDMINUS_MN:
