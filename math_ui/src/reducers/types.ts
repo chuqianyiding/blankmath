@@ -9,6 +9,7 @@ export interface RangeTemplateState {
     isToValueError: boolean;
     restrictionsChecked: string[];
     sheetNumber: number;
+    includeAnswerKey: boolean;
 }
 
 export interface DigitTemplateState {

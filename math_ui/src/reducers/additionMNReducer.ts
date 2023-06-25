@@ -13,6 +13,7 @@ const initialState: RangeTemplateState = {
     isToValueError: false,
     restrictionsChecked: [],
     sheetNumber: 1,
+    includeAnswerKey: false,
 };
 
 const updateRestrictions = (state: RangeTemplateState, checkboxName: string, value: boolean): RangeTemplateState => {

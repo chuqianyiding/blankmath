@@ -16,6 +16,7 @@ const initialState: RangeTemplateState = {
     isToValueError: false,
     restrictionsChecked: [],
     sheetNumber: 1,
+    includeAnswerKey: false,
 };
 
 const updateRestrictions = (state: RangeTemplateState, checkboxName: string, value: boolean): RangeTemplateState => {
@@ -34,6 +35,15 @@ const updateRestrictions = (state: RangeTemplateState, checkboxName: string, val
     }
     return stateCopy;
 };
+
+const updateIncludeAnswerkey = (state: RangeTemplateState, value: boolean): RangeTemplateState => {
+    const stateCopy = { ...state };
+    if (value) {
+        stateCopy.includeAnswerKey = value
+    }
+
+    return stateCopy;
+}
 
 const mixedAddMinusMNData = (state = initialState, action: MixedAddMinusMNActionsType): RangeTemplateState => {
     switch (action.type) {
@@ -69,6 +79,11 @@ const mixedAddMinusMNData = (state = initialState, action: MixedAddMinusMNAction
                 ...state,
                 sheetNumber: action.payload,
             };
+        case mixedAddMinusMNActionTypes.UPDATE_INCLUDE_ANSWER_KEY_MN:
+            return {
+                ...state,
+                includeAnswerKey: action.payload,
+            }
         default:
             return state;
     }

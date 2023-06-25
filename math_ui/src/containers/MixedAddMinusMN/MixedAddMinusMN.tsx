@@ -7,6 +7,7 @@ import {
     updateToValue,
     updateRestrictions,
     updateSheetNumber,
+    updateIncludeAnswerkey,
 } from '../../actions/mixedAddMinusMNActions';
 import { typedAction } from '../../actions/types';
 import { ApplicationState } from '../../reducers';
@@ -40,6 +41,8 @@ interface MixedAddMinusMNPageProps {
     updateSheetNumber: (value: number) => typedAction;
     disableCreateBtn: boolean;
     restrictionsCheckedArr: string[];
+    includeAnswerKey: boolean;
+    updateIncludeAnswerkey: (value: boolean) => typedAction;
 }
 
 const MixedAddMinusMNPage: React.FC<MixedAddMinusMNPageProps> = ({
@@ -57,6 +60,8 @@ const MixedAddMinusMNPage: React.FC<MixedAddMinusMNPageProps> = ({
     updateSheetNumber,
     disableCreateBtn,
     restrictionsCheckedArr,
+    includeAnswerKey,
+    updateIncludeAnswerkey,
 }: MixedAddMinusMNPageProps) => {
     const restrictions = [
         {
@@ -65,6 +70,11 @@ const MixedAddMinusMNPage: React.FC<MixedAddMinusMNPageProps> = ({
         },
         { key: filters.SUBTRAHEND_LESSTHAN_10, label: 'Subtrahend less than 10' },
     ];
+
+    const answerkeys = {
+        key: filters.INCLUDE_ANSWER_KEY,
+        label: 'Include Answer Key'
+    }
 
     const handleFromChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         updateFromValue(event.target.value);
@@ -86,6 +96,10 @@ const MixedAddMinusMNPage: React.FC<MixedAddMinusMNPageProps> = ({
         updateRestrictions(name, event.target.checked);
     };
 
+    const handleIncludeAnswerkey = (event: React.ChangeEvent<HTMLInputElement>) => {
+        updateIncludeAnswerkey(event.target.checked);
+    };
+
     const handleClickCreate = () => {
         const generateProblems = (all: string[]) => {
             const problems = generateMixedAddMinusMN(
@@ -104,6 +118,7 @@ const MixedAddMinusMNPage: React.FC<MixedAddMinusMNPageProps> = ({
                 equations: allProblems,
                 template: problemDirection,
                 countPerPage: parseInt(problemValue, 10),
+                includeAnswerKey: includeAnswerKey
             })
             .then((resp) => {
                 window.open(resp.data);
@@ -147,6 +162,23 @@ const MixedAddMinusMNPage: React.FC<MixedAddMinusMNPageProps> = ({
             </div>
 
             <div className="mt-4">
+                <FormLabel component="legend">Answer keys</FormLabel>
+                <FormGroup>
+                    <FormControlLabel
+                        key={answerkeys.key}
+                        control={
+                            <Checkbox
+                                checked={includeAnswerKey}
+                                onChange={handleIncludeAnswerkey}
+                                color="primary"
+                            />
+                        }
+                        label={answerkeys.label}
+                    />
+                </FormGroup>
+            </div>
+
+            <div className="mt-4">
                 <SheetSelect sheetValue={sheetNumber} onValueChange={handleSheetNumberChange} />
             </div>
 
@@ -168,6 +200,7 @@ const mapStateToProps = (state: ApplicationState) => ({
     isFromValueError: state.mixedAddMinusMNData.isFromValueError,
     isToValueError: state.mixedAddMinusMNData.isToValueError,
     restrictionsCheckedArr: state.mixedAddMinusMNData.restrictionsChecked,
+    includeAnswerKey: state.mixedAddMinusMNData.includeAnswerKey,
     sheetNumber: state.mixedAddMinusMNData.sheetNumber,
     disableCreateBtn: selectDisableCreateBtn(state),
 });
@@ -178,6 +211,7 @@ const mapDispatchToProps = {
     updateToValue,
     updateRestrictions,
     updateSheetNumber,
+    updateIncludeAnswerkey,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MixedAddMinusMNPage);
