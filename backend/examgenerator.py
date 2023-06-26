@@ -9,7 +9,7 @@ from sympy import symbols, Eq, solve
 import traceback
 
 
-def appendAnwersToEquations(equations):
+def appendAnswersToEquations(equations):
     x = symbols('x')
     # Create a list to hold the updated equations
     updated_equations = equations.copy()
