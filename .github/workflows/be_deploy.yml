@@ -7,8 +7,12 @@ name: Deploy the backend to lambda
 on:
   push:
     branches: [ master, workflow_dev ]
+    paths:
+      - backend/**
   pull_request:
     branches: [ master ]
+    paths:
+      - backend/**
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
