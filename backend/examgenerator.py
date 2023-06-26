@@ -333,7 +333,7 @@ class ExamGenerator:
                 # Reuse the dimention of the rect.
                 my_canvas.roundRect(rect_x, rect_y, rect_width, rect_height, stroke)
                 #my_canvas.circle(rect_x + rect_width / 2, rect_y+rect_height/2, rect_width/4)
-            else:
+            elif 'x' in text:
                 my_canvas.roundRect(rect_x, rect_y, rect_width, rect_height, stroke)
             my_canvas.setStrokeColorRGB(0, 0, 0)
             start_x = start_x + rect_width + 2*margin
