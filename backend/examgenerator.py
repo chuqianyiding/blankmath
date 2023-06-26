@@ -5,6 +5,28 @@ from reportlab.lib.units import inch, cm
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfbase.pdfmetrics import stringWidth
 import json
+from sympy import symbols, Eq, solve
+
+
+def appendAnswersToEquations(equations):
+    x = symbols('x')
+    # Create a list to hold the updated equations
+    updated_equations = equations.copy()
+
+    for equation in equations:
+        try:
+            # Create a SymPy equation object
+            eq = Eq(*equation.split("="))
+            # Solve for x
+            result = solve(eq, x)
+            # Append the updated equation to the updated_equations list
+            updated_equations.append(equation.replace("x", str(result[0])))
+        except:
+            # In case of an invalid expression, append an error message
+            updated_equations.append("Invalid expression")
+
+    return updated_equations
+
 
 class ExamGenerator:
 
@@ -198,10 +220,14 @@ class ExamGenerator:
 
         c = canvas.Canvas('/tmp/result.pdf', pagesize=letter)
         c.setTitle("BlankMath.com");
+        
+        equations = jsonData['equations']
+        
+        if 'includeAnswerKey' in jsonData and jsonData['includeAnswerKey']:
+            equations = appendAnswersToEquations(equations)
 
         if 'countPerPage' in jsonData:
             countPerPage=int(jsonData['countPerPage'])
-            equations = jsonData['equations']
             while len(equations) > 0:
                 countThisPage = min(countPerPage, len(equations))
                 jsonData['equations'] = equations[:countThisPage]
