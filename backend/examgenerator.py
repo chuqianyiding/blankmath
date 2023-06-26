@@ -24,6 +24,7 @@ def appendAnswersToEquations(equations):
             result = solve(eq, x)
             # Check if solve() returned a non-empty list
             if result:
+                print("Solved ", equation, result)
                 # Append the updated equation to the updated_equations list
                 updated_equations.append(equation.replace("x", str(result[0])))
             else:
