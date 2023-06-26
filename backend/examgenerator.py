@@ -5,7 +5,7 @@ from reportlab.lib.units import inch, cm
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfbase.pdfmetrics import stringWidth
 import json
-from sympy import symbols, Eq, solve
+from sympy import symbols, Eq, solve, sympify
 import traceback
 
 
@@ -19,7 +19,7 @@ def appendAnswersToEquations(equations):
             # Split the equation into left-hand side and right-hand side
             lhs, rhs = equation.split("=")
             # Create a SymPy equation object
-            eq = Eq(symbols(lhs), symbols(rhs))
+            eq = Eq(sympify(lhs), sympify(rhs))
             # Solve for x
             result = solve(eq, x)
             # Check if solve() returned a non-empty list
