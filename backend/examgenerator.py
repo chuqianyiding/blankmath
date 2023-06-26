@@ -9,7 +9,6 @@ from sympy import symbols, Eq, solve
 import traceback
 
 
-
 def appendAnswersToEquations(equations):
     x = symbols('x')
     # Create a list to hold the updated equations
@@ -17,16 +16,18 @@ def appendAnswersToEquations(equations):
 
     for equation in equations:
         try:
+            # Split the equation into left-hand side and right-hand side
+            lhs, rhs = equation.split("=")
             # Create a SymPy equation object
-            eq = Eq(*equation.split("="))
+            eq = Eq(symbols(lhs), symbols(rhs))
             # Solve for x
             result = solve(eq, x)
             # Append the updated equation to the updated_equations list
             updated_equations.append(equation.replace("x", str(result[0])))
-        except:
-            # In case of an invalid expression, append an error message
+        except Exception as e:
+            # In case of an exception, print the exception message and append an error message
+            print(f"Error processing equation '{equation}': {e}")
             updated_equations.append("Invalid expression")
-            traceback.print_exc()
 
     return updated_equations
 
