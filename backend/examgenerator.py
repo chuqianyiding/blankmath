@@ -295,8 +295,8 @@ class ExamGenerator:
             template_name: Name of the template
             my_canvas: canvas to draw on
             text: The text representation of the string
-            x: x coordinate of the place to draw, representing the bottem left cornor
-            y: y coordinate of the place to draw, representing the bottem left cornor
+            x: x coordinate of the place to draw, representing the bottom left corner
+            y: y coordinate of the place to draw, representing the bottom left corner
             template: template object to draw
         """
         if 'horizontal' in template_name or '3num' in template_name:
@@ -337,7 +337,8 @@ class ExamGenerator:
                 my_canvas.roundRect(rect_x, rect_y, rect_width, rect_height, stroke)
             my_canvas.setStrokeColorRGB(0, 0, 0)
             start_x = start_x + rect_width + 2*margin
-            my_canvas.drawString(start_x, y, parts[1])
+            if len(parts) > 1:
+                my_canvas.drawString(start_x, y, parts[1])
 
         elif 'vertical' in template_name:
             text = self.verticalExpand(text)
