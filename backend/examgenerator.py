@@ -6,6 +6,8 @@ from reportlab.lib.pagesizes import letter
 from reportlab.pdfbase.pdfmetrics import stringWidth
 import json
 from sympy import symbols, Eq, solve
+import traceback
+
 
 
 def appendAnswersToEquations(equations):
@@ -24,6 +26,7 @@ def appendAnswersToEquations(equations):
         except:
             # In case of an invalid expression, append an error message
             updated_equations.append("Invalid expression")
+            traceback.print_exc()
 
     return updated_equations
 
@@ -299,7 +302,7 @@ class ExamGenerator:
             else:
                 sign = '___'
             parts = text.split(sign)
-            print('Spliting horizontal: ', parts)
+            print('Splitting horizontal: ', parts)
             my_canvas.drawString(x, y, parts[0])
             start_x = x + self.stringWidth(parts[0], template['font_size'])
             margin=-0.05*inch
