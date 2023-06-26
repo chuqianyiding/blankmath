@@ -9,7 +9,7 @@ from sympy import symbols, Eq, solve
 import traceback
 
 
-def appendAnswersToEquations(equations):
+def appendAnwersToEquations(equations):
     x = symbols('x')
     # Create a list to hold the updated equations
     updated_equations = equations.copy()
@@ -22,9 +22,15 @@ def appendAnswersToEquations(equations):
             eq = Eq(symbols(lhs), symbols(rhs))
             # Solve for x
             result = solve(eq, x)
-            # Append the updated equation to the updated_equations list
-            updated_equations.append(equation.replace("x", str(result[0])))
+            # Check if solve() returned a non-empty list
+            if result:
+                # Append the updated equation to the updated_equations list
+                updated_equations.append(equation.replace("x", str(result[0])))
+            else:
+                # Append a message indicating that the equation could not be solved
+                updated_equations.append("Equation could not be solved")
         except Exception as e:
+            traceback.print_exc()
             # In case of an exception, print the exception message and append an error message
             print(f"Error processing equation '{equation}': {e}")
             updated_equations.append("Invalid expression")
