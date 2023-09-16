@@ -18,10 +18,10 @@ const generateMultiplicationArray = (
       range = 1000;
       break;
     case "l12":
-      range = 12;
+      range = 13;
       break;
     case "l20":
-      range = 20;
+      range = 21;
       break;
     default:
       break;

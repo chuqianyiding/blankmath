@@ -15,7 +15,7 @@ const generateDivisionArray = (digitValue: string, count: number): Array<Array<n
             range = 1000;
             break;
         case "l12":
-            range = 12;
+            range = 13;
             break;
         case 'l20':
             range = 20;
